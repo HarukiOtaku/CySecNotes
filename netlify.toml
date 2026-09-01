@@ -1,0 +1,7 @@
+# Netlify 部署設定（如果選用 Netlify 才需要；用 Vercel 可忽略此檔）
+[build]
+  command = "npm run build"
+  publish = "docs/.vitepress/dist"
+
+[build.environment]
+  NODE_VERSION = "20"

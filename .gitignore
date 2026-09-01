@@ -1,0 +1,17 @@
+# 依賴與建置產物（不需要 push 上 GitHub）
+node_modules/
+docs/.vitepress/dist/
+docs/.vitepress/cache/
+.npm-cache/
+
+# 系統檔案
+.DS_Store
+Thumbs.db
+*.local
+
+# 原始課堂教材（二進位檔，太大且可能有版權問題，不上 Git）
+HKIIT_notes/**/01_Raw_Materials/
+
+# 編輯器
+.vscode/
+.idea/
