@@ -167,9 +167,8 @@ export default defineConfig({
     sidebarMenuLabel: '選單',
     returnToTopLabel: '回到頂部',
 
-    // 改成你自己的 GitHub repo 網址
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/你的帳號/NotesWEB' },
+      { icon: 'github', link: 'https://github.com/HarukiOtaku/CySecNotes' },
     ],
   },
 })
