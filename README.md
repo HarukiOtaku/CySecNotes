@@ -1,4 +1,6 @@
-# CySecNotes 🛡️
+# [CySecNotes 🛡️](https://cy-sec-notes.vercel.app/)
+
+🌐 **網站：** [https://cy-sec-notes.vercel.app/](https://cy-sec-notes.vercel.app/)
 
 我是 **HKIIT 網絡安全高級文憑（Higher Diploma in Cybersecurity）2026–27 學年入學的新生**。課堂的傳統筆記內容多而分散，溫習時難以快速找到重點，所以我用 AI Agent（DeepSeek Harness）將每一課的教材整理成「雙語應考學習指南」與「考前精讀 Cheatsheet」，再用這個網站集中起來隨時溫習。
 
