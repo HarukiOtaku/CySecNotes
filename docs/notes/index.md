@@ -12,11 +12,3 @@
 - 🐍 **ITP3915 程式基礎**（`ITP3915_Programming_Fundamentals/`）— 學習指南、精讀 Cheatsheet
 - 🗄️ **ITP4456 資料庫應用**（`ITP4456_Database_Applications/`）— 學習指南、精讀 Cheatsheet
 
-## 如何更新筆記
-
-1. 把新的 `.md` 檔案放入 `HKIIT_notes/` 對應課程的資料夾（網站建置時會自動同步）
-2. `git push` → 網站自動同步並重建，側邊欄自動更新
-
-::: tip 備註
-側邊欄是建置時自動掃描生成的，你不需要手動更新任何目錄清單。
-:::
