@@ -21,6 +21,7 @@ const notesDir = path.resolve(__dirname, '../notes')
 // ------------------------------------------------------------
 const CATEGORY_LABELS = {
   '00-guide': '🚀 製作指南',
+  'ITE3006_Information_Technology_Essentials': '💻 ITE3006 資訊科技基礎',
   'ITE3102_Network_Fundamentals': '🌐 ITE3102 網絡基礎',
   'ITP3915_Programming_Fundamentals': '🐍 ITP3915 程式基礎',
   'ITP4456_Database_Applications': '🗄️ ITP4456 資料庫應用',
@@ -118,6 +119,11 @@ export default defineConfig({
     // 程式碼永遠用深色主題（配合強制深色模式）
     theme: { light: 'github-dark', dark: 'github-dark' },
     image: { lazyLoading: true },
+    // 把筆記正文中「沒有用反引號包住」的 HTML 標籤（例如 <style>、<head>）
+    // 當成純文字顯示，避免 VitePress 把它們當成網頁標籤解析而令建置失敗
+    config: (md) => {
+      md.options.html = false
+    },
   },
 
   themeConfig: {
