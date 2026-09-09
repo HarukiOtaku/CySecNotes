@@ -1,4 +1,4 @@
-# ITE3006 Topic 10 — Prompt Engineering（生成式 AI 提示工程）雙語並行・應考導向學習指南
+# ITE3006 Topic 02 — Prompt Engineering（生成式 AI 提示工程）雙語並行・應考導向學習指南
 
 > 課程：ITE3006 Information Technology Essentials ｜ 主題：Prompt Engineering for Generative AI
 > 本指南採用「香港繁體中文解說 + 英文標準定義」雙語並行格式；所有 AI 術語、框架名、提示詞範例均保留英文原文。
