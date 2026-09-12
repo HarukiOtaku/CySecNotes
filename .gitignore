@@ -1,3 +1,14 @@
+# 機密檔案（切勿上傳 GitHub — 補上以防日後加 .env / 憑證檔）
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+credentials.json
+.vercel/
+*.log
+
 # 依賴與建置產物（不需要 push 上 GitHub）
 node_modules/
 docs/.vitepress/dist/
