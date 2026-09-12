@@ -9,6 +9,9 @@ credentials.json
 .vercel/
 *.log
 
+# 本機開發日誌／交接文件（不公開，唔好 commit）
+_devlog/
+
 # 依賴與建置產物（不需要 push 上 GitHub）
 node_modules/
 docs/.vitepress/dist/
