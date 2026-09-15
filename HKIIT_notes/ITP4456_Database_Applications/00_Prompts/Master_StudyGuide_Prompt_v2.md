@@ -2,7 +2,7 @@
 
 > **用途**：將英文課堂講義（Lecture PPTs）與實驗室工作表（Lab / Workshop Sheets）重寫為「雙語並行、理論與實務兼備（Bilingual, Exam & Practical-Ready）」的學習指南。
 > **預設工作流程（已確認）**：**理論與 Lab 分開兩份檔案、互相引用**；Final Cheat Sheet 保持合併並分兩節。
-> **用法**：複製下方「完整指令」區塊，填上 `【課程名稱】`、`【講義清單】` 與 `【貼上教材內容】`（可同時貼 Lecture 與 Lab），再交給 AI。輸出後存到 `02_AI_Study_Guides/`。
+> **用法**：複製下方「完整指令」區塊，填上 `【課程名稱】`、`【講義清單】` 與 `【貼上教材內容】`（可同時貼 Lecture 與 Lab），再交給 AI。輸出後存到 `02_Study_Guides/`（理論檔）或 `02_Study_Guides/`（Lab 檔）。
 
 ---
 
