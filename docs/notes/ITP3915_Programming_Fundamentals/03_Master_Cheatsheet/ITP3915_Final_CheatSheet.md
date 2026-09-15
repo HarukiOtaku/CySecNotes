@@ -2,7 +2,7 @@
 
 > **覆蓋範圍**：Lecture 1: Introduction to Python（Chapter 1）
 > **使用時機**：考試前 5–10 分鐘快速掃描；只保留「關鍵數字、對比表、英文口訣」。
-> 詳細解說請回查：`02_AI_Study_Guides/ITP3915_L1_PythonBasics_StudyGuide.md`
+> 詳細解說請回查：`02_Study_Guides/ITP3915_L1_PythonBasics_StudyGuide.md`
 
 ---
 
@@ -76,4 +76,4 @@
 - [ ] 能追蹤 `x = 2; x = x * 100; print(x)` 的輸出
 - [ ] 能解釋 Programming 與 Scripting 的分別（英文作答）
 
-*詳細版：`02_AI_Study_Guides/ITP3915_L1_PythonBasics_StudyGuide.md`*
+*詳細版：`02_Study_Guides/ITP3915_L1_PythonBasics_StudyGuide.md`*
