@@ -17,7 +17,9 @@ HTML(結構 content) ──▶ CSS(樣式 presentation) ──▶ JavaScript(行
 
 **背誦策略**：定義講英文（Definition in English）、解釋用中文、例子默 HTML / CSS / JS。各節附易錯點與英文必背句。
 
-**速覽目錄**：① HTML 基礎精華（L1–L3）｜② CSS 精華（L4–L6）｜③ JavaScript 精華（L7–L9）｜④ Lab 實務精華（Lab02–Lab09）｜⑤ 最後 60 秒自測清單
+**速覽目錄**：① HTML 基礎精華（L1–L3）｜② CSS 精華（L4–L6）｜③ JavaScript 精華（L7–L9）｜④ Lab 實務精華（Lab02–Lab09）｜⑤ AI 提示工程精華（Topic 02–03）｜⑥ 最後 60 秒自測清單
+
+> **覆蓋範圍**：HTML 理論 L1–L3、CSS 理論 L4–L6、JS 理論 L7–L9、Lab 實務 Lab02–Lab09、AI 提示工程 Topic 02–03（2026-09-15 補入 Part ⑤）。
 
 ---
 
@@ -968,7 +970,140 @@ var sport = document.f1.sport.value;       // select：被選中 option 嘅 valu
 
 ---
 
-## ⑤ 最後 60 秒自測清單（考前打勾）
+## ⑤ AI 提示工程精華（Topic 02–03）
+
+> **主題地圖**：**Topic 02 Prompt Engineering**＝定義、8 類提問、4 大元素、RTF 框架、最佳實踐、CoT／D&C、Zero/One/Few-Shot、Referencing、Negative Prompting；**Topic 03 Prompt Engineering for Communication Document**＝AI 寫作三步流程、ICIO 框架、貼士／常見錯誤／倫理、cover letter 案例。
+> ⚠️ 呢個 AI 系列教材嘅編號係 **01／02／03…（冇 L 前綴）**，同舊 HTML 系列（L1–L9）係兩套並存，唔好當續號。
+> 詳細版：`02_Study_Guides/ITE3006_02_PromptEngineering_StudyGuide.md`、`02_Study_Guides/ITE3006_03_PromptEngineeringForCommunicationDocument_StudyGuide.md`
+
+### 1. 定義與核心心法（必背）
+
+| 概念 | 一句話 | 英文關鍵句 |
+|---|---|---|
+| Prompt Engineering | 設計 **input prompt** 去**有效引導** AI 輸出 | "Prompt engineering is the process of designing input prompts to guide an AI model's outputs effectively." |
+| 目標 | 提升質素同相關性、**減少 bias／唔理想結果** | "...to improve the quality and relevance of the generated responses, while minimizing biases or undesirable results." |
+| 過程內容 | 揀啱 **formats、phrases、words、symbols** | "Selecting the right formats, phrases, words and symbols for effective AI–user interaction." |
+| 心法 | **創意＋實驗（creativity and experimentation）**：冇一條「完美 prompt」，要試 | "Creativity and experimentation are key in developing a set of prompts." |
+| 要求 | 需要**詳細指令（detailed instructions）** | "It requires detailed instructions for the AI to generate high-quality, relevant content." |
+
+### 2. 八大提問／提示類型（Types of Questions）
+
+| 類型 | 繁中概念 | 教材例子 | 認人特徵 |
+|---|---|---|---|
+| **Direct** | 簡單直接、目標明確嘅查詢 | 「法國的首都是哪裡？」 | 一問一答 |
+| **Exploratory** | 開放式，想攞更詳細資訊 | 「告訴我羅馬的歷史。」 | 「講多啲」 |
+| **Instructional** | 要求**具體行動或指定格式** | 「列出烤蛋糕的步驟。」 | 有動作動詞＋格式 |
+| **Comparative** | 比較兩件或以上事物 | 「比較 Python 和 Java。」 | 有「比較」 |
+| **Hypothetical** | 探索假設情景或可能性 | 「如果人類可以在水下呼吸會怎樣？」 | 如果／what if |
+| **Clarification** | 想更清晰理解複雜主題 | 「用簡單的話解釋量子物理。」 | 「用簡單話解釋」 |
+| **Creative** | 激發創意寫作或新諗法 | 「寫一個關於龍的短篇故事。」 | 寫故事／諗 idea |
+| **Feedback** | 問意見或評價 | 「你怎麼看待可再生能源？」 | 「你點睇」 |
+
+**口訣**：**D-E-I-C-H-C-C-F**（Direct、Exploratory、Instructional、Comparative、Hypothetical、Clarification、Creative、Feedback）— 記唔到就用例子回推。
+
+### 3. 一條 Prompt 嘅四大元素（4 Elements）
+
+| 元素 | 主責（中文） | Brew Haven 例子（教材原文） |
+|---|---|---|
+| **Instructions** | 「**做咩**」— 交代任務 | "Write a short and engaging social media post." |
+| **Context** | 「**背景**」— 外部資料引導模型 | "The post is for promoting a new coffee shop called 'Brew Haven'. Highlight the cozy atmosphere and free Wi-Fi." |
+| **Input data** | 「**料**」— 要處理嘅輸入／問題 | Coffee shop name: Brew Haven；Key features: Cozy atmosphere, free Wi-Fi |
+| **Output indicator** | 「**點出**」— 指明輸出類型／格式 | "Provide the response as a single, engaging sentence." |
+
+### 4. RTF 框架（寫 prompt 起手式，教材高度推薦）
+
+| 字母 | 組成 | 涵蓋 |
+|---|---|---|
+| **R** | **Role** | 指派模型寫作角色 → **Target audience + Scenario** |
+| **T** | **Task** | 清楚定義想要嘅內容 → **Purpose + Scope + Examples** |
+| **F** | **Format** | 設定寫作規則同條件 → **Word length + Paragraph + Bullet points + Table** |
+
+**口訣**：「**R 佢係邊個、T 要佢做咩、F 點樣交貨**」；RTF 適合大部分 use case。
+**其他框架**（教材只點名，識列名即可）：**RODES、RISEN、RACE、APE**。
+
+### 5. 四大技巧對照（必考分辨）
+
+| 技巧 | 做法 | 一句記住 |
+|---|---|---|
+| **Chain of Thought（CoT）** | **同一條 prompt 內**逐步推理 | "Think step-by-step and explain each step of your reasoning." |
+| **Divide and Conquer（D&C）** | 拆做**多條細 prompt**，逐部分處理 | "Split the task into multiple smaller prompts." |
+| **Zero / One / Few-Shot** | 提供 **0／1／幾個例子** | "Few-shot learning teaches the model through examples so it can generalize and replicate the approach." |
+| **Referencing（錨定）** | 用 prompt 內指定資料／context **grounding** 答案 | "Referencing grounds the AI's response in specific input data or context." |
+| **Negative Prompting（負面提示）** | 明確講明**唔應該生成啲咩** | "Negative prompting specifies what the AI should avoid generating." |
+
+- Negative Prompting **文字同圖像都用得**，但喺 **visual generation 更常用同有效**（圖像模型難預測、難控制）。
+- **CoT ≠ Few-Shot**：CoT 係叫模型「諗過程」，Few-Shot 係「畀例子睇」——兩者唔同軸。
+
+### 6. 最佳實踐五式 ＋ 兩句警示（教材原文，short question 照寫）
+
+| # | 原則 | 英文要點 | 繁中解說 |
+|---|---|---|---|
+| 1 | 用最新嘅模型 | **Use the latest model** | 新模型更容易合作 |
+| 2 | 由指令開始 | **Start with instructions** | 用 `###` 或 `"""` **將 instructions 同 context 分開** |
+| 3 | 清晰而具體 | **Be clear and specific** | 講明 context、outcome、**length**、format、style |
+| 4 | 畀例子 | **Give examples of the desired format** | 用清晰例子展示期望格式 |
+| 5 | 避免模糊描述 | **Avoid vague descriptions** | 「寫長啲」係模糊；「5 點 bullet、每點 ≤20 字」先具體 |
+
+- **Poe 建議**：用第二人稱同 bot 講嘢、盡量清晰、用方括號 `[變數]`、用 Markdown 整理結構。
+- ⚠️ **Bot 會「扮識」（pretend they know even when they have no idea）** → prompt 要**容許佢答 "I don't know"**，減少 hallucination。
+- ⚠️ **"AI-generated content may be incorrect"** —— 模型本質係估下一個字，唔係查事實，**輸出要自己驗證**。
+
+### 7. 用 AI 寫溝通文件（Topic 03：emails／通告／cover letter）
+
+**三步流程（可能出 ordering 題）：** **Input（俾 prompt／idea）→ Output（AI 出 draft）→ Edit（人 review ＋ tweak）**
+→ 金句：**"Use AI as a starting point, not the final product."**
+
+| ICIO | 主責 | 電郵例子（deadline reminder） | 對應 02 課 4 Elements |
+|---|---|---|---|
+| **I — Input** | 核心諗法／主題（**短而具體**） | "A deadline reminder" | ≈ Input data |
+| **C — Context** | 背景：**who / where / why** | "For your module lecturer" | ＝ Context |
+| **I — Instruction** | 叫 AI 做咩，用動詞 **draft / suggest / summarize** | "Write a polite email" | ≈ Instructions |
+| **O — Output** | 想要嘅結果：**length / style / format** | "Short email, professional tone" | ＝ Output Indicator |
+
+⚠️ **ICIO 次序係 Input 行先**（同 02 課 4 Elements 次序唔同）——答題必須跟 **I–C–I–O**。
+
+| 對比 | Vague（差） | Specific（好） |
+|---|---|---|
+| 提 deadline | "Write an email to a groupmate reminding them of a deadline." | 加 **Context**（project 名、實際日期、收件人）＋ **Output**（short email, polite tone） |
+| 求職信 | "Write a cover letter" → 結果**太長＋完全冇結構** | "Write a cover letter to apply for an assistant lecturer position at VTC company. Highlight that I have 5 years of teaching assistant experience at ABC company." |
+
+- ✅ **做**：prompt 具體（例：講明 **formal tone**）／短而清晰／永遠 **proofread**／AI 當起點／加個人化細節／跟 **institute guidelines**（VTC 入口：`genai.vtc.edu.hk`）／需要時 **credit AI assistance**。
+- ❌ **唔好**：過度依賴 AI 唔編輯／用 vague prompt（"write an email"）／無視學院 AI 政策／唔記得個人化／**喺 prompt 放 sensitive data**。
+- 🛠️ 工具例：**Grok、ChatGPT、Grammarly**。
+
+### 8. 英文極速記憶句（可直接寫入答案）
+
+1. "Prompt engineering is the process of designing input prompts to guide an AI model's outputs effectively."
+2. "A prompt has four elements: instructions, context, input data and an output indicator."
+3. "The RTF framework stands for Role, Task and Format."
+4. "Chain of Thought guides the AI to think step-by-step within a single prompt, while Divide and Conquer splits the task into smaller prompts."
+5. "Few-shot learning provides the AI with a few examples so it can generalize and replicate the desired style or approach."
+6. "Negative prompting explicitly specifies what the AI should avoid generating."
+7. "ICIO stands for Input, Context, Instruction and Output; it helps create clear, effective email drafts."
+8. "Use AI as a starting point, not the final product — always review and edit the draft."
+9. "Do not share sensitive data in prompts; follow institute guidelines and credit AI assistance if required."
+
+### 9. 考官陷阱（AI 部分）
+
+1. **Comparative vs Direct**：「比較 A 和 B」係 **comparative**，唔係 direct。
+2. **Instructional** 重點係「指定行動**或格式**」（如「列出步驟」），唔好當普通 direct 問題。
+3. **RTF 三格內容撈亂**：**字數限制屬於 Format，唔係 Task**（最常錯）。
+4. **Input vs Context**（ICIO）：主題（"a deadline reminder"）＝ Input；邊個收（"for your module lecturer"）＝ Context。
+5. **CoT vs Few-Shot**、**Few-Shot vs Referencing**：例子教學 vs 逐步推理 vs 資料錨定，三條唔同軸。
+6. **Negative Prompting** 關鍵字係 "**avoid** generating"（反面限制），同 **visual generation** 關係最密切。
+7. **Cover letter 失敗原因**：要答齊 **too long ＋ no structure**（兩點），只答「太長」唔夠分。
+8. **兩句警示原文**：**"AI-generated content may be incorrect"**、bot **"may pretend to know"**（可答：let the bot know it can say "I don't know"）。
+9. **符號分隔**：`###` 或 `"""` 分隔 instructions 同 context，係 OpenAI 最佳實踐明講嘅做法。
+
+### 10. 交叉引用
+
+- Prompt 基礎（8 類提問、4 大元素、RTF、技巧、最佳實踐）→ `ITE3006_02_PromptEngineering_StudyGuide.md` §3.2–3.8、§6
+- AI 寫溝通文件（三步流程、ICIO、錯誤／倫理、cover letter）→ `ITE3006_03_PromptEngineeringForCommunicationDocument_StudyGuide.md` §3.2–3.9、§6
+- ➜ 實作（Poe chatbot 初始化、ICIO 電郵練習）見 02 課 §3.10 同 03 課 §5「階段 3」
+
+---
+
+## ⑥ 最後 60 秒自測清單（考前打勾）
 
 ### HTML（能默寫）
 
@@ -1025,6 +1160,19 @@ var sport = document.f1.sport.value;       // select：被選中 option 嘅 valu
 - [ ] Lab09：`pattern` 隱含 `^$`；number 唔食 pattern；原生驗證失敗 → onSubmit 唔觸發
 - [ ] 記憶句複習：每節「英文必背句」能默讀一次
 
+### AI 提示工程（能默寫）
+
+- [ ] 定義：prompt engineering = 設計 input prompt 引導 AI 輸出；目標＝高質素＋相關＋減少 bias
+- [ ] 8 類提問：**D**irect、**E**xploratory、**I**nstructional、**C**omparative、**H**ypothetical、**C**larification、**C**reative、**F**eedback Request（每類各舉一個例子）
+- [ ] 4 大元素 ↔ ICIO 對照：Instructions ≈ Instruction、Context ＝ Context、Input Data ≈ Input、Output Indicator ＝ Output
+- [ ] RTF：Role（audience＋scenario）／Task（purpose＋scope＋examples）／Format（length／paragraph／bullet／表）
+- [ ] 技巧四對：CoT vs D&C；Zero／One／Few-Shot；Referencing（錨定資料）；Negative Prompting（講明 avoid，視覺生成最有效）
+- [ ] 最佳實踐 5 式：最新模型 → 由指令開始（`###`／`"""` 分隔）→ 清晰具體 → 畀例子 → 唔好模糊
+- [ ] AI 寫作三步：**Input → Output → Edit**（Edit 永遠由人做；AI 只係 starting point）
+- [ ] 常見錯誤 4 項：過度依賴唔編輯／vague prompt／無視學院政策／唔個人化
+- [ ] 倫理三點：sensitive data 唔入 prompt／跟 institute guidelines（`genai.vtc.edu.hk`）／需要時 credit AI
+- [ ] 兩句警示原文：**"AI-generated content may be incorrect"**；bot **"may pretend to know"** → 容許佢答 "I don't know"
+
 ---
 
-*本 Cheat Sheet 由 6 份「ITE3006 精華區塊」合併去重而成（HTML 理論 L1–L3＋CSS 理論 L4–L6＋JS 理論 L7–L9＋Lab 實務 Lab02–Lab09）。考前 60 秒：先打勾最後自測清單，唔熟嘅翻返對應章節。*
+*本 Cheat Sheet 由「ITE3006 精華區塊」累積合併去重而成（HTML 理論 L1–L3＋CSS 理論 L4–L6＋JS 理論 L7–L9＋Lab 實務 Lab02–Lab09＋AI 提示工程 Topic 02–03）。最後更新：2026-09-15（補入 ⑤ AI 提示工程精華）。考前 60 秒：先打勾最後自測清單，唔熟嘅翻返對應章節。*
