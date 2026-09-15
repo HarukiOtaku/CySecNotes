@@ -2,7 +2,7 @@
 
 > **覆蓋範圍**：Chapter 1: Introduction to Database Systems
 > **使用時機**：考試前 5–10 分鐘快速掃描；只保留「關鍵定義、對比表、英文口訣」。
-> 詳細解說請回查：`02_AI_Study_Guides/ITP4456_L1_IntroductionToDatabaseSystems_StudyGuide.md`
+> 詳細解說請回查：`02_Study_Guides/ITP4456_L1_IntroductionToDatabaseSystems_StudyGuide.md`
 
 ---
 
@@ -93,4 +93,4 @@
 - [ ] 能背出 ACID 四個字並各附一句解釋
 - [ ] 能舉出 3 個「選 NoSQL」與 3 個「選 Relational」的理由
 
-*詳細版：`02_AI_Study_Guides/ITP4456_L1_IntroductionToDatabaseSystems_StudyGuide.md`*
+*詳細版：`02_Study_Guides/ITP4456_L1_IntroductionToDatabaseSystems_StudyGuide.md`*
