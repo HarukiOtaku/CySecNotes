@@ -3,6 +3,7 @@
 > 課程：ITE3102 Network Fundamentals
 > 範圍：Tutorial 8 – IPv6 Addressing
 > 用途：學生只讀本文件即可完成練習，並掌握 IPv6 考題的答題能力。
+> **理論對照**：➜ 做練習前建議先讀 `ITE3102_L8_IPv6Addressing_StudyGuide.md`（Lecture 8: IPv6 Addressing —— 完整理論、前綴速記表、Cisco IOS 設定指令、EUI-64 示範計算）；本文件專責「題解與計算法」。
 
 ---
 
