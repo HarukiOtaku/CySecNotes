@@ -49,7 +49,7 @@
 
 繁中解說：**任何**網絡通訊發生之前，都必須先建立一條去 local network 嘅**實體連接（physical connection）**。呢條連接可以係 wired 亦可以係 wireless，睇網絡點 setup；無論係 corporate office 定係屋企都一樣。連接裝置嘅硬件係 **Network Interface Card (NIC)**；有啲裝置只有一個 NIC，有啲就有多個（可以有線同無線並存）。**唔係所有 physical connection 都提供相同嘅效能**——呢句係考 MC 嘅常客。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Before any network communications can occur, a physical connection to a local network must be established. This connection could be wired or wireless, depending on the setup of the network."
 > - "A Network Interface Card (NIC) connects a device to the network. Some devices may have just one NIC, while others may have multiple NICs (Wired and/or Wireless, for example)."
 > - "Not all physical connections offer the same level of performance."
@@ -58,7 +58,7 @@
 
 繁中解說：**Physical Layer** 嘅工作係「**transports bits across the network media**」。具體流程：佢由 **Data Link Layer** 接收一個**完整嘅 frame**，然後將個 frame **encode 成一系列訊號（signals）**，再送去 local media。呢一步係整個 **encapsulation process 嘅最後一步**。跟住路徑上嘅下一個裝置收到啲 **bits**，會**重新封裝（re-encapsulate）**成 frame，再決定點處理。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Transports bits across the network media."
 > - "Accepts a complete frame from the Data Link Layer and encodes it as a series of signals that are transmitted to the local media. This is the last step in the encapsulation process."
 > - "The next device in the path to the destination receives the bits and re-encapsulates the frame, then decides what to do with it."
@@ -71,7 +71,7 @@
 
 繁中解說：**Physical Layer Standards** 要處理三個 functional areas：**Physical Components**、**Encoding**、**Signaling**。**Physical Components** 指硬件裝置、media 同其他接頭（connectors），佢哋負責傳送代表 bits 嘅訊號。**NIC、interfaces and connectors、cable materials、cable designs** 等等，全部都係由 physical layer 相關標準所規定（specified in standards）。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Physical Layer Standards address three functional areas: Physical Components, Encoding, and Signaling."
 > - "The Physical Components are the hardware devices, media, and other connectors that transmit the signals that represent the bits."
 > - "Hardware components like NICs, interfaces and connectors, cable materials, and cable designs are all specified in standards associated with the physical layer."
@@ -80,7 +80,7 @@
 
 繁中解說：**Encoding** 係將一串 bit **轉換成下一個裝置認得嘅格式**；呢種「coding」提供**可預測嘅樣式（predictable patterns）**，令路徑上下一個裝置可以辨認。Deck 舉嘅 encoding 方法例子有：**Manchester**（圖示）、**4B/5B**、**8B/10B**。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Encoding converts the stream of bits into a format recognizable by the next device in the network path. This 'coding' provides predictable patterns that can be recognized by the next device."
 > - "Examples of encoding methods include Manchester, 4B/5B, and 8B/10B."
 
@@ -88,7 +88,7 @@
 
 繁中解說：**Signaling method** 係「bit 值 **「1」同「0」**」喺實體媒介上**點樣被表示**。用邊種 signaling 方法取決於媒介類型：**Electrical Signals** 用喺 **Copper Cable**；**Light Pulses** 用喺 **Fiber-Optic Cable**；**Microwave Signals** 用喺 **Wireless**。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "The signaling method is how the bit values, '1' and '0' are represented on the physical medium. The method of signaling will vary based on the type of medium being used."
 > - "Electrical Signals Over Copper Cable; Light Pulses Over Fiber-Optic Cable; Microwave Signals Over Wireless."
 
@@ -96,7 +96,7 @@
 
 繁中解說：**Bandwidth** 係「媒介可以承載數據嘅容量（the capacity at which a medium can carry data）」。**Digital bandwidth** 量度**一段時間內可以由一個地方流去另一個地方嘅數據量**，即係「**一秒可以傳幾多 bits**」。可用頻寬受三樣野左右：**physical media properties、current technologies、laws of physics**。單位由細到大：**bps**（1 bps = fundamental unit of bandwidth）→ **Kbps**（1 Kbps = 1,000 bps = 10^3 bps）→ **Mbps**（1 Mbps = 1,000,000 bps = 10^6 bps）→ **Gbps**（1 Gbps = 1,000,000,000 bps = 10^9 bps）→ **Tbps**（1 Tbps = 1,000,000,000,000 bps = 10^12 bps）。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Bandwidth is the capacity at which a medium can carry data."
 > - "Digital bandwidth measures the amount of data that can flow from one place to another in a given amount of time; how many bits can be transmitted in a second."
 > - "Physical media properties, current technologies, and the laws of physics play a role in determining available bandwidth."
@@ -105,7 +105,7 @@
 
 繁中解說：三個「速度」概念一定要分清楚——**Latency（延遲）**：數據由一點去另一點所需嘅**時間**，包含各種延誤（delays）。**Throughput（吞吐量）**：一段時間內**媒介上實際傳輸到嘅 bits 量度值**。**Goodput（有效吞吐量）**：一段時間內**可用數據（usable data）嘅量度值**；公式係 **Goodput = Throughput − traffic overhead**。口訣：「**Bandwidth ≥ Throughput ≥ Goodput**」——理論容量最高，實際傳輸次之，扣走 overhead 之後嘅可用數據最低。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Latency: Amount of time, including delays, for data to travel from one given point to another."
 > - "Throughput: The measure of the transfer of bits across the media over a given period of time."
 > - "Goodput: The measure of usable data transferred over a given period of time. Goodput = Throughput - traffic overhead."
@@ -118,7 +118,7 @@
 
 繁中解說：Copper cabling 係**今日網絡最常用**嘅線材，原因係 **inexpensive（平）、easy to install（易裝）、low resistance to electrical current flow（電阻低）**。**限制（Limitations）**：**Attenuation（衰減）**——電訊號行得越遠就越弱；另外電訊號會受**兩種來源**嘅干擾，會 distort 同 corrupt 數據訊號——**Electromagnetic Interference (EMI)** 同 **Radio Frequency Interference (RFI)**，再加 **Crosstalk（串音）**。**緩解方法（Mitigation）**：**嚴格遵守線長上限**（strict adherence to cable length limits）可減低 attenuation；某啲線用 **metallic shielding 同 grounding** 減 EMI / RFI；某啲線用 **將對向電路線對絞埋一齊（twisting opposing circuit pair wires together）** 減 crosstalk。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Copper cabling is the most common type of cabling used in networks today. It is inexpensive, easy to install, and has low resistance to electrical current flow."
 > - "Attenuation – the longer the electrical signals have to travel, the weaker they get."
 > - "Some kinds of copper cable mitigate EMI and RFI by using metallic shielding and grounding; some kinds of copper cable mitigate crosstalk by twisting opposing circuit pair wires together."
@@ -131,7 +131,7 @@
 
 繁中解說：**UTP 係最常用嘅 networking media**，兩端用 **RJ-45 connectors** 收頭，用途係將 **hosts 同 intermediary network devices 互連**。**三大關鍵特徵**：**Outer jacket（外皮）**保護銅線免受物理損傷；**Twisted pairs（絞線對）**保護訊號免受干擾；**Color-coded plastic insulation（彩色塑膠絕緣）**將各條線彼此電氣隔離，同時用嚟辨認每一對線。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "UTP is the most common networking media. Terminated with RJ-45 connectors. Interconnects hosts with intermediary network devices."
 > - "The outer jacket protects the copper wires from physical damage. Twisted pairs protect the signal from interference. Color-coded plastic insulation electrically isolates the wires from each other and identifies each pair."
 
@@ -139,7 +139,7 @@
 
 繁中解說：**STP** 相對 UTP：**noise protection 更好**、**更貴**、**更難安裝**；同樣用 **RJ-45 connectors** 收頭，同樣係互連 hosts 同 intermediary network devices。**四大關鍵特徵**：outer jacket 保護銅線免受物理損傷；**braided 或 foil shield** 提供 EMI / RFI 保護（整體屏蔽）；**每一對線外層嘅 foil shield** 亦提供 EMI / RFI 保護（逐對屏蔽）；color-coded plastic insulation 做電氣隔離同辨認每一對線。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Better noise protection than UTP. More expensive than UTP. Harder to install than UTP."
 > - "Braided or foil shield provides EMI/RFI protection. Foil shield for each pair of wires provides EMI/RFI protection."
 
@@ -147,7 +147,7 @@
 
 繁中解說：**Coaxial cable** 由四部分組成（由外到內）：**Outer cable jacket**（防止輕微物理損傷）→ **Woven copper braid 或 metallic foil**（同時做「電路嘅第二條導線」同「內層導體嘅屏蔽」）→ **一層 flexible plastic insulation** → **Copper conductor**（用嚟傳送電子訊號）。Coax 用**唔同種類嘅 connectors**。常見應用：**Wireless installations**（將天線接到無線裝置）同 **Cable internet installations**（customer premises wiring）。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "A woven copper braid, or metallic foil, acts as the second wire in the circuit and as a shield for the inner conductor."
 > - "Commonly used in the following situations: Wireless installations - attach antennas to wireless devices; Cable internet installations - customer premises wiring."
 
@@ -157,7 +157,7 @@
 
 繁中解說：UTP 內有**四對彩色銅線絞埋一齊**，包喺一層 flexible plastic sheath 入面，**完全冇 shielding**。UTP 靠兩個特性限制 crosstalk：**Cancellation（互相抵消）**——每一對線嘅兩條線用**相反極性**（一條 negative、一條 positive），絞埋一齊之後磁場互相抵消，亦抵消外來 EMI / RFI；**每呎絞數唔同（Variation in twists per foot）**——每條線絞嘅數量唔同，有助防止線與線之間嘅 crosstalk。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "UTP has four pairs of color-coded copper wires twisted together and encased in a flexible plastic sheath. No shielding is used."
 > - "Cancellation - Each wire in a pair of wires uses opposite polarity. One wire is negative, the other wire is positive. They are twisted together and the magnetic fields effectively cancel each other and outside EMI/RFI."
 > - "Variation in twists per foot in each wire - Each wire is twisted a different amount, which helps prevent crosstalk amongst the wires in the cable."
@@ -168,7 +168,7 @@
 
 > **圖示描述**：Slide 23 用四張圖對比 **RJ-45 Connector**（插頭）同 **RJ-45 Socket**（插座），以及 **Poorly terminated UTP cable**（收頭差：外皮剝得太長、線對絞合鬆散）同 **Properly terminated UTP cable**（收頭好：外皮夾入插頭、線對保持絞合）嘅分別。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Standards for UTP are established by the TIA/EIA. TIA/EIA-568 standardizes elements like: Cable Types, Cable Lengths, Connectors, Cable Termination, Testing Methods."
 > - "Electrical standards for copper cabling are established by the IEEE, which rates cable according to its performance."
 
@@ -184,7 +184,7 @@
 
 \* **Crossover 已被視為 Legacy**，因為大部分 NIC 用 **Auto-MDIX** 自動感應線材類型並完成連接。口訣：**Unlike devices → straight-through；Like devices → crossover；Console 管理 → rollover**。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Ethernet Straight-through: Both ends T568A or T568B - Host to Network Device."
 > - "Ethernet Crossover: One end T568A, other end T568B - Host-to-Host, Switch-to-Switch, Router-to-Router. Considered Legacy due to most NICs using Auto-MDIX to sense cable type and complete connection."
 > - "Rollover: Cisco Proprietary - Host serial port to Router or Switch Console Port, using an adapter."
@@ -197,7 +197,7 @@
 
 繁中解說：光纖因為**成本（expense）**關係，普及程度唔及 UTP，但對某啲網絡場景就係 ideal。特性：比其他任何 networking media **傳得更遠、頻寬更高**；**較少 attenuation**，而且**完全免疫 EMI / RFI**；由 **flexible、極細嘅高純度玻璃纖維**製成；用 **laser 或 LED** 將 bits **encode 成光脈衝（pulses of light）**；光纖電纜本身**扮演 wave guide**，令光喺兩端之間傳輸時**訊號損耗最少**。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Transmits data over longer distances at higher bandwidth than any other networking media."
 > - "Less susceptible to attenuation, and completely immune to EMI/RFI. Made of flexible, extremely thin strands of very pure glass."
 > - "Uses a laser or LED to encode bits as pulses of light. The fiber-optic cable acts as a wave guide to transmit light between the two ends with minimal signal loss."
@@ -211,7 +211,7 @@
 
 繁中解說：**Dispersion（色散／脈衝擴散）** 指一個光脈衝隨時間**擴散開**；dispersion 越大，訊號強度損耗越大。**MMF 嘅 dispersion 比 SMF 大**，所以 **MMF 嘅最大線長係 550 meters**。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Single-Mode Fiber: Very small core, uses expensive lasers, long-distance applications."
 > - "Multimode Fiber: Larger core, uses less expensive LEDs, LEDs transmit at different angles, up to 10 Gbps over 550 meters."
 > - "Dispersion refers to the spreading out of a light pulse over time. Increased dispersion means increased loss of signal strength. MMF has greater dispersion than SMF, with the maximum cable distance for MMF being 550 meters."
@@ -220,7 +220,7 @@
 
 繁中解說：光纖而家用喺**四個行業領域**：**Enterprise Networks**（用作 **backbone cabling** 應用同互連基建裝置）、**Fiber-to-the-Home (FTTH)**（為家庭同小型企業提供 **always-on broadband** 服務）、**Long-Haul Networks**（service provider 用嚟連接**國家同城市**）、**Submarine Cable Networks**（可靠、高速、高容量，可以喺嚴苛海底環境生存，最遠達 **transoceanic** 距離）。本課程嘅焦點係「**fiber 喺 enterprise 內部嘅使用**」。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Enterprise Networks - Used for backbone cabling applications and interconnecting infrastructure devices."
 > - "Fiber-to-the-Home (FTTH) - Used to provide always-on broadband services to homes and small businesses."
 > - "Our focus in this course is the use of fiber within the enterprise."
@@ -229,7 +229,7 @@
 
 繁中解說：光纖接頭四款——**Straight-Tip (ST) Connectors**、**Subscriber Connector (SC) Connectors**、**Lucent Connector (LC) Simplex Connectors**、**Duplex Multimode LC Connectors**。Patch cord 命名係「**接頭－接頭 模式**」：**SC-SC MM Patch Cord**、**LC-LC SM Patch Cord**、**ST-LC MM Patch Cord**、**ST-SC SM Patch Cord**（MM = multimode，SM = single-mode）。**顏色編碼（必考）**：**黃色 jacket = single-mode fiber cable**；**橙色（或 aqua）= multimode fiber cable**。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Straight-Tip (ST) Connectors; Subscriber Connector (SC) Connectors; Lucent Connector (LC) Simplex Connectors; Duplex Multimode LC Connectors."
 > - "A yellow jacket is for single-mode fiber cables and orange (or aqua) for multimode fiber cables."
 
@@ -247,7 +247,7 @@
 | Installation skills required | Lowest | Highest |
 | Safety precautions | Lowest | Highest |
 
-> English Standard Definition: "Optical fiber is primarily used as backbone cabling for high-traffic, point-to-point connections between data distribution facilities and for the interconnection of buildings in multi-building campuses."
+> **English Standard Definition:** "Optical fiber is primarily used as backbone cabling for high-traffic, point-to-point connections between data distribution facilities and for the interconnection of buildings in multi-building campuses."
 
 ➜ 實作／題解對應：`ITE3102_T4_NetworkAccess_StudyGuide.md` Q5（Copper vs Fiber 五項對比）。
 
@@ -257,7 +257,7 @@
 
 繁中解說：無線媒介用 **radio 或 microwave 頻率**去攜帶代表 binary digits 嘅電磁訊號，提供**最大嘅 mobility option**，而且無線連接數目持續上升。**四大限制（Limitations）**：**Coverage area**——實際覆蓋範圍會受部署地點嘅**物理特性**嚴重影響；**Interference**——無線容易受干擾，好多日常裝置都可以擾亂佢；**Security**——無線通訊**唔需要接觸任何實體媒介**，所以任何喺範圍內嘅人都可以接觸到傳輸內容；**Shared medium**——**WLAN 行 half-duplex**，即係同一時間只有一個裝置可以 send 或 receive，多人同時使用就會令**每個用戶分到嘅頻寬減少**。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "It carries electromagnetic signals representing binary digits using radio or microwave frequencies. This provides the greatest mobility option."
 > - "Coverage area - Effective coverage can be significantly impacted by the physical characteristics of the deployment location."
 > - "Security - Wireless communication coverage requires no access to a physical strand of media, so anyone can gain access to the transmission."
@@ -274,7 +274,7 @@
 | **WiMAX** | IEEE 802.16 | 用 **point-to-multipoint topology** 提供 broadband wireless access |
 | **Zigbee** | IEEE 802.15.4 | 低數據率、低功耗通訊，主要用喺 **Internet of Things (IoT)** 應用 |
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Wi-Fi (IEEE 802.11) - Wireless LAN (WLAN) technology."
 > - "Bluetooth (IEEE 802.15) - Wireless Personal Area network (WPAN) standard."
 > - "WiMAX (IEEE 802.16) - Uses a point-to-multipoint topology to provide broadband wireless access."
@@ -284,7 +284,7 @@
 
 繁中解說：**Wireless LAN (WLAN)** 一般需要兩類裝置：**Wireless Access Point (AP)**——將用戶嘅無線訊號**集中（concentrate）**，然後接去現有嘅 **copper-based network infrastructure**（即係無線同有線之間嘅橋樑）；**Wireless NIC Adapters**——為 **network hosts** 提供無線通訊能力。市面上有**好多 WLAN 標準**，買設備時一定要確保 **compatibility（兼容）同 interoperability（互通）**。另外，**Network Administrators 必須制定同執行嚴格嘅安全政策與流程**，保護 WLAN 免受未授權存取同破壞。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Wireless Access Point (AP) - Concentrate wireless signals from users and connect to the existing copper-based network infrastructure."
 > - "Wireless NIC Adapters - Provide wireless communications capability to network hosts."
 > - "When purchasing WLAN equipment, ensure compatibility, and interoperability."
@@ -304,7 +304,7 @@
 
 繁中解說：**Data Link layer** 負責 **end-device network interface cards 之間嘅通訊**。佢做三件事：讓 **upper layer protocols 可以存取 physical layer media**；將 **Layer 3 packets（IPv4 同 IPv6）** 封裝入 **Layer 2 Frames**；執行 **error detection**，並且 **rejects corrupt frames**（掉棄損壞嘅 frame）。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "The Data Link layer is responsible for communications between end-device network interface cards."
 > - "It allows upper layer protocols to access the physical layer media and encapsulates Layer 3 packets (IPv4 and IPv6) into Layer 2 Frames."
 > - "It also performs error detection and rejects corrupts frames."
@@ -313,7 +313,7 @@
 
 繁中解說：**IEEE 802 LAN/MAN standards** 係按網絡類型區分嘅（Ethernet、WLAN、WPAN 等等）。**Data Link Layer 由兩個 sublayers 組成**：**Logical Link Control (LLC)** 同 **Media Access Control (MAC)**。**LLC** "communicates between the networking software at the upper layers and the device hardware at the lower layers"；**MAC** "is responsible for data encapsulation and media access control"。記法：**LLC 對上（軟件層、同 upper layers 溝通）；MAC 對下（硬件層、封裝＋媒介存取）**。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "The Data Link Layer consists of two sublayers. Logical Link Control (LLC) and Media Access Control (MAC)."
 > - "The LLC sublayer communicates between the networking software at the upper layers and the device hardware at the lower layers."
 > - "The MAC sublayer is responsible for data encapsulation and media access control."
@@ -322,13 +322,13 @@
 
 繁中解說：節點之間交換嘅 packets，可能經歷**好多個 data link layer 同媒體轉換（media transitions）**。路徑上**每一跳（at each hop）**，router 會執行**四個基本 Layer 2 功能**：(1) **Accepts a frame** from the network medium（由媒介接收 frame）；(2) **De-encapsulates** the frame to expose the encapsulated packet（拆封裝，拿出 packet）；(3) **Re-encapsulates** the packet into a new frame（重新封裝成新 frame）；(4) **Forwards the new frame** on the medium of the next network segment（喺下一段媒介上轉發新 frame）。
 
-> English Standard Definition: "At each hop along the path, a router performs four basic Layer 2 functions: accepts a frame from the network medium; de-encapsulates the frame to expose the encapsulated packet; re-encapsulates the packet into a new frame; forwards the new frame on the medium of the next network segment."
+> **English Standard Definition:** "At each hop along the path, a router performs four basic Layer 2 functions: accepts a frame from the network medium; de-encapsulates the frame to expose the encapsulated packet; re-encapsulates the packet into a new frame; forwards the new frame on the medium of the next network segment."
 
 #### 3.9.4 Data Link Layer Standards（Slide 42）
 
 繁中解說：**data link layer protocols** 由四個工程組織定義（注意英文全稱）：**Institute for Electrical and Electronic Engineers (IEEE)**、**International Telecommunications Union (ITU)**、**International Organizations for Standardization (ISO)**、**American National Standards Institute (ANSI)**。
 
-> English Standard Definition: "Data link layer protocols are defined by engineering organizations: IEEE, ITU, ISO, and ANSI."
+> **English Standard Definition:** "Data link layer protocols are defined by engineering organizations: IEEE, ITU, ISO, and ANSI."
 
 ### 3.10 Topologies（Slides 43–51）
 
@@ -336,7 +336,7 @@
 
 繁中解說：**Topology** 係「網絡裝置同佢哋之間互連嘅**排列方式同關係**」。描述網絡時會用兩種 topology：**Physical topology**——顯示**實體連接**同裝置點樣互連；**Logical topology**——用 **device interfaces 同 IP addressing schemes** 去識別裝置之間嘅**虛擬連接**。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "The topology of a network is the arrangement and relationship of the network devices and the interconnections between them."
 > - "Physical topology – shows physical connections and how devices are interconnected."
 > - "Logical topology – identifies the virtual connections between devices using device interfaces and IP addressing schemes."
@@ -345,7 +345,7 @@
 
 繁中解說：三種常見嘅 physical WAN topology——**Point-to-point**：最簡單最常見，係兩個 endpoint 之間一條**永久連結（permanent link）**；**Hub and spoke**：似 star topology，一個**中央站點**透過 point-to-point links 連接各分支站點；**Mesh**：提供**高可用性（high availability）**，但要求**每個 end system 都要接去其他所有 end system**。**Point-to-point 深入（Slide 46）**：physical point-to-point topology **直接連接兩個節點**，呢兩個節點**唔會同其他 hosts 共用 media**；因為 media 上所有 frames 只可以喺呢兩個 nodes 之間往來，所以 **Point-to-Point WAN protocols 可以非常簡單（very simple）**。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Point-to-point – the simplest and most common WAN topology. Consists of a permanent link between two endpoints."
 > - "Hub and spoke – similar to a star topology where a central site interconnects branch sites through point-to-point links."
 > - "Mesh – provides high availability but requires every end system to be connected to every other end system."
@@ -355,7 +355,7 @@
 
 繁中解說：LAN 上嘅 end devices 通常用 **star 或 extended star topology** 互連；star 同 extended star **容易安裝、非常 scalable、容易 troubleshoot**。早期 Ethernet 同 legacy **Token Ring** 技術另提供兩種 topology：**Bus**——所有 end systems **串連埋一齊，兩端 terminated**；**Ring**——每個 end system 同**相鄰嘅鄰居**連接，形成一個**環**。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "End devices on LANs are typically interconnected using a star or extended star topology. Star and extended star topologies are easy to install, very scalable and easy to troubleshoot."
 > - "Bus – All end systems chained together and terminated on each end."
 > - "Ring – Each end system is connected to its respective neighbors to form a ring."
@@ -364,7 +364,7 @@
 
 繁中解說：**Half-duplex**——喺共享媒介上，**同一時間只容許一個裝置 send 或 receive**；用喺 **WLANs** 同用 **Ethernet hubs** 嘅 legacy bus topologies。**Full-duplex**——兩個裝置**可以喺共享媒介上同時 transmit 同 receive**；**Ethernet switches operate in full-duplex mode**。記法：**Walkie-talkie = half；Telephone = full**。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Half-duplex communication only allows one device to send or receive at a time on a shared medium."
 > - "Full-duplex communication allows both devices to simultaneously transmit and receive on a shared medium. Ethernet switches operate in full-duplex mode."
 
@@ -372,7 +372,7 @@
 
 繁中解說：**Media access control** 分兩大類。**Contention-based access（爭用式）**——**所有 nodes 都行 half-duplex，一齊爭用媒介**；例子：**Carrier sense multiple access with collision detection (CSMA/CD)**（用喺 **legacy bus-topology Ethernet**）同 **Carrier sense multiple access with collision avoidance (CSMA/CA)**（用喺 **Wireless LANs**）。**Controlled access（受控式）**——**deterministic access**，每個 node 有**自己嘅時間**使用媒介；用喺 legacy 網絡例如 **Token Ring** 同 **ARCNET**。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Contention-based access: All nodes operating in half-duplex, competing for use of the medium."
 > - "Controlled access: Deterministic access where each node has its own time on the medium. Used on legacy networks such as Token Ring and ARCNET."
 
@@ -380,7 +380,7 @@
 
 繁中解說：**CSMA/CD** 由 legacy Ethernet LANs 使用，行 **half-duplex**（同一時間只有一個裝置 send 或 receive），用 **collision detection process** 去決定「裝置幾時可以 send」同「多個裝置同時 send 會點」。**三步流程**：(1) 裝置同時傳輸 → 共享媒介上出現 **signal collision**；(2) 裝置**偵測到** collision；(3) 裝置**等一段隨機時間（random period of time）**，然後**重新傳輸**數據。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "CSMA/CD: Used by legacy Ethernet LANs. Operates in half-duplex mode where only one device sends or receives at a time."
 > - "Devices transmitting simultaneously will result in a signal collision on the shared media. Devices detect the collision. Devices wait a random period of time and retransmit data."
 
@@ -388,7 +388,7 @@
 
 繁中解說：**CSMA/CA** 由 **IEEE 802.11 WLANs** 使用，同樣行 **half-duplex**，但用 **collision avoidance process**（**避免**而唔係偵測）。流程：(1) 裝置傳輸時，會**同時附上今次傳輸所需嘅時間長度（time duration）**；(2) 共享媒介上其他裝置**收到呢個時間資訊**，就知道**媒介會幾耐唔可用（how long the medium will be unavailable）**。一句記法：**CD 係撞完先處理（detect after collision）；CA 係事先預約時間（avoid beforehand）**。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "CSMA/CA: Used by IEEE 802.11 WLANs. Operates in half-duplex mode where only one device sends or receives at a time."
 > - "When transmitting, devices also include the time duration needed for the transmission."
 > - "Other devices on the shared medium receive the time duration information and know how long the medium will be unavailable."
@@ -407,7 +407,7 @@
 +------------------+-----------------------------------+-------------------+
 ```
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Data is encapsulated by the data link layer with a header and a trailer to form a frame."
 > - "A data link frame has three parts: Header, Data, Trailer."
 > - "The fields of the header and trailer vary according to data link layer protocol."
@@ -425,13 +425,13 @@
 | **Data** | "Contains the frame payload" | 載住 frame 嘅 payload | Payload |
 | **Error Detection** | "Used for determine transmission errors" | 用嚟判斷傳輸錯誤 | T |
 
-> English Standard Definition: "Frame Start and Stop identifies beginning and end of frame; Addressing indicates source and destination nodes; Type identifies encapsulated Layer 3 protocol; Control identifies flow control services; Data contains the frame payload; Error Detection is used to determine transmission errors."
+> **English Standard Definition:** "Frame Start and Stop identifies beginning and end of frame; Addressing indicates source and destination nodes; Type identifies encapsulated Layer 3 protocol; Control identifies flow control services; Data contains the frame payload; Error Detection is used to determine transmission errors."
 
 #### 3.11.3 Layer 2 Addresses（Slide 55）
 
 繁中解說：**Layer 2 address** 又叫 **physical address**，四個關鍵點：**Contained in the frame header**（喺 frame header 入面）；**Used only for local delivery of a frame on the link**（只用嚟做**本地鏈路**上嘅 frame 傳遞）；**Updated by each device that forwards the frame**（每個轉發 frame 嘅裝置都會**更新**佢）。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Also referred to as a physical address. Contained in the frame header."
 > - "Used only for local delivery of a frame on the link."
 > - "Updated by each device that forwards the frame."
@@ -440,7 +440,7 @@
 
 繁中解說：**logical topology 同 physical media 決定用邊個 data link protocol**。Deck 列舉五個：**Ethernet、802.11 Wireless、Point-to-Point (PPP)、High-Level Data Link Control (HDLC)、Frame-Relay**。**每個 protocol 都為指定嘅 logical topologies 執行 media access control。** 注意（擁有權分界）：**Ethernet 深入內容（ARP、Switch 運作、802.3 frame 欄位細節）屬 L5 範圍**，本課只需知道 Ethernet 係其中一個 data link protocol，並記得「logical topology + physical media → data link protocol」呢個因果關係。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "The logical topology and physical media determine the data link protocol used: Ethernet, 802.11 Wireless, Point-to-Point (PPP), High-Level Data Link Control (HDLC), Frame-Relay."
 > - "Each protocol performs media access control for specified logical topologies."
 
