@@ -333,7 +333,7 @@ Data Link Layer 分兩個子層：**LLC（Logical Link Control，邏輯鏈路控
 
 **🧠 答題邏輯 (Reasoning):**
 
-802.3 Ethernet Frame 由左至右：**Preamble → Destination MAC → Source MAC → Type → Data → FCS（Trailer）**。逐個欄位記功能：Preamble（前導碼）係一連串 bit，用嚟令收發雙方時鐘同步；Type（類型）欄位講明 Data 入面封裝咗邊種上層協議（IPv4 / IPv6 / ARP）；Data 就係上層交落嚟嘅封裝數據（即 Network Layer PDU）；FCS（Frame Check Sequence）放喺 Trailer，係用 **CRC（Cyclic Redundancy Check）** 計出嚟嘅檢查碼，接收端重算一次，唔一致就代表 Frame 喺傳輸途中損壞，直接丟棄。記住「Preamble 係頭、FCS 係尾」，兩者都唔會計入「Frame」本身嘅長度定義。
+802.3 Ethernet Frame 由左至右：**Preamble → Destination MAC → Source MAC → Type → Data → FCS（Trailer）**。逐個欄位記功能：Preamble（前導碼）係一連串 bit，用嚟令收發雙方時鐘同步；Type（類型）欄位講明 Data 入面封裝咗邊種上層協議（IPv4 / IPv6 / ARP）；Data 就係上層交落嚟嘅封裝數據（即 Network Layer PDU）；FCS（Frame Check Sequence）放喺 Trailer，係用 **CRC（Cyclic Redundancy Check）** 計出嚟嘅檢查碼，接收端重算一次，唔一致就代表 Frame 喺傳輸途中損壞，直接丟棄。記住「Preamble 係頭、FCS 係尾」——**Preamble 唔計入 frame 長度，但 FCS 係計入嘅**：frame 嘅 64 bytes（最小）到 1518 bytes（最大）都係由 Destination MAC 數到 FCS（含 FCS）。
 
 **💬 關鍵英文答題句 (Exam Answer Phrase):**
 

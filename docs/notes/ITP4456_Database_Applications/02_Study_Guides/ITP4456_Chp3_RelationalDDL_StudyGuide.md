@@ -7,7 +7,7 @@
 
 ## 1. 📝 課程概要與實務情境 (Summary & Real-world Context)
 
-本單元是關聯式資料庫的「起點」——你學的並不是查資料（那屬於 DML 與 `SELECT` 的範疇），而是**定義資料庫的結構（Schema）**：建立資料庫、建立資料表、設定主鍵與外鍵、指定每個欄位的資料型別，以及在建立之後修改或刪除結構。這一部分語言統稱為 **DDL（Data Definition Language）**，是 DDL、DML、DCL 三大 SQL 子語言之一。教材以 MySQL 為實作平台，並以一個「訂單管理系統（Ordering）」個案串起所有語法，從 `Customer`、`Employee`、`Product` 三張主表，到 `Orders` 與 `Order_line` 兩張關聯表，示範一對多關係與多對多關係如何在 DDL 層面落實。所有核心定義句（如 SQL 是甚麼、reserved words 是甚麼）都是考試可直接照抄的標準英文答案。
+本單元是關聯式資料庫的「起點」——你學的並不是查資料（那屬於 DML 與 `SELECT` 的範疇），而是**定義資料庫的結構（Schema）**：建立資料庫、建立資料表、設定主鍵與外鍵、指定每個欄位的資料型別，以及在建立之後修改或刪除結構。這一部分語言統稱為 **DDL（Data Definition Language）**，是 DDL、DML、DCL、TCL 四大 SQL 子語言之一。教材以 MySQL 為實作平台，並以一個「訂單管理系統（Ordering）」個案串起所有語法，從 `Customer`、`Employee`、`Product` 三張主表，到 `Orders` 與 `Order_line` 兩張關聯表，示範一對多關係與多對多關係如何在 DDL 層面落實。所有核心定義句（如 SQL 是甚麼、reserved words 是甚麼）都是考試可直接照抄的標準英文答案。
 
 實務上，任何資料庫系統開發的第一步都是 DDL：例如你為一間零售公司設計訂單系統，你必須先決定 `Customer` 表的 `customer_id` 用 `SMALLINT` 定 `INT`、`customer_name` 用 `VARCHAR(50)`、哪些欄位不可留空（`NOT NULL`）、哪個欄位是主鍵（Primary Key）、`Orders` 表如何用外鍵（Foreign Key）指向 `Customer` 與 `Employee`——這些決策全部寫成 `CREATE TABLE` 語句。另一個常見場景是**結構演進（Schema Evolution）**：系統上線後發現要加電話欄位（`ALTER TABLE ... ADD`）、要改欄位長度（`ALTER TABLE ... MODIFY`），甚至要刪除不再需要的表（`DROP TABLE`）。掌握 DDL，等於掌握了「為應用程式建立資料存放空間」的能力，亦是本課程模組學習成果（Module Intended Learning Outcome）——「perform database operations to implement data models and manipulate data in the applications」——的第一塊基石。
 
@@ -19,6 +19,8 @@
 
 - **識別 SQL 的起源與標準**：能說出 SQL 於 1970 年代初由 IBM 開發、原名 SEQUEL、最新標準為 SQL:2019，並指出不同廠商實作未必完全相容。
   - *Identify the origin and standards of SQL (IBM, early 1970s, SEQUEL, SQL:2019, vendor incompatibility).*
+
+  > ⚠️ 教材原文寫 SQL:2019；事實：SQL 標準並無 2019 年版（為 SQL:2016，最新為 SQL:2023）。考卷跟教材答。
 - **區分 reserved words 與 user-defined words**：能分辨 SQL 保留字與使用者自訂名稱，並知道大小寫規則及字面值（literals）的引號規則。
   - *Distinguish reserved words from user-defined words and apply literal quoting rules.*
 - **背誦 MySQL 主要資料型別及其儲存大小與範圍**：整數（BIT/TINYINT/SMALLINT/MEDIUMINT/INT/BIGINT）、小數（DECIMAL/FLOAT）、日期時間（DATE/DATETIME/TIMESTAMP/TIME/YEAR）、字串（CHAR/VARCHAR/TEXT/BLOB）與 ENUM。
@@ -122,7 +124,7 @@ WHERE salary > 8000;
 |------|------|
 | **大寫字母** | 代表保留字（reserved words） |
 | **小寫字母** | 代表使用者自訂詞（user-defined words） |
-| `|`（vertical bar） | 表示在幾個選項中擇一（choice among alternatives） |
+| `\|`（vertical bar） | 表示在幾個選項中擇一（choice among alternatives） |
 | `[ ]`（square brackets） | 表示**可選**元素（optional elements） |
 | `{ }`（curly braces） | 表示**必須**元素（required element） |
 | `…`（ellipsis） | 表示可選重複 0 次或多次（optional repetition, 0 or more） |
@@ -442,7 +444,7 @@ CREATE TABLE Orders (
 
 | 可修改項目 | 語法 |
 |-----------|------|
-| 欄位 — 新增 / 修改 / 刪除 / 改名 | `ALTER TABLE … {ADD | MODIFY | DROP} … ;` 與 `ALTER TABLE … RENAME … TO … ;` |
+| 欄位 — 新增 / 修改 / 刪除 / 改名 | `ALTER TABLE … {ADD \| MODIFY \| DROP} … ;` 與 `ALTER TABLE … RENAME … TO … ;` |
 | 主鍵 — 新增 / 刪除 | `ALTER TABLE … ADD PRIMARY KEY (…) ;` 與 `ALTER TABLE … DROP PRIMARY KEY ;` |
 | 外鍵 — 新增 / 刪除 | `ALTER TABLE … ADD CONSTRAINT … FOREIGN KEY (…) REFERENCES …(…) ;` 與 `ALTER TABLE … DROP FOREIGN KEY … ;`、`ALTER TABLE … DROP KEY … ;` |
 

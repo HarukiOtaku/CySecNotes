@@ -39,6 +39,8 @@ Topic 7 帶你進入網頁開發的「互動」世界。前幾課的 HTML 負責
 
 ### 3.1 JavaScript 是甚麼（What is JavaScript?）
 
+➜ 實作見 ITE3006_Lab07_CodeGuide.md
+
 JavaScript 是**用戶端（client-side）**的 scripting language——即程式碼不是在你的伺服器上跑，而是被下載到訪客的**網頁瀏覽器**裏執行。它是 scripting language（腳本語言），語法風格與 C#（及 Java）相似：有變數、運算子、函數、條件與迴圈。它與 HTML 的關係是：HTML 提供結構，JavaScript 注入行為（behavior）。
 
 > **JavaScript is a client-side scripting language used on the web browser.**
@@ -426,7 +428,7 @@ document.write("Line 2: " + myvar);   // This prints "yyy", too.
 
 #### 3.8.1 建立陣列（Defining Arrays）
 
-四種常見寫法：
+五種常見寫法：
 
 ```javascript
 var myArray  = [1, 5, 1968, 3];            // literal 寫法

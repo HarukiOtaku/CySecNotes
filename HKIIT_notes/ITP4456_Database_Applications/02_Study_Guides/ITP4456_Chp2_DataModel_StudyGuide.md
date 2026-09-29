@@ -42,7 +42,7 @@
 
 繁中解說：**Database（資料庫）** 在此被定義為「資料儲存的邏輯結構」——注意強調的是「邏輯結構」（logical structure），即用戶所見的表的安排，而非磁碟上的物理檔案。**Relation（關聯／關係）** 是整個關聯模型的基石：一張**有欄（columns）有列（rows）的 Table**。在關係模型中，relation 與 table 可以視為同義詞；因此說「一個資料庫由若干 relations 組成」就等於說「一個資料庫由若干 tables 組成」。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "A database is a logical structure of the data storage."
 > - "A relation is a table with columns and rows."
 
@@ -50,7 +50,7 @@
 
 繁中解說：**Tuple（元組）／Record（記錄）** 就是 relation 中的**一行（Row）**——代表一個具體的實例（例如一個學生的完整資料）。**Attribute（屬性）／Field（欄位）** 就是 relation 中一個**有名字的欄（named Column）**——代表某一類資料（例如學號、姓名）。記法上，關係通常寫成 `RelationName (attr1, attr2, …)`，例如 `Student (stdNo, name, address, gender, DOB, phone, email, programme)`。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "A tuple/record is a row of a relation."
 > - "An attribute/field is a named column of a relation."
 
@@ -58,7 +58,7 @@
 
 繁中解說：三個術語分別回答「欄位能放甚麼值、有幾欄、有幾列」。**Domain（值域）** 是一個或多個屬性的**允許值集合（set of allowable values）**——例如 `gender` 的 domain 是 {M, F}，`level` 的 domain 是 {4} 或「4 或以上」；同一個 domain 可以被多個屬性共用（例如 `phone` 與某個備用電話號碼欄位可用同一個 domain）。**Degree（度）** 是 relation 中**屬性的數目**——即欄數（columns count）。**Cardinality（基數）** 是 relation 中**元組的數目**——即列數（rows count）。記法上：`Degree = 4` 表示 4 個屬性；`Cardinality = 3` 表示 3 行資料。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "A domain is the set of allowable values for one or more attributes."
 > - "Degree is the number of attributes in a relation."
 > - "Cardinality is the number of tuples in a relation."
@@ -67,7 +67,7 @@
 
 繁中解說：**Relationship（關係／關聯）** 指**表與表之間的邏輯連接（logical connection）**，它是基於表之間的**互動（interaction）**而建立的——例如 `Student` 表的 `programme` 欄位指向 `Programme` 表的 `pgmCode`，兩表因此產生一對多（1:M）的邏輯關係。注意：術語 "Relation" 指「一張表」，而 "Relationship" 指「表與表的連結」，兩者勿混淆——這是常見考點。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "A relationship is a logical connection between tables established based on interaction among these tables."
 
 #### 3.1.5 實例表：Programme 與 Student Relations
@@ -95,7 +95,7 @@
 
 繁中解說：**Attribute Domain** 與 3.1.3 的 Domain 同義——它**指定與某屬性相關聯的允許值集合**。它的作用是把「不合理的值」擋在表外：例如 `gender` 只允許 M／F，`level` 只允許合理的級別數字。Domain 是資料正確性（accuracy）的第一道防線。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Attribute domain specifies the set of allowable values associated with an attribute."
 
 ### 3.2 Relation 的性質（Properties of Relation）
@@ -125,14 +125,14 @@
 
 繁中解說：**Superkey** 是「能**唯一識別** relation 內一個 tuple 的**一個屬性或一組屬性**」。關鍵在「唯一識別」：只要某屬性（或屬性組合）不會讓兩列資料相同，它就是 superkey。以 `Student (stdNo, name, address, gender, DOB, phone, email)` 為例，以下全部是 valid superkeys：`stdNo`；`phone, email`（兩欄合起來）；`stdNo+name`；`name+phone`；`stdNo+email`；`stdNo+name+address`；`DOB+name+stdNo`；`phone+email+name+address`……可見 superkey 可以**有多餘屬性**（例如 `stdNo+name` 中 name 根本是冗餘的），所以 superkey 的數量很多、集合很大。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "A superkey is an attribute, or set of attributes, that uniquely identifies a tuple within a relation."
 
 #### 3.3.2 Candidate Key（候選鍵）— 不可再約簡性（Irreducibility）
 
 繁中解說：**Candidate Key** 是「**任何真子集（proper subset）都不是 superkey** 的 superkey」——即**不可再約簡（irreducibility）**。換句話說，它是一個屬性或**最小的（minimal）**屬性集合，能唯一識別 tuple；拿掉其中任何一個屬性，就失去唯一識別能力。以 Student 表為例：`stdNo` ✓（單一屬性，本身唯一）；`phone` ✓（假設每個學生都有手機，且手機號不重複）；`email` ✓（假設每人有自己獨立的電郵地址）。但 `stdNo+name` ✗——因為 `stdNo` 單獨已是 superkey，加 `name` 是冗餘，並非 minimal；`name+phone` ✗——因為 `phone` 單獨已是 candidate key，`name+phone` 雖是 superkey 但可再約簡；`stdNo+name+address` ✗——同理。判別技巧：**先把所有 superkey 列出，再逐一檢查「去掉任一屬性後是否仍能唯一識別」；若去掉後仍能唯一識別，則不是 candidate key。**
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "A candidate key is a superkey such that no proper subset is a superkey within the relation — irreducibility."
 > - "A candidate key is an attribute or a minimal set of attributes that uniquely identifies a tuple within a relation."
 
@@ -140,7 +140,7 @@
 
 繁中解說：**Primary Key（主鍵）** 是「從候選鍵中**選出來**用來唯一識別 relation 內 tuple 的那個候選鍵」——每個 relation 只能選一個主鍵。習慣上在主鍵屬性下畫**單底線（underline with a single line）**，例如 `Student (stdNo, name, address, gender, DOB, phone, email)` 中 `stdNo` 畫單底線。**Alternate Key（替選鍵）** 是「**沒有被選為主鍵**的其餘候選鍵」——例如 Student 的 `phone` 與 `email` 都是 candidate keys，但主鍵選了 `stdNo`，所以 `phone`、`email` 就是 alternate keys。**Composite Key（複合鍵）** 是「由**多於一個屬性**組成的鍵」——例如 `stdNo+name`、`name+phone` 都是 composite superkeys；若某個 composite key 同時是 minimal，它就是 composite candidate key。注意：Primary Key 可以是單一屬性，也可以是 composite（由多個屬性組成）。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "A primary key is the candidate key selected to identify tuples uniquely within the relation. It is a common practice to underline the primary key with a single line."
 > - "Alternate keys are candidate keys that are not selected to be the primary key."
 > - "A composite key is a key that consists of more than one attribute."
@@ -149,7 +149,7 @@
 
 繁中解說：**Foreign Key** 是「某 relation 內的一個屬性或屬性集合，它**匹配（matches）**另一個（可能是同一個）relation 的 **candidate key（通常是 primary key）**」。外鍵的作用是建立表與表之間的 Relationship：例如 `Student` 表的 `programme` 屬性匹配 `Programme` 表的 `pgmCode`（主鍵），所以 `Student.programme` 是 foreign key。習慣上外鍵以**虛線底線（underline with a dashed line）**標示。兩個重要細節：(1) **candidate key 與 foreign key 可以有不同屬性名稱**——本例子兩者不同名（Student 的欄名是 programme，Programme 的欄名是 pgmCode），教材特別提醒兩者名稱可以不同；(2) 外鍵可以指向**同一個 relation**（self-referencing，例如員工表的 `managerNo` 指向同一表的 `empNo`）。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "A foreign key is an attribute, or set of attributes, within one relation that matches the candidate key (usually the primary key) of some (possibly the same) relation."
 > - "The candidate key and the foreign key may have distinct attribute names."
 
@@ -173,7 +173,7 @@ Student  (stdNo, name, address, gender, DOB, phone, email, programme)   ← prog
 
 繁中解說：**Relational Integrity Constraint（關聯完整性約束）** 是「用來確保關聯式資料庫中資料的**準確性與一致性（accuracy and consistency）**的規則」。重點：**DBMS 負責執行（enforce）這些約束規則**，並且**拒絕所有不符合完整性要求的資料（rejects all data that do not meet the integrity requirements）**——所以「壞資料進不來」不是靠程式員自律，而是 DBMS 的強制行為。教材把完整性約束分為四類：**Null、Entity Integrity、Referential Integrity、General Constraint**。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "A relational integrity constraint is a rule used to ensure accuracy and consistency of data in a relational database."
 > - "The DBMS is responsible for enforcing the constraint rules and rejects all data that do not meet the integrity requirements."
 
@@ -181,7 +181,7 @@ Student  (stdNo, name, address, gender, DOB, phone, email, programme)   ← prog
 
 繁中解說：**Null** 代表「屬性值**目前未知（unknown）或不適用（not applicable）**」——用來處理**不完整或例外的資料（incomplete or exceptional data）**。它是「**沒有值**」的表示，**不是零（zero）也不是空格（spaces）**——因為零和空格本身都是「值」，而 Null 是「值缺席」。例如學生未提供電郵地址時，`email` 欄可放 NULL，表示「暫時不知道／沒有」。考點：NULL ≠ 0 ≠ ' '（空格），三者概念不同。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Null represents a value for an attribute that is currently unknown or not applicable."
 > - "Null deals with incomplete or exceptional data."
 > - "Null represents the absence of a value and is not the same as zero or spaces, which are values."
@@ -190,7 +190,7 @@ Student  (stdNo, name, address, gender, DOB, phone, email, programme)   ← prog
 
 繁中解說：**Entity Integrity** 規定：**主鍵屬性必須唯一（unique）且不可為空（not null）**。應用在 Programme 表：既然 `pgmCode` 是主鍵，則 (1) 不能插入一個 `pgmCode` 為 NULL 的 tuple——例如「NULL | HD in AI and Smart Technology | 4 | 5」會被拒絕（✗）；(2) `pgmCode` 的值不能重複——例如再插入一條 `IT114122`（已存在）也會被拒絕（✗）。口訣：「**主鍵 = 唯一 + 非空**」。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Entity integrity: primary key attribute(s) must be unique and not null."
 > - "As pgmCode is the primary key of the Programme relation, a tuple with NULL for the pgmCode attribute should not be inserted into the relation. Moreover, values of pgmCode should not be repeated."
 
@@ -198,7 +198,7 @@ Student  (stdNo, name, address, gender, DOB, phone, email, programme)   ← prog
 
 繁中解說：**Referential Integrity** 規定：**若某 relation 存在外鍵，則外鍵值「要麼匹配其父 relation（parent relation）中某個 tuple 的 candidate key 值，要麼外鍵值必須完全為 NULL（wholly null）」**。其中 **Parent Relation** 是指「在關係中與 candidate key 相關的那個 relation」——即被參照的表（本例為 Programme）。應用在 Student 表：`Student.programme` 是參照 `Programme.pgmCode` 的外鍵，所以 `Student.programme` 要麼必須等於 `Programme` 表中已存在的某個 `pgmCode` 值，要麼必須完全為 NULL。反例：除非 `Programme` 表已有 `pgmCode = IT010101` 的記錄，否則**不可能**建立 `programme = "IT010101"` 的 Student tuple——插入會被 DBMS 拒絕（✗）。本例子中 Programme 是 **Parent Relation（父表）**，Student 是 **Child Relation（子表）**。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Referential integrity: if a foreign key exists in a relation, either the foreign key value must match a candidate key value of some tuple in its parent relation, or the foreign key value must be wholly null."
 > - "A parent relation is the relation that the candidate key is related to in a relationship."
 > - "It is not possible to create a Student tuple with programme 'IT010101' unless there is already a record for pgmCode 'IT010101' in the Programme relation."
@@ -220,7 +220,7 @@ Student  (stdNo, name, address, gender, DOB, phone, email, programme)   ← prog
 
 **速記框架：** Cascade = 「連動處理」；Restrict = 「有相關記錄就禁止」。選哪一種取決於商業規則——若學生沒課程仍要保留學生資料，選「設為 NULL」；若學生資料依賴課程而存在，選「連帶刪除」；若要防止誤刪重要父記錄，選「Restrict」。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Cascade update: an update of Programme.pgmCode should trigger an update of Student.programme — update all related Student.programme accordingly; or restrict the update of the programme IT114122 because there are related student(s)."
 > - "Cascade delete: a delete of Programme.pgmCode should trigger an update of all related Student.programme to NULL; or delete all the related students; or restrict the delete of the programme IT114124 because there are related student(s)."
 
@@ -237,7 +237,7 @@ Student  (stdNo, name, address, gender, DOB, phone, email, programme)   ← prog
 
 繁中解說：**General Constraint** 是「由**用戶或資料庫管理員（database administrators）**額外指定的、資料必須滿足的規則」——它是前三類完整性之外的「自訂規則」。例子：(1) `Programme (pgmCode, name, level, credit, year)`——「HD 課程的 credit 值必須介乎 250 至 400 之間」(`The credit value for a HD programme is between 250 and 400`)；(2) `Student (...)`——「學生的年齡必須為 18 歲或以上」(`The age of student must be 18 or above`)。General Constraint 對應日後 SQL 的 `CHECK` 約束。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "A general constraint is an additional rule, specified by users or database administrators, that the data must satisfy."
 > - "E.g., The credit value for a HD programme is between 250 and 400; the age of a student must be 18 or above."
 

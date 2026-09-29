@@ -40,7 +40,7 @@
 
 繁中解說：聚合函數（aggregate function）把**多列資料**濃縮成**一個統計值**。五個基本函數為：`COUNT()`（計數）、`SUM()`（總和）、`MIN()`（最小值）、`MAX()`（最大值）、`AVG()`（平均值）。其中 `SUM` 與 `AVG` 只適用於數值欄位，`MIN`／`MAX`／`COUNT` 亦可應用於非數值（例如文字、日期）欄位。聚合函數**只准**出現在兩處：`SELECT` 清單（SELECT list）與 `HAVING` 子句——這句是考題熱點。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "An aggregate function returns a single value computed from a set of rows."
 > - "The five basic aggregate functions are COUNT, SUM, MIN, MAX and AVG."
 > - "Aggregate functions are used only in the SELECT list and in the HAVING clause."
@@ -69,7 +69,7 @@ WHERE order_date BETWEEN '01-OCT-12' AND '31-OCT-12';
 
 > 解說：`DISTINCT` 令同一個 `emp_id` 只被數一次，所以即使同一員工多次下單也只計 1。日期範圍以 `BETWEEN ... AND ...` 表達（含首尾兩日）。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "COUNT(*) counts all rows of a table, regardless of whether nulls or duplicate values occur."
 > - "Use DISTINCT in the SELECT list to eliminate duplicates."
 
@@ -96,7 +96,7 @@ FROM employee;
 
 > 解說：三個聚合函數在同一 `SELECT` 清單並存，輸出三個欄位 `min`、`max`、`avg`，只有一列結果。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "SUM returns the total of a numeric column; AVG returns the average; MIN and MAX return the minimum and maximum values."
 
 #### 3.1.4 聚合函數的重要規則與「非法查詢」地雷
@@ -108,7 +108,7 @@ FROM employee;
 4. 聚合函數**只准**用在 `SELECT` 清單與 `HAVING` 子句。
 5. **地雷**：如果 `SELECT` 清單包含聚合函數而又沒有 `GROUP BY` 子句，則 SELECT 清單**不能引用其他（非聚合的）欄位**。所以 `SELECT SUM(salary) FROM employee;` 合法（✓），而 `SELECT title, SUM(salary) FROM employee;` 非法（✗）——因為沒有 `GROUP BY` 時，一個 `title` 會對應多列、系統無法決定取哪一個，邏輯上自相矛盾。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "COUNT(*) counts all rows of a table, regardless of whether nulls or duplicate values occur."
 > - "Use DISTINCT in the SELECT list to eliminate duplicates."
 > - "DISTINCT has no effect with MIN/MAX, but may have an effect with SUM/AVG."
@@ -129,7 +129,7 @@ GROUP BY title;
 
 > 解說：員工先按 `title` 分組（例如 Manager、Sales、Clerk 各一組），每組輸出：`title`、組內員工人數 `count`、組內薪金總和 `sum`。輸出列數 = 不同職位的數目。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Use the GROUP BY clause to get sub-totals."
 > - "The GROUP BY clause groups rows that have the same value in the specified column(s), and the aggregate functions are computed for each group."
 
@@ -137,7 +137,7 @@ GROUP BY title;
 
 繁中解說：**`HAVING` 子句**是專為配合 `GROUP BY` 設計的，用來**限制最終結果表出現哪些群組**——即「分組之後再篩選群組」。它跟 `WHERE` 表面相似但本質不同：**`WHERE` 在分組之前過濾個別列（filters individual rows），`HAVING` 在分組之後過濾群組（filters groups）**。因此凡是對聚合結果（如 `COUNT(...) > 1`）的條件，**必須**放在 `HAVING`，放在 `WHERE` 會出錯。另外，`HAVING` 子句中出現的欄位名必須**同時出現在 `GROUP BY` 清單中**，或者**包在聚合函數內**。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "The HAVING clause is designed for use with GROUP BY to restrict the groups that appear in the final result table."
 > - "Similar to WHERE, but WHERE filters individual rows whereas HAVING filters groups."
 > - "Column names in the HAVING clause must also appear in the GROUP BY list or be contained within an aggregate function."
@@ -163,7 +163,7 @@ ORDER BY title;
 >
 > 對比：若把條件寫成 `WHERE COUNT(emp_id) > 1` 是錯的——`WHERE` 在分組前執行，那時還沒有 `COUNT` 可用。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "To restrict groups in the final result, use HAVING with GROUP BY, e.g. HAVING COUNT(emp_id) > 1."
 > - "ORDER BY sorts the final result, e.g. ORDER BY title sorts alphabetically."
 
@@ -173,7 +173,7 @@ ORDER BY title;
 
 繁中解說：當查詢的**結果欄位來自多於一張表**時，就**必須使用 join（連接）**，這種查詢稱為 multi-tables query。做法：在 `FROM` 子句放入多於一張表（以**逗號**分隔），通常再用 `WHERE` 子句指定（inner）join 的連接欄位——例如 `orders.customer_id = customer.customer_id`。`FROM` 中的表可以起**別名（alias）**：別名與表名之間以**空格**分隔（例如 `orders O`），當欄位名有歧義（ambiguity，例如兩張表都有 `order_id`）時，用「別名．欄位名」（如 `O.order_id`）來限定。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "When the result columns come from more than one table, a join must be used and the query is a multi-tables query."
 > - "A multi-tables query includes more than one table in the FROM clause, using a comma as separator, and typically includes a WHERE clause to specify the (inner) join column(s)."
 > - "An alias can be used for a table named in the FROM clause; the alias is separated from the table name with a space, and can be used to qualify column names when there is ambiguity."
@@ -182,7 +182,7 @@ ORDER BY title;
 
 繁中解說：**Inner Join（內連接）本質上是「笛卡兒積（Cartesian Product）＋帶條件的選擇」**。Cartesian Product 是兩表每一列互相配對（orders 有 N 列、order_line 有 M 列，乘出 N×M 列），其中大部分配對是「無意義」的（例如把訂單 A 的資料配上訂單 B 的明細）；inner join 透過連接條件（join condition，即外鍵＝主鍵）**刪除那些無意義的結果**，只留下連接欄位值相等的配對。連接條件用 `WHERE 表1.欄位 = 表2.欄位`（傳統寫法）或 `ON 表1.欄位 = 表2.欄位`（INNER JOIN 寫法）指定。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "An inner join is a Cartesian Product operation followed by a selection with criteria; it removes those 'meaningless' results."
 > - "The join condition specifies the column(s) on which the tables are matched, typically the foreign key equals the primary key."
 
@@ -210,7 +210,7 @@ ON orders.order_id = order_line.order_id;
 
 > 解說：`orders.order_id` 是主鍵（PK），`order_line.order_id` 是外鍵（FK）；只有 `order_id` 相等的配對（即訂單與自己的明細）才會保留，Cartesian Product 中其他「無意義」的組合全部被剔除。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Traditional style: FROM orders, order_line WHERE orders.order_id = order_line.order_id."
 > - "ANSI style: FROM orders INNER JOIN order_line ON orders.order_id = order_line.order_id."
 
@@ -229,7 +229,7 @@ WHERE orders.customer_id = customer.customer_id
 
 > 解說：三張表在 `FROM` 以逗號分隔；`orders.customer_id = customer.customer_id` 把訂單接到客戶，`orders.emp_id = employee.emp_id` 把訂單接到員工；`AND` 保證兩個條件同時成立。`customer_name` 與 `firstname` 分別來自 `customer` 與 `employee` 表。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "A three-table join requires two join conditions combined with AND, e.g. orders.customer_id = customer.customer_id AND orders.emp_id = employee.emp_id."
 
 ### 3.5 別名與進階內連接範例（More Inner Join Examples）
@@ -279,7 +279,7 @@ ORDER BY SUM(quantity) DESC, P.product_id;
 > 4. `HAVING SUM(quantity) > 1` —— 只保留總數量多於 1 的產品群組；
 > 5. `ORDER BY SUM(quantity) DESC, P.product_id` —— 先按總數量**降序**（DESC），總數量相同時再按產品編號**升序**（預設 ASC）。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Columns in the SELECT list that are not inside aggregate functions must appear in the GROUP BY clause, e.g. GROUP BY P.product_id, product_name."
 > - "ORDER BY SUM(quantity) DESC sorts by total quantity in descending order; the second sort key P.product_id is in ascending order by default."
 
@@ -290,7 +290,7 @@ ORDER BY SUM(quantity) DESC, P.product_id;
 2. **對應欄位的資料型別必須相容**（Corresponding columns must have compatible data types）；
 3. **UNION 按位置（position）配對欄位，不看欄位名**（UNION matches columns according to their positions, not their names）——第一個 SELECT 的第 1 欄對應第二個 SELECT 的第 1 欄，即使兩者欄位名不同也可以。`ORDER BY` 放在整個 UNION 語句的**最尾**，對合併後的完整結果排序。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "The UNION operator is used to combine the result-set of two or more SELECT statements."
 > - "The UNION operator automatically removes duplicate rows from the result set."
 > - "Requirements to use UNION: the number of columns must be the same; corresponding columns must have compatible data types; UNION matches columns according to their positions, not their names."
@@ -315,7 +315,7 @@ ORDER BY order_date DESC;
 > 2. `UNION` 把兩份結果上下合併，若同一張訂單同時存在於兩表（理論上不會，但語法上）會自動去重；
 > 3. 最後的 `ORDER BY order_date DESC` 只寫一次、放在整個語句最尾，對合併後的完整結果按訂單日期降序排序。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Retrieve all current and archived orders and combine them into a single result set using the UNION operator, then sort the combined results by order date in descending order: ORDER BY order_date DESC."
 
 ### 3.7 全課子句執行順序速記（Clause Execution Order）
@@ -331,7 +331,7 @@ ORDER BY order_date DESC;
 | 5 | `SELECT` | 選欄位／聚合 | `SELECT title, SUM(salary) AS sum` |
 | 6 | `ORDER BY` | 排序最終結果 | `ORDER BY SUM(quantity) DESC` |
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "The logical order of clause execution is FROM, WHERE, GROUP BY, HAVING, SELECT, ORDER BY."
 > - "WHERE filters individual rows before grouping; HAVING filters groups after grouping."
 

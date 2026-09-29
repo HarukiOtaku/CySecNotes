@@ -708,11 +708,11 @@ Item 屬性（「仔」用）：
 | Emmet | 產生 |
 |---|---|
 | `table>tr*3>td{Hello}*3` | 3×3 = 9 個 `<td>` |
-| `form:post` | `<form action="" method="post">` |
+| `form:post` | `<form action="" method="post"></form>` |
 | `input:r[name="booking"]*2` | 兩個同名 radio |
 | `input:c[name="F$"]*3` | 三個 checkbox：name = F1 F2 F3（`$` 自動編號） |
 | `select>option*3` | select 內 3 個 option |
-| `tarea` | `<textarea name="" id="" cols="30" rows="10">` |
+| `tarea` | `<textarea name="" id="" cols="30" rows="10"></textarea>` |
 | `input:s` / `input:reset` / `input:hidden` | submit / reset / hidden input |
 | `link:css` | `<link rel="stylesheet" href="">` |
 

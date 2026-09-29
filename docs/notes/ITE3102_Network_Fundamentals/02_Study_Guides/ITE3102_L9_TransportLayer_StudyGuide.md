@@ -113,6 +113,8 @@ L9 係整個 ITE3102 嘅「分水嶺」：之前幾課講嘅係「封包點樣�
 | Applications that use **TCP** | **HTTP, FTP, SMTP, Telnet** |
 | Applications that use **UDP** | **DHCP, TFTP, VoIP, IPTV** |
 
+> ⚠️ 講義兩頁歸類唔同：slide 9 把 SNMP 列為「TCP 及 UDP 都用」，slide 19 歸入 UDP；實務上 SNMP 以 UDP 為主（少數情境用 TCP），考試按題目所引嘅講義頁作答。
+
 > **English Standard Definition:** "TCP is a better choice for applications whose segments must arrive in a very specific sequence to be processed successfully, or applications in which all data must be fully received."
 > **English Standard Definition:** "UDP is a better choice for applications that can tolerate some data loss during transmission, but delays in transmission are unacceptable."
 
@@ -544,7 +546,7 @@ Client                                                   Server
 | RST | 發生錯誤或 timeout 時重設連線 | "RST resets the connection when an error or timeout occurs." |
 | SYN | 同步序號；用於建立連線 | "SYN synchronizes sequence numbers and is used in connection establishment." |
 | FIN | 發送方冇更多數據；用於終止 session | "FIN means there is no more data from the sender and is used in session termination." |
-| Three-Way Handshake | 建立 TCP session 嘅三步：SYN → SYN, ACK → ACK | "The three-way handshake is SYN, SYN, ACK, and ACK." |
+| Three-Way Handshake | 建立 TCP session 嘅三步：SYN → SYN, ACK → ACK | "The three-way handshake is SYN, SYN-ACK, and ACK." |
 | Session Termination | 終止 session 嘅四步：FIN → ACK → FIN → ACK | "TCP session termination uses four steps: FIN, ACK, FIN, ACK." |
 | Initial Sequence Number (ISN) | 喺 session setup 期間設定嘅起始序號 | "During session setup, an initial sequence number (ISN) is set." |
 | SACK (Selective Acknowledgment) | 選擇性確認；喺三次交握期間協商 | "SACK is negotiated during the three-way handshake; the receiver can explicitly acknowledge which segments were received, including discontinuous segments." |

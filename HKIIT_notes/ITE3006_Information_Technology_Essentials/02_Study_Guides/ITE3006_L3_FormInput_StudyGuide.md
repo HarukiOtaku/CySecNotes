@@ -2,7 +2,7 @@
 
 > **課程（Course）**：ITE3006 Information Technology Essentials
 > **主題（Topic）**：Topic 3 — Form Input Elements（HTML 表單與各種輸入元素）
-> **教材來源（Source）**：`_ite3006_extract/ITE3006_L3_FormInput.txt`（SLIDE 1–20，共 20 頁投影片）
+> **教材來源（Source）**：`01_Raw_Materials/Lectures/Lect03_Form_Input_Elements.pptx`（SLIDE 1–20，共 20 頁投影片）
 > **語言策略（Language Policy）**：機制與邏輯用香港繁體中文解說；每個核心定義均附「> 英文標準定義句」（English Standard Definition）；所有 HTML 標籤、屬性、JavaScript 語法一律保留英文原文，方便你直接以英文作答。
 
 ---
@@ -41,6 +41,8 @@
 ## 📖 3. 雙語深度理論知識點 (Comprehensive Notes)
 
 ### 3.1 HTML Form 概覽：`<form>` 元素與 form elements（SLIDE 1）
+
+➜ 實作見 ITE3006_Lab03_CodeGuide.md
 
 一個 HTML form 嘅存在目的只有一個：**收集用戶輸入**，再交畀伺服器或者 JavaScript 處理。`<form>` 就係包住成個表單嘅容器元素；入面嘅所有輸入組件統稱 form elements，教材將佢哋分成四類標籤：
 

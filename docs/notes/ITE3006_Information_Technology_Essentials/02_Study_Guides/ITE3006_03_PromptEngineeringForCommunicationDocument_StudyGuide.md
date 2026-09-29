@@ -68,7 +68,7 @@
 
 **常見工具（Example Tools）：** **Grok**、**ChatGPT**、**Grammarly**——教材將 Grammarly 都列入生成式文字工具（佢而家都有 AI 改寫功能）。
 
-**考試重點：** 三步順序（Input → Output → Edit）好可能出 ordering 題；記住**「Edit 永遠喺最後、由人做」**——呼應 §3.7「AI 只係起點」。
+**考試重點：** 三步順序（Input → Output → Edit）好可能出 ordering 題；記住**「Edit 永遠喺最後、由人做」**——呼應 §3.6「AI 只係起點」。
 
 ---
 

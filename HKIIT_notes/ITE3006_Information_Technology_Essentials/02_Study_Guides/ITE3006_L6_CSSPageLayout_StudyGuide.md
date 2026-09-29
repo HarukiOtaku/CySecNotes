@@ -44,6 +44,8 @@ Topic 6「Page Layout with CSS」係 Topic 4（CSS Fundamentals）嘅「升級�
 
 ### 3.1 版面分類：四種 Page Layout 策略
 
+➜ 實作見 ITE3006_Lab06_CodeGuide.md
+
 網頁版面之所以要分類，出發點好簡單：我哋可以按「頁面喺**唔同瀏覽器寬度**（手機 vs 桌面）下、或者用戶**縮放瀏覽器**時嘅反應」，去將版面分成唔同種類。考官最常考你嘅，就係要你**讀出四種 layout 嘅英文名、定義，同埋各自嘅優點缺點**。
 
 > "We classify web page layouts depends on how they behave when the page is viewed at different browser width (mobile devices vs desktops) or users may resize the browser."

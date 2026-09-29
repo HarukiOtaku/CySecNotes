@@ -407,4 +407,4 @@ function shipping_price(field) {
 
 ---
 
-*本 CodeGuide 依據教材 `ITE3006_Lab08.txt` 及原始碼 `01_Raw_Materials/Code/Topic08/lab/lab08_1.html`、`lab08_2.html` 整理，供 ITE3006 Web 實務測驗溫習用。*
+*本 CodeGuide 依據教材 `01_Raw_Materials/Labs/Lab08.pdf` 及原始碼 `01_Raw_Materials/Code/Topic08/lab/lab08_1.html`、`lab08_2.html` 整理，供 ITE3006 Web 實務測驗溫習用。*

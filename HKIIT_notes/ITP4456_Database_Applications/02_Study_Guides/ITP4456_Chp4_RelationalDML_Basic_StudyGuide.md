@@ -40,14 +40,14 @@
 
 繁中解說：本模組的整體學習成果係「執行資料庫操作，去實現資料模型，並喺應用程式中操作資料」——即係將 Chapter 2-3 設計好嘅 relational data model 用 DDL 實現之後，再用 DML 喺應用程式層面實際讀寫資料。本章就是 DML 嘅第一炮：Basic Data Manipulation。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "On completion of the module, students are expected to be able to: perform database operations to implement data models and manipulate data in the applications."
 
 #### 3.1.2 CRUD Operations（四大基本操作）
 
 繁中解說：本章所有 SQL 指令都可以歸入 **CRUD** 四大類。**Create**（建立）= `INSERT`；**Read**（讀取）= `SELECT`；**Update**（更新）= `UPDATE`；**Delete**（刪除）= `DELETE`。本章結構正正就係「Single Table Query（讀）」+「Insert, Update, Delete（寫）」。記住：`SELECT` 唔會改動資料庫任何資料，而 `INSERT`／`UPDATE`／`DELETE` 先至會實際修改（commit 後）資料。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "CRUD operations: Create (INSERT), Read (SELECT), Update (UPDATE), Delete (DELETE) — the four basic operations to store and manipulate data in a database."
 
 ### 3.2 Single Table Query — SELECT 查詢
@@ -66,7 +66,7 @@ FROM   TableName [alias] [, ...]
 
 繁中解說：逐個元素拆解——`SELECT` 後面可以揀 `DISTINCT`（去重）或 `ALL`（預設，保留全部）；輸出項目可以係 `*`（所有欄位）或者一連串 `columnExpression`（欄位、常數、算術表達式），每個都可以用 `AS newName` 改名。`FROM` 指定來源表（可加 alias 別名）。之後按固定順序：`WHERE` 篩選列 → `GROUP BY` 分組（可加 `HAVING` 篩選組）→ `ORDER BY` 排序。**GROUP BY / HAVING 本章只出現喺語法度，深入應用喺 Chapter 5**。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "The order of the clauses cannot be changed."
 > - "Only SELECT and FROM are mandatory; all other clauses (WHERE, GROUP BY, HAVING, ORDER BY) are optional."
 
@@ -82,7 +82,7 @@ FROM employee;
 SELECT * FROM employee;
 ```
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Can use * as an abbreviation for 'all columns'."
 
 #### 3.2.3 指定欄 × 全部列（Specific Columns, All Rows）
@@ -106,7 +106,7 @@ SELECT product_finish FROM product;
 SELECT DISTINCT product_finish FROM product;
 ```
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Use DISTINCT to eliminate duplicates."
 
 #### 3.2.5 計算（Computation）與 AS 別名
@@ -123,7 +123,7 @@ SELECT emp_id, firstname, lastname, salary/12 AS monthly_salary
 FROM employee;
 ```
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Show computation result only, not really update the records in the table."
 > - "To name column, use AS clause to create alias name."
 
@@ -141,7 +141,7 @@ SELECT * FROM customer
 WHERE city = 'Beijing' OR city = 'Macau';
 ```
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Comparison operators: >, >=, <, <=, =, <>, !=."
 
 #### 3.2.7 範圍搜尋條件（Range Search Condition）
@@ -158,7 +158,7 @@ SELECT * FROM employee
 WHERE salary BETWEEN 10000 AND 20000;
 ```
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "BETWEEN ... AND ... tests for a range of values, inclusive of the two boundary values."
 > - "Also a negated version: NOT BETWEEN ... AND ..."
 
@@ -176,7 +176,7 @@ SELECT * FROM employee
 WHERE title IN ('Manager', 'Secretary');
 ```
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "IN ( ... ) tests whether a value matches any member of a given set."
 > - "Also a negated version: NOT IN ( ... )"
 
@@ -192,7 +192,7 @@ WHERE product_name LIKE '%Drawer%';
 
 繁中解說：記住 `%` 同 `_` 嘅分別——`%` 可以配對零個字元（所以 `'%Drawer%'` 連名稱就係 "Drawer" 都配對到），而 `_` 一定要佔一個位置。例如 `LIKE '_a%'` 配對第二個字元係 'a' 嘅字串。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "SQL has two special pattern matching symbols: % : sequence of zero or more characters; _ : (underscore) any single character."
 > - "LIKE '%Drawer%' means a sequence of characters of any length containing 'Drawer'."
 > - "Also a negated version: NOT LIKE"
@@ -213,7 +213,7 @@ description = NULL    -- 錯誤：NULL 唔可以同 = 比較
 description = ""      -- 唔同："" 係空字串值，唔係無值
 ```
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Have to test for null explicitly using keyword IS NULL."
 > - "Both description = NULL and description = "" are NOT the same as IS NULL."
 > - "Negated version (IS NOT NULL) can test for non-null values."
@@ -234,7 +234,7 @@ FROM employee
 ORDER BY salary DESC;
 ```
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "ORDER BY sorts the result; ASC (ascending) is the default order, DESC sorts in descending order."
 
 #### 3.2.12 多欄排序（Multiple Column Ordering）
@@ -247,14 +247,14 @@ FROM employee
 ORDER BY title ASC, salary DESC;
 ```
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "ORDER BY title ASC, salary DESC: arrange in order of title first; then in descending order of salary."
 
 #### 3.2.13 日期函數 DATE() / YEAR() / MONTH() / DAY()
 
 繁中解說：SQL 提供日期處理函數，全部用嚟「提取」日期嘅某一部分。**`DATE()`** 由一個 date 或 datetime 表達式**抽出日期部分**；**`YEAR()`** 回傳年份，範圍 **1000 至 9999**；**`MONTH()`** 回傳月份，範圍 **1 至 12**（1 = 一月，12 = 十二月）；**`DAY()`** 回傳「當月第幾日」，範圍 **1 至 31**。考試常問三個範圍數字：YEAR 1000–9999、MONTH 1–12、DAY 1–31。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "DATE() function extracts the date part of the date or datetime expression."
 > - "YEAR() function returns the year for date, in the range 1000 to 9999."
 > - "MONTH() function returns the month for date, in the range 1 to 12 for January to December."
@@ -275,7 +275,7 @@ INSERT INTO tableName [ ( columnList ) ]
 VALUES ( dataValueList );
 ```
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "If columnList is omitted, SQL assumes a list of all columns in their original CREATE TABLE order."
 > - "Any columns omitted must have been declared as NULL when table was created, unless DEFAULT was specified when creating column."
 > - "dataValueList must match columnList: (1) number of items in each list must be same; (2) direct correspondence in position of items in two lists; (3) data type of each item in dataValueList must be compatible with data type of corresponding column."
@@ -314,7 +314,7 @@ INSERT INTO customer
 VALUES (21, 'Awesome Furniture', '110 Queens Road', NULL, NULL, NULL);
 ```
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Omitted columns must be nullable (declared NULL) or have a DEFAULT value defined at CREATE TABLE time."
 
 #### 3.3.4 UPDATE 語法與 SET / WHERE 角色
@@ -331,7 +331,7 @@ SET    columnName1 = dataValue1 [, columnName2 = dataValue2 ...]
 [WHERE searchCondition];
 ```
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "SET clause specifies names of one or more columns to be updated."
 > - "WHERE clause is optional: if omitted, named columns are updated for all rows in table; if specified, only those rows that satisfy searchCondition are updated."
 > - "New dataValue(s) must be compatible with data type for corresponding column."
@@ -372,7 +372,7 @@ DELETE FROM tableName
 [WHERE searchCondition];
 ```
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "tableName can be name of a base table or an updatable view."
 > - "WHERE clause is optional: if omitted, all rows are deleted from table; if specified, only those rows that satisfy searchCondition are deleted."
 

@@ -38,7 +38,7 @@
 
 繁中解說：電腦只有一個目的——為人類做事。但我們必須用它的語言（**Machine Code，機器語言**）來描述要做什麼（在 NLP 與 LLM 出現之前）。一般用戶（Users）很輕鬆：已經有人把很多程式（**Instructions，指令**）放進電腦，用戶只要選擇使用哪一個即可。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Computers are built for one purpose - to do things for us."
 > - "But we should speak their language (machine code) to describe what we want done."
 > - "Users have it easy - someone already put many different programs (instructions) into the computer, and users pick the ones they want to use."
@@ -47,7 +47,7 @@
 
 繁中解說：用戶把電腦視為一組工具（文書處理器、試算表、地圖、待辦清單、電郵等）；程式員（Programmers）則學習電腦的「思維方式」與電腦語言，並擁有「建造新工具」的工具。程式員有時為大量用戶寫工具，有時為自己寫小「helper」來自動化任務。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Users see computers as a set of tools - word processor, spreadsheet, maps, to-do list, email, etc."
 > - "Programmers learn the computer 'ways' and the computer language."
 > - "Programmers have some tools that allow them to build new tools."
@@ -56,7 +56,7 @@
 
 繁中解說：AI 可以縮短寫程式的知識差距：由 Prompt／自然語言生成程式碼、程式碼自動補全與建議、錯誤偵測與除錯。但初學者用 AI 生成「建議答案」時有潛在問題：(1) 建議答案是否正確？(2) 是否符合所有需求？(3) 是否含有漏洞（Vulnerabilities）？判斷這些都需要「知識（KNOWLEDGE）」——所以 IT 職位仍然不可或缺。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "How AI helps minimize the knowledge gap to write programs: prompt/natural language to code; code autocompletion and suggestions; error detection and debugging."
 > - "Potential problems: Is the suggested answer correct? Does the suggested answer fulfil all requirements? Does the suggested answer consist of vulnerabilities?"
 > - "Judgment requires KNOWLEDGE — IT posts are still essential."
@@ -65,7 +65,7 @@
 
 繁中解說：正確使用 AI 學習的方法包括：要求解釋錯誤訊息與可能原因、生成測試案例（test cases）檢查程式正確性、要求解釋而非直接給答案、要求針對建議答案的特定部分深入說明、要求提供可信參考來源、要求提供多個解決方案並比較。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Ask for an explanation of the error message and provide possible reasons."
 > - "Generate test cases for checking the correctness of your programs."
 > - "Ask for explanations instead of just providing an answer."
@@ -77,7 +77,7 @@
 
 繁中解說：Python 是流行的 **Scripting Language**（腳本語言），非常適合編程練習。分別兩個概念：**Programming**（程式設計）——通用語言，通常在執行（run）前被**編譯（Compiled）**成 machine code；**Scripting**（腳本）——通常用於自動化任務，執行時（runtime）直接執行而無需事先編譯。Python 的設計哲學強調**程式碼可讀性（Readability）**，其**語法（Syntax）**讓程式員用比 C++ 或 Java 更少的程式行表達概念。Python 支援多種**程式設計範式（Programming Paradigms）**：程序式（Procedural Programming）、函數式（Functional Programming）與物件導向（Object-Oriented Programming, OOP）。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Python is a popular scripting language and perfectly well-suited for our programming practices."
 > - "Programming: general-purpose languages, usually compiled into machine code before execution."
 > - "Scripting: typically used to automate tasks, usually run at runtime without prior compilation."
@@ -88,7 +88,7 @@
 
 繁中解說：Python 可從官方網站 `https://www.python.org/downloads/` 下載。執行 Python 有三種常見方式：(1) 開啟 **IDLE**（Python 官方整合式開發與學習環境，Integrated Development and Learning Environment），輸入程式碼按 Enter 即執行；(2) 開啟 Command Prompt，輸入 `python` 進入 Python Shell，輸入 `exit` 離開；(3) 用文字編輯器或 **IDE**（Integrated Development Environment，整合開發環境）寫成 Python 腳本檔（**.py file**），再用 `python` 指令執行該檔案。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Open IDLE (Official Integrated Development and Learning Environment for Python). Type the following code and press 'Enter' key."
 > - "Open Command Prompt. Enter 'python' to enter Python shell. Enter 'exit' to quit the shell."
 > - "Use a text editor or an IDE to write a Python program. Save it as a Python script file (.py file). Locate and execute the script file by 'python'."
@@ -97,7 +97,7 @@
 
 繁中解說：第一個程式由以下部分組成：`print` 這個字、左括號（opening parenthesis）、引號（quotation mark）、一行文字 `Hello, World!`、另一個引號、右括號（closing parenthesis）。`print` 是一個**函數（Function）**，`"Hello, World!"` 是它的**參數（Argument）**。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "The first program consists of: the word print; an opening parenthesis; a quotation mark; a line of text: Hello, World!; another quotation mark; a closing parenthesis."
 > - "Each of the above plays a very important role in the code."
 
@@ -105,7 +105,7 @@
 
 繁中解說：**Function** 是一段**可重用（Reusable）**的程式碼：接收可能的參數（Argument(s)）作為輸入值，進行一些計算（computation），並可能**傳回資料（Return data）**／輸出作為結果。`print()` 是**系統定義（System-defined）**函數，用於在螢幕上印出輸出；之後課程會學習自訂函數（User-defined functions）。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "A function is a reusable code that takes possible argument(s) as input values, does some computation, and may return data/output as a result."
 > - "print() is a system-defined function to print output on the screen."
 > - "We will learn how to create user-defined functions later."
@@ -114,7 +114,7 @@
 
 繁中解說：Python 有三個必須記住的重點：(1) **拼字要正確**（Correct spelling）——`student` ≠ `students`；(2) **區分大小寫（Case Sensitive）**——`student` ≠ `Student`；(3) **縮排（Indentation）分隔程式碼區塊**——同一層級縮排（4 空格／2 空格／1 個 Tab）的程式碼屬於同一 block，縮排不同代表不同層級。例如 `def func1()` 內 `print("A")` 與 `print("In the block")` 要同樣縮排，否則 Python 會視為 block 外的程式碼。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Python is case sensitive: student ≠ Student."
 > - "Code blocks are separated by indentation: 4 spaces / 2 spaces / 1 tab space for one level of indentation."
 
@@ -132,7 +132,7 @@
 | **Special** | `None` | Reserved word（保留字） |
 | **Collection** | List, tuple, dictionary, set | 之後章節再教 |
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "A literal is raw data given in a variable or value."
 > - "Numeric literals are written without quotes; string literals are written with quotes."
 > - "Boolean literals are True and False (reserved words); a special literal example is None (a reserved word)."
@@ -153,23 +153,25 @@ x = 100
 ```
 執行順序（Execution Order）由上至下：x 先存 12.2，y 存 14，最後 x 被改成 100。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "A variable is a named place in the memory where a programmer can store data and later retrieve the data using the variable name."
 > - "Programmers get to choose the names of the variables."
 > - "You can change the contents of a variable in a later statement."
 
 #### 3.4.2 Reserved Words（保留字）
 
-繁中解說：**不能用保留字作為自己的變數名稱／識別字（identifiers）**。Python 的保留字包括：`and  del  for  is  raise  assert  elif  from  lambda  return  break  else  global  not  try  class  except  if  or  while  continue  exec  import  pass  yield  def  finally  in  print  as  with`。
+繁中解說：**不能用保留字作為自己的變數名稱／識別字（identifiers）**。Python 的保留字包括：`False None True and as assert async await break class continue def del elif else except finally for from global if import in is lambda nonlocal not or pass raise return try while with yield`。
 
-> English Standard Definitions:
+> ⚠️ 原投影片（Lecture 1）沿用 Python 2 清單（含 exec／print）。Python 3 佢哋唔係關鍵字（實測：`print = 5` 編譯得過、`'print' in keyword.kwlist` → False）；考試若問 "list Python reserved words"，請用上面 Python 3 清單。
+
+> **English Standard Definition:**
 > - "You can NOT use reserved words as your own variable names / identifiers."
 
 #### 3.4.3 命名規則（Naming Rules）
 
 繁中解說：變數名稱可以包含字母（letters）、數字（numbers）或底線（underscores），但**不能以數字開頭**；名稱**區分大小寫**。好的名稱：`spam`、`eggs`、`spam23`、`_speed`；壞的名稱：`23spam`（數字開頭）、`#sign`（含 #）、`var.12`（含點號）。`spam`、`Spam`、`SPAM` 是三個不同的名稱。名稱應該**有意義（meaningful）**。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Names can consist of letters, numbers, or underscores, but cannot start with a number."
 > - "Python is case sensitive: spam, Spam, and SPAM are different names."
 > - "Variable names should be meaningful."
@@ -178,7 +180,7 @@ x = 100
 
 繁中解說：因為程式員可自選變數名稱，所以有「最佳實踐」：**用能幫助記憶的名稱**（"mnemonic" = "memory aid"，記憶輔助），例如用 `stuName` 記住它存放學生姓名。命名風格（Naming Styles）：**mixedCase**（如 `stuName`）與 **lower_case_with_underscores**（如 `student_name`）用於變數；**CapitalizedWords** 用於類別名稱（class name，如 `Student`）；**UPPERCASE** 用於固定值變數（作常數 constant 用，如 `DEFAULT_WARNING`）。`var1` 不是好名字，因為它沒有記憶提示作用。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "We name variables to help us remember what we intend to store in them ('mnemonic' means 'memory aid')."
 > - "Naming styles: mixedCase or lower_case_with_underscores for variables; CapitalizedWords for class names; UPPERCASE for variables with fixed value (used as a constant)."
 
@@ -188,14 +190,14 @@ x = 100
 
 繁中解說：**Statement** 是一行程式碼（line of code）。常見類型：**Expression statements**（表達式語句）、**Assignment statements**（賦值語句）、**Conditional statements**（條件語句，多種流程）、**Looping statements**（迴圈語句，重複）、**Function definition / class definition**（函數／類別定義）及其他。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Common types of statements: expression statements, assignment statements, conditional statements (multiple workflow), looping statements (repetition), function definition, class definition, and others."
 
 #### 3.5.2 Expression Statements（表達式語句）
 
 繁中解說：**Expression statements** 通常由左至右閱讀，**除非**有算術運算子（arithmetic operator）或括號（parentheses `()`）改變評估順序。例如：`print(1 + 2 - 3)` 由左至右計算 = **0**；`print(1 - (2 - 3))` 因括號先算 (2−3) = −1，所以 1 − (−1) = **2**。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Expression statements are usually read from left to right, unless an arithmetic operator or parentheses alter the order of evaluation."
 
 #### 3.5.3 Arithmetic Operations（算術運算）
@@ -207,12 +209,12 @@ x = 100
 | `+` | Addition | 加法 | 20 + 3 | 23 |
 | `-` | Subtraction | 減法 | 20 - 3 | 17 |
 | `*` | Multiplication | 乘法 | 20 * 3 | 60 |
-| `/` | Division | 除法 | 20 / 3 | 6.66666666 |
+| `/` | Division | 除法 | 20 / 3 | 6.666666666666667 |
 | `//` | Floor Division | 整除（取商） | 20 // 3 | 6 |
 | `**` | Exponentiation / Power | 指數（次方） | 20 ** 3 | 8000 |
 | `%` | Modulus / Remainder | 模數（取餘數） | 20 % 3 | 2 |
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Arithmetic operators include + (addition), - (subtraction), * (multiplication), / (division), // (floor division), ** (exponentiation), and % (modulus/remainder)."
 
 #### 3.5.4 Order of Evaluation（評估順序 / Operator Precedence）
@@ -224,15 +226,15 @@ x = 100
 2. `5 * 4 / 9` = 20 / 9 ≈ 2.2222222（乘除同級，由左至右）
 3. `7 + 6 - 2.2222222` = 13 − 2.2222222 ≈ **10.7777778**
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "When we use many operators together, Python must know which one to do first. This is called 'operator precedence'."
 > - "Parentheses are always respected; then exponentiation; then multiplication, division, and remainder; then addition and subtraction; and evaluation proceeds left to right."
 
 #### 3.5.5 Assignment Statements（賦值語句）
 
-繁中解說：**Assignment statement** 把一個值賦予（assign）變數——即把資料寫入（write data into）變數。**等號（=）右邊的 expression 會先被評估（evaluated first）**，其**結果才賦予／儲存到左邊的變數**。例：`x = 7 + 6 - 5 * 4 / 3 ** 2` 先計算右邊 = **10.7777778**，再把 10.7777778 存入 x。
+繁中解說：**Assignment statement** 把一個值賦予（assign）變數——即把資料寫入（write data into）變數。**等號（=）右邊的 expression 會先被評估（evaluated first）**，其**結果才賦予／儲存到左邊的變數**。例：`x = 7 + 6 - 5 * 4 / 3 ** 2` 先計算右邊 ≈ **10.7777778**，再把 ≈ 10.7777778 存入 x。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "We use assignment statements to assign a value to a variable — write data into the variable."
 > - "The expression on the right of the equal sign (=) is evaluated first, and its result is assigned to/stored in the variable on the left."
 
@@ -246,7 +248,7 @@ print(x)
 ```
 輸出：**4**（x 最後被賦值為 4，print 讀取目前的值）。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "In a single code block, statements are generally executed (run) sequentially from top to bottom."
 
 #### 3.5.7 變數的讀取與寫入（Variable's Read and Write）
@@ -259,14 +261,14 @@ print(x)
 ```
 執行步驟：先**讀取（Read）**變數 x 目前的值（2）→ 做算術 `2 * 100` = 200 → 把結果**寫入（Write）**回 x。輸出：**200**。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "In an assignment like x = x * 100, Python first reads the current value of x, performs the arithmetic, then writes the result back to x."
 
 ### 3.6 Comments（註釋）
 
 繁中解說：Python 中，**`#` 之後的所有內容都會被直譯器忽略（ignored）**。為甚麼要寫註釋？(1) 描述一段程式碼即將做甚麼；(2) 記錄誰寫了這段程式碼或其他附加資訊；(3) 暫時關閉某行程式碼（例如除錯時）。注意：雖然 Python 3 預設使用 UTF-8 編碼，但**建議註釋中避免包含中文字元**。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Anything after a # is ignored by the Python interpreter."
 > - "Why comment? Describe what is going to happen in a sequence of code; document who wrote the code or other ancillary information; turn off a line of code - perhaps temporarily."
 > - "Although Python 3 uses UTF-8 encoding by default, it is recommended to avoid including Chinese characters in comments."
@@ -316,9 +318,9 @@ print(x)
 
 1. **先理解觀念**：電腦只懂 machine code → 高階語言（Python）是橋樑 → Programming（編譯）vs Scripting（直譯）的分別；Users vs Programmers 的角色差異
 2. **背誦英文短語**：function / variable / literal / reserved word 的定義句；operator precedence 的完整順序句；"case sensitive"、"indentation separates code blocks" 等注意事項
-3. **掌握操作與計算**：安裝 Python → 在 IDLE / Python Shell / .py script 三種環境執行 `print("Hello, World!")`；心算 precedence 算例（`7 + 6 - 5 * 4 / 3 ** 2` → 10.7777778）；追蹤 variable read/write（`x = x * 100` → 200）
+3. **掌握操作與計算**：安裝 Python → 在 IDLE / Python Shell / .py script 三種環境執行 `print("Hello, World!")`；心算 precedence 算例（`7 + 6 - 5 * 4 / 3 ** 2` → ≈ 10.7777778）；追蹤 variable read/write（`x = x * 100` → 200）
 4. **能解答英文考題**：例如
-   - "What is the output of print(7 + 6 - 5 * 4 / 3 ** 2)?" → 10.7777778
+   - "What is the output of print(7 + 6 - 5 * 4 / 3 ** 2)?" → ≈ 10.7777778
    - "Which of the following is a valid variable name: 23spam, _speed, var.12, spam23?" → spam23 and _speed
    - "What is a literal? Give three types with examples." → 見 3.3.1
    - "Explain the difference between programming and scripting." → "Programming languages are usually compiled before execution, while scripts run at runtime without prior compilation."
@@ -333,7 +335,7 @@ print(x)
 | `+` | Addition 加法 | 23 |
 | `-` | Subtraction 減法 | 17 |
 | `*` | Multiplication 乘法 | 60 |
-| `/` | Division 除法 | 6.66666666 |
+| `/` | Division 除法 | 6.666666666666667 |
 | `//` | Floor Division 整除 | 6 |
 | `**` | Exponentiation 次方 | 8000 |
 | `%` | Modulus 餘數 | 2 |
@@ -344,7 +346,7 @@ print(x)
 3. Multiplication `*`, Division `/`, Remainder `%`（同級由左至右）
 4. Addition `+`, Subtraction `-`（同級由左至右）
 
-→ `7 + 6 - 5 * 4 / 3 ** 2` = **10.7777778**（必考算例）
+→ `7 + 6 - 5 * 4 / 3 ** 2` = ≈ **10.7777778**（必考算例）
 
 **Literal 五類型**
 

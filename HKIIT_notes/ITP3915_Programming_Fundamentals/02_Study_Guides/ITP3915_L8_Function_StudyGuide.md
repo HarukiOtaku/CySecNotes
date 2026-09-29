@@ -133,12 +133,14 @@ print(result)          # 螢幕輸出: None
 
 ```python
 # 引數按順序俾（positional）
-print("Ming", "_", "\t")        # 輸出: Ming_	（後面跟一個 tab）
+print("Ming", "_", "\t")        # 輸出: Ming _ 	（預設 sep=' ' 會加空格；尾隨一個 tab）
 # 引數用參數名稱俾（keyword arguments）
 print("Ming", end="\t", sep="_")  # 輸出: Ming	（以 tab 結尾）
 # 跳過可選參數
 print("Ming")                   # 輸出: Ming
 ```
+
+> ⚠️ 注意：`print("Ming", "_", "\t")` 嘅實際輸出係 `Ming _ \t`（repr = `'Ming _ \t\n'`）——三個引數之間預設用 `sep=' '`（單一空格）分隔，所以係 `Ming` + 空格 + `_` + 空格 + tab，唔係 `Ming_\t`。
 
 #### 3.6.2 使用回傳值（Using the return value）
 
@@ -420,7 +422,7 @@ Score: 50
 | 函數來源 | built-in（內建）／ user-defined（自訂） |
 | 函數四元素 | Name/Objectives、Input、Output、Process（I-P-O） |
 | 參數位置 | 括號 `()` 內，任何型別（object/string/int/list/dict） |
-| 有預設值嘅參數 | optional，可省略（例：`sep: str | None = " "`） |
+| 有預設值嘅參數 | optional，可省略（例：`sep: str \| None = " "`） |
 | 唔使輸入嘅函數 | 例：`exit()` |
 | `print()` 回傳 | `None`（唔回傳值） |
 | `round(123.456, 2)` | 回傳 `123.46` |
@@ -444,7 +446,7 @@ def 函數名(參數1, 參數2, 參數3):   # def + 名稱 + 括號 + 冒號
 result = 函數名(引數1, 引數2, 引數3)
 
 # 3. 引數兩種俾法
-print("Ming", "_", "\t")            # 按順序（positional）
+print("Ming", "_", "\t")            # 按順序（positional）→ 輸出 Ming _ \t（預設 sep=' '）
 print("Ming", end="\t", sep="_")    # 用參數名（keyword）
 
 # 4. 回傳值兩種用法

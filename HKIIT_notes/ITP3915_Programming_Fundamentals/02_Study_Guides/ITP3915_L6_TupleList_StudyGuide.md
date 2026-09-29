@@ -338,7 +338,7 @@ listFriends.index("Tim")
 
 ```
 Output / Error:
-ValueError: 'Tim' is not in list
+ValueError: list.index(x): x not in list   # 訊息文字視 Python 版本而異
 ```
 
 > **English Standard Definition:**
@@ -662,7 +662,7 @@ studentModuleGrade = {("Kelvin", "ITP3915"): "B"}    # Valid 有效
 > **English Standard Definition:**
 > Use a tuple instead of a list when the data should **not be changed** once created. A tuple can be used as a key in a dictionary because of its **hashable** and immutable nature, whereas a list **cannot** be used as a key because a list is mutable and cannot handle `__hash__()`.
 
-⚠️ 應考重點：`{("Kelvin", "ITP3915"): "B"}` 有效（tuple key）；`{["Kelvin", "ITP3915"]: "B"}` 會出 `TypeError: unhashable type: 'list'`。關鍵字：**hashable**、**immutable**、**`__hash__()`**。
+⚠️ 應考重點：`{("Kelvin", "ITP3915"): "B"}` 有效（tuple key）；`{["Kelvin", "ITP3915"]: "B"}` 會出 `TypeError: cannot use 'list' as a dict key (unhashable type: 'list')`（訊息文字視 Python 版本而異，舊版為 `TypeError: unhashable type: 'list'`）。關鍵字：**hashable**、**immutable**、**`__hash__()`**。
 
 ---
 

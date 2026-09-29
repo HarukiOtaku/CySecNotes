@@ -405,7 +405,7 @@ Router 開機好似電腦開機一樣有固定次序，記口訣「**POST → Bo
 - **(c) Source IP = 192.168.67.105**——`C0 A8 43 69` → C0=192、A8=168、43=67、69=105。
 - **(d) Destination IP = 172.26.111.90**——`AC 1A 6F 5A` → AC=172、1A=26、6F=111、5A=90。
 - **(e) Type of Service 辨識 Packet 嘅 priority（優先次序 / QoS）**。
-- **(f) Total Length 指成個 packet（IP header + data）嘅大小**。
+- **(f) Total Length 指 data portion（講義用語）**；⚠️ 技術上（RFC 791）係 IP header + data 總長——考卷跟講義答 data portion。
 - **(g) Protocol 指出 upper-layer protocol（上層協議，例如 TCP / UDP）**——呢個 Frame 入面係 `11`（Hex）= 17 = **UDP**。
 
 **🧠 答題邏輯 (Reasoning):**
@@ -416,7 +416,7 @@ Router 開機好似電腦開機一樣有固定次序，記口訣「**POST → Bo
 |---|---|---|---|
 | Version / IHL | 1 byte | `45` | Version 4，IHL 5（×4 = 20 bytes） |
 | Type of Service | 1 byte | `FF` | 優先級 / QoS |
-| Total Length | 2 bytes | `12 34` | = 0x1234 = **4660 bytes**（Header + Data 總長） |
+| Total Length | 2 bytes | `12 34` | = 0x1234 = **4660 bytes**（講義用語：data portion；技術上＝header + data 總長） |
 | Identification | 2 bytes | `23 76` | 封包識別碼 |
 | Flags / Fragment Offset | 2 bytes | `40 00` | 分割控制 |
 | Time To Live (TTL) | 1 byte | `64` | = **100**（減到 0 丟棄） |

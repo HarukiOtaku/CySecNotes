@@ -3,7 +3,7 @@
 > **覆蓋範圍**：Lecture 0 Number Systems（Module 5）／ Lecture 1 Networking Today（Module 1）／ T3 Network Models（OSI & TCP/IP）／ T4 Network Access（Physical & Data Link）／ T5 Ethernet（ARP、Switch、Frame）／ T6 Network Layer（Routing、IPv4/IPv6 Header）／ T7 IPv4 Addressing & Subnetting（VLSM）／ T8 & L8 IPv6 Addressing ／ T9 Transport Layer（TCP／UDP）／ T10 Application Layer（HTTP／DNS／DHCP／Email／FTP）／ L3 Network Models（Module 3）／ L4 Network Access（Module 4 & 6）／ L5 Ethernet（Module 7）／ L6 Network Layer（Router）／ L7 IPv4 Addressing（Module 11）／ L9 Transport Layer（Module 14）／ L10 Application Layer（Module 15）
 > **使用時機**：考試前 5–10 分鐘快速掃描；只保留「關鍵數字、對比表、英文口訣」。
 > 詳細解說請回查：`02_Study_Guides/` 內對應各課的 Study Guide（⚠️ 正確資料夾名係 `02_Study_Guides`，唔好寫錯成任何加咗 AI 字樣嘅變體）
-> ⚠️ 本檔只寫「理論」；Packet Tracer 情境、Cisco IOS 指令、Windows 指令速查由另一章負責（緊接本檔之後）。
+> ⚠️ 本檔只寫「理論」；Packet Tracer 情境、Cisco IOS 指令、Windows 指令速查見本檔其後「Cisco IOS 指令速查」一節。
 
 **速覽目錄**：P1 Number Systems｜P2 Networking Today｜P3 Network Models（OSI／TCP-IP）｜P4 Network Access｜P5 Ethernet｜P6 Network Layer｜P7 IPv4 Addressing & Subnetting｜P8 IPv6 Addressing｜P9 Transport Layer｜P10 Application Layer｜P11 Network Models｜P12 Network Access｜P13 Ethernet｜P14 Network Layer｜P15 IPv4 Addressing｜P16 Transport Layer｜P17 Application Layer｜英文極速記憶句｜最後 60 秒自測清單
 
@@ -75,7 +75,7 @@
 | 頻寬 | 高 | 通常較慢 |
 | 角色 | 連接 users／end devices | 連接 LAN 與 LAN（連接其他網絡） |
 
-### 2.3 可靠網絡四大特性（英文口訣：FSSS）
+### 2.3 可靠網絡四大特性（英文口訣：FSQS）
 
 | 特性 | 招牌關鍵字 | 英文關鍵句 |
 |---|---|---|
@@ -442,7 +442,7 @@
 |---|---|---|---|
 | Version / IHL | 1 byte | `45` | Version 4；IHL 5（× 4 = **20 bytes** header） |
 | Type of Service | 1 byte | `FF` | 標示 packet 嘅 **priority**（QoS） |
-| Total Length | 2 bytes | `12 34` | 成個 packet（header + data）大小 |
+| Total Length | 2 bytes | `12 34` | **data portion**（講義用語）；技術上（RFC 791）＝ header + data 總長 |
 | TTL | 1 byte | `64` | = **100**（decimal） |
 | Protocol | 1 byte | `11` | = **17 = UDP**（**6 = TCP**） |
 | Source IP | 4 bytes | `C0 A8 43 69` | **192.168.67.105** |
@@ -1157,7 +1157,7 @@
 | 欄位 | 內容 |
 |---|---|
 | **IHL / Header Length** | 以 **4-byte word** 為單位；最小 = **5 → 5 × 4 = 20 bytes** |
-| **Total Length** | 係 **packet 資料部分**嘅大小（⚠️ 唔係 header 長度） |
+| **Total Length** | 係 **data portion**（講義用語）；技術上（RFC 791）＝ header + data 總長（⚠️ 唔係 header 長度） |
 | **TTL (Time To Live)** | 每跳減 1，防止 packet 喺 routing loop 內兜 |
 | **Protocol** | 下一個上層協議：**1 = ICMP、6 = TCP、17 = UDP** |
 
@@ -1403,7 +1403,7 @@ TCP    192.168.1.124:3166     www.cisco.com:http         ESTABLISHED
 - "TCP is a connection-oriented protocol that establishes a session before forwarding any traffic."
 - "UDP is a connectionless, best-effort protocol with very little overhead and data checking."
 - "A socket is a combination of the Transport layer port number and Network layer IP address."
-- "The three-way handshake is SYN, SYN, ACK, and ACK."
+- "The three-way handshake is SYN, SYN-ACK, and ACK."
 - "TCP session termination uses four steps: FIN, ACK, FIN, ACK."
 - "The acknowledgement number indicates the next byte expected by the receiver."
 - "Well-known ports are 0 to 1,023; registered ports are 1,024 to 49,151 and private ports are 49,152 to 65,535."
@@ -1488,7 +1488,7 @@ TCP    192.168.1.124:3166     www.cisco.com:http         ESTABLISHED
 
 ## Cisco IOS 指令速查（Packet Tracer 實作必備）
 
-> 指令逐字取自 ITE3102 PT0–PT11 CodeGuide 及原始 PT 教材（`01_Raw_Materials/PacketTracer` 內 .docx／.txt），冇自行改寫語法。
+> 指令逐字取自 ITE3102 PT0／PT4／PT5／PT6／PT9／PT10_DNS_DHCP／PT10_FTP／PT10_WebEmail／PT11 CodeGuide 及原始 PT 教材（`01_Raw_Materials/PacketTracer` 內 .docx／.txt），冇自行改寫語法。
 
 ### A. 設備基本設定（來源：PT6／PT11 CodeGuide、RouterConfig_supp.txt、PT6.1 Router configuration.txt）
 
@@ -1503,7 +1503,18 @@ TCP    192.168.1.124:3166     www.cisco.com:http         ESTABLISHED
 
 登入流程：`R1>` → `enable` → 輸入 privileged EXEC password `class` → 到 `R1#`（PT6.1 教材：console password = `cisco`）。
 
-`line console 0`／`password`／`login`／`banner`／`service password-encryption` 設定指令：所有源頭筆記都冇提供（源頭筆記未提及）。
+`banner`、`password`（明文）指令源頭筆記未提供；其餘（`login`、`service password-encryption`、`enable`、`copy running-config startup-config`）見 `ITE3102_T6_Network_StudyGuide.md` **Q3**。
+
+```
+line console 0        ! 進入 console line 配置模式
+password cisco        ! 設 console 密碼（明文）
+login                 ! 開登入驗證（必須配 password 才生效）
+line vty 0 4          ! 進入 VTY（Telnet/SSH）線路模式
+service password-encryption  ! 將所有明文密碼加密儲存
+copy running-config startup-config  ! 把 running-config 存入 NVRAM
+```
+
+*（來源：T6 題解 Q3）*
 
 ### B. Interface 與 IPv4／IPv6 定址（來源：PT0／PT6／PT11 CodeGuide、RouterConfig_supp.txt）
 
@@ -1707,7 +1718,7 @@ R1(config)# ipv6 unicast-routing                       ! Router 轉發 IPv6 必�
 | "Every 4 bits is represented by a single hexadecimal digit." | hex ↔ binary 一步互換（nibble）。 |
 | "The internet is not owned by any individual or group." | Internet 無單一擁有者。 |
 | "Intermediary devices interconnect end devices and regenerate and retransmit data signals." | 中介裝置嘅角色。 |
-| "Fault tolerance ensures the network is always available by allowing data to travel through more than one route." | FSSS 之 F 嘅標準定義。 |
+| "Fault tolerance ensures the network is always available by allowing data to travel through more than one route." | FSQS 之 F 嘅標準定義。 |
 | "QoS implements priority queues when demand for network bandwidth exceeds supply." | QoS 用優先佇列處理擠塞。 |
 | "Confidentiality means only the intended and authorized recipients can access and read the data." | Confidentiality 嘅定義。 |
 | "Integrity ensures information has not been altered in transmission, from origin to destination." | Integrity 嘅定義。 |
@@ -1753,7 +1764,7 @@ R1(config)# ipv6 unicast-routing                       ! Router 轉發 IPv6 必�
 - [ ] P1：能講出寫 IPv4 binary 時必須保留 leading zeros（5 = 00000101）
 - [ ] P2：能列出三大網絡組件同各自嘅一句功能（interface／regenerate and retransmit／channel）
 - [ ] P2：能講出 LAN vs WAN 嘅分別（small vs wide geographical area）
-- [ ] P2：能背出四大架構要求 FSSS 同各自嘅招牌關鍵字（more than one route／standards／priority queues／protected）
+- [ ] P2：能背出四大架構要求 FSQS 同各自嘅招牌關鍵字（more than one route／standards／priority queues／protected）
 - [ ] P2：能分辨 Internet／Intranet／Extranet，並講出 CIA 三要素
 - [ ] P3：能由頂至底背出 OSI 7 層同 TCP/IP 4 層，並講出兩者嘅合併關係
 - [ ] P3：能把 HTTP／DNS／SMTP／TCP／UDP／IP／ICMP／Ethernet 歸入正確層
@@ -1810,4 +1821,6 @@ R1(config)# ipv6 unicast-routing                       ! Router 轉發 IPv6 必�
 - [ ] P10：能用三步判斷 DNS 情境（設定指對／記錄存在／IP 正確）
 - [ ] P10：能分辨 Client-Server／P2P Network／P2P Application 同四個 P2P 特性
 
-*詳細版：`02_Study_Guides/` 內 `ITE3102_L0_NumberSystems_StudyGuide.md`、`ITE3102_T0_Numbers_StudyGuide.md`、`ITE3102_L1_NetworkingToday_StudyGuide.md`、`ITE3102_T1_NetworkToday_StudyGuide.md`、`ITE3102_T3_Models_StudyGuide.md`、`ITE3102_T4_NetworkAccess_StudyGuide.md`、`ITE3102_T5_Ethernet_StudyGuide.md`、`ITE3102_T6_Network_StudyGuide.md`、`ITE3102_T7_IPv4Addressing_StudyGuide.md`、`ITE3102_L8_IPv6Addressing_StudyGuide.md`、`ITE3102_T8_IPv6Addressing_StudyGuide.md`、`ITE3102_T9_Transport_StudyGuide.md`、`ITE3102_T10_Application_StudyGuide.md`*
+*詳細版：`02_Study_Guides/` 內 `ITE3102_L0_NumberSystems_StudyGuide.md`、`ITE3102_T0_Numbers_StudyGuide.md`、`ITE3102_L1_NetworkingToday_StudyGuide.md`、`ITE3102_T1_NetworkToday_StudyGuide.md`、`ITE3102_T3_Models_StudyGuide.md`、`ITE3102_T4_NetworkAccess_StudyGuide.md`、`ITE3102_T5_Ethernet_StudyGuide.md`、`ITE3102_T6_Network_StudyGuide.md`、`ITE3102_T7_IPv4Addressing_StudyGuide.md`、`ITE3102_L8_IPv6Addressing_StudyGuide.md`、`ITE3102_T8_IPv6Addressing_StudyGuide.md`、`ITE3102_T9_Transport_StudyGuide.md`、`ITE3102_T10_Application_StudyGuide.md`、`ITE3102_L3_NetworkModels_StudyGuide.md`、`ITE3102_L4_NetworkAccess_StudyGuide.md`、`ITE3102_L5_Ethernet_StudyGuide.md`、`ITE3102_L6_NetworkLayer_StudyGuide.md`、`ITE3102_L7_IPv4Addressing_StudyGuide.md`、`ITE3102_L9_TransportLayer_StudyGuide.md`、`ITE3102_L10_ApplicationLayer_StudyGuide.md`*
+
+*PT CodeGuide（`02_Study_Guides/` 內實際存在）：`ITE3102_PT0_NetworkRepresentations_CodeGuide.md`、`ITE3102_PT4_LAN_Setup_CodeGuide.md`、`ITE3102_PT5_ARP_CodeGuide.md`、`ITE3102_PT6_RouterToLAN_CodeGuide.md`、`ITE3102_PT9_TCP_UDP_CodeGuide.md`、`ITE3102_PT10_DNS_DHCP_CodeGuide.md`、`ITE3102_PT10_FTP_CodeGuide.md`、`ITE3102_PT10_WebEmail_CodeGuide.md`、`ITE3102_PT11_Subnetting_CodeGuide.md`*

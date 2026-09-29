@@ -121,7 +121,7 @@ Part 1 Ch1 導論｜Part 2 Ch2 Relational Data Model｜Part 3 Ch3 Relational DDL
 
 | 類別 | 型別 | 必記關鍵 |
 |---|---|---|
-| 整數 | BIT、TINYINT、SMALLINT、MEDIUMINT、INT、BIGINT | 儲存 **1／2／3／4／8 bytes**；TINYINT signed −128~127、unsigned 0~255 |
+| 整數 | BIT、TINYINT、SMALLINT、MEDIUMINT、INT、BIGINT | 儲存 **1／2／3／4／8 bytes**（**BIT：1 bit**，唔係 1 byte）；TINYINT signed −128~127、unsigned 0~255 |
 | 小數 | `DECIMAL(M,D)`、`FLOAT(p)` | M = 總位數 **1–65**、D = 小數位 **1–30**；FLOAT(p)：**p 0–23 → 4-byte FLOAT；p 24–53 → 8-byte DOUBLE** |
 | 日期時間 | DATE、DATETIME、TIMESTAMP、TIME、YEAR | **TIMESTAMP 上限 2038-01-19 03:14:07 UTC**（Year 2038 problem）；YEAR 範圍 **1901–2155** |
 | 字串 | `CHAR(M)`、`VARCHAR(M)`、TEXT 系列、BLOB 系列 | **CHAR 固定長 0–255；VARCHAR 可變長 0–65,535**；TEXT 存文字、BLOB 存二進位（如檔案） |
@@ -226,7 +226,7 @@ FROM   TableName [alias] [, ...]
 | 2. **Child IDs in parent** | 子文件放獨立 collection，父文件儲存子文件 ID | 要 | **要額外查詢（MongoDB 冇 JOIN）** |
 | 3. **Parent ID in child** | 子文件儲存父文件 ID（如 `programmeId`） | 要 | 由父查所有子仍要額外查詢 |
 
-**6.6 BSON 類型編號必背**：「1 2 3 4 5，7 8 9 10 11，13，16 17 18 19；負一同百廿七」（6、12、14、15 冇編號）。
+**6.6 BSON 類型編號必背**：「1 2 3 4 5，7 8 9 10 11，13，16 17 18 19；負一同百廿七」（6、12、14、15 係已棄用（deprecated）型別，教材表未收錄）。
 
 | Type | No. | Alias | Type | No. | Alias |
 |---|---|---|---|---|---|
@@ -419,7 +419,7 @@ UNF:  Invoice ( invNo, invDate, custID, custName, custContact, itemNo, descripti
 
 | 元素 | 寫法 |
 |---|---|
-| 欄位基本格式 | `column_name data_type [NOT NULL | NULL]`（未寫 = 當作 NULL） |
+| 欄位基本格式 | `column_name data_type [NOT NULL \| NULL]`（未寫 = 當作 NULL） |
 | 主鍵／複合主鍵 | `PRIMARY KEY (order_id);` ／ `PRIMARY KEY (order_id, product_id);` |
 | 具名外鍵 | `CONSTRAINT fk_name FOREIGN KEY (col) REFERENCES T (col)` |
 | 自動遞增主鍵 | `order_id SMALLINT NOT NULL AUTO_INCREMENT,` |
@@ -583,7 +583,7 @@ db.Orders.aggregate([
 - [ ] 能講出 WHERE（過濾列）vs HAVING（過濾群組）以及子句邏輯執行順序
 - [ ] 能寫出 INNER JOIN 兩種等價寫法 + 三表 join + 別名用法，並講出 UNION 三大要求與「join 橫向、UNION 縱向」的分別
 - [ ] 能默寫 NoSQL 四類型定義句（口訣 KDWG）與 Collection = Table、Document = Row、Field = Column 對照
-- [ ] 能講出 BSON 編碼 type + length、`_id` 自動生成 ObjectId，並默寫 BSON 類型編號（2／3／4／7／8／9／16／18／19）
+- [ ] 能講出 BSON 編碼 type + length、`_id` 自動生成 ObjectId，並默寫 BSON 類型編號（2／3／4／7／8／9／11／13／16／17／18／19；11 = Regular Expression／Regex、13 = JavaScript、17 = Timestamp）
 - [ ] 能分辨 `Date()`（字串）vs `new Date(...)`／`ISODate(...)`（Date object）
 - [ ] 能講出文件關係三方法，並答出 child IDs in parent 的最大缺點（額外查詢、冇 JOIN）
 - [ ] 能講出 find() 條件在前、投影在後、MongoDB 大小寫敏感，以及 `{ field: null }` vs `{ $exists: false }`、`$in` vs `$or`

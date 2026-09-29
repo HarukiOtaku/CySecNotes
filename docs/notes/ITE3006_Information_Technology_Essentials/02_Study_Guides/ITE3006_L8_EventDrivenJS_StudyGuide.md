@@ -31,6 +31,8 @@
 
 ### 3.1 甚麼是事件（Event）？甚麼是事件處理器（Event Handler）？
 
+➜ 實作見 ITE3006_Lab08_CodeGuide.md
+
 Event-Driven JavaScript 的運作模式是：**網頁先「等待」用戶動作，動作一發生便「觸發」相應 JavaScript 程式碼執行**。這個用戶動作就是 Event，而負責回應事件的 JavaScript 程式碼稱為 Event Handler。
 
 > **English Standard Definition:** An event is a user action occurring inside the browser that triggers the execution of JavaScript. Events can be clicking a button or moving the mouse.

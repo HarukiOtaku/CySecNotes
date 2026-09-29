@@ -6,6 +6,8 @@
 
 ## 🎯 Lab 目標與環境 (Objectives & Environment)
 
+**存檔提醒：** 儲存檔案名依原題要求為 `ex1a.html`。
+
 ### 本 Lab 要掌握嘅實務技能
 
 考官（Practical Test）會直接要你用純 HTML 砌一個「有合併儲存格嘅 table」，本 Lab 就係全套訓練。要掌握嘅技能：

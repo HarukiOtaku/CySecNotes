@@ -83,7 +83,7 @@
 - **十進制 → 二進制（比較法）**：由最大位置值 128 開始逐位比較，夠大就記 1 並減去該值，否則記 0。例：13 ≥ 8 記 1（餘 5）→ 5 ≥ 4 記 1（餘 1）→ 1 ≥ 2 記 0 → 1 ≥ 1 記 1 → 得 `1101`。
 - **二進制 → 十六進制（Nibble 法）**：由最右邊開始，每 4 個 bit 分一組（一組叫一個 **Nibble**），每組直接對應 1 個 hex digit。例：`1101` = D（查上表 13 = D）。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "The binary numbering system consists of 1s and 0s, called bits."
 > - "In binary positional notation, the position values are 128, 64, 32, 16, 8, 4, 2, 1 (from 2⁷ to 2⁰)."
 > - "Hexadecimal uses the digits 0–9 and the letters A–F, where A = 10, B = 11, C = 12, D = 13, E = 14, and F = 15."
@@ -121,7 +121,7 @@ Hex → Decimal 有兩種方法：
 
 提一提：呢幾個數值其實係網絡上常見嘅 **Subnet Mask** octet（例如 `/28` 遮罩 `255.255.255.240` 入面就有 240；`252` 係 `/30` 遮罩用嘅值），熟習佢哋對之後 Subnetting 好有用。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Convert each hexadecimal digit into its 4-bit binary equivalent, then join the nibbles together."
 > - "To convert a two-digit hexadecimal number to decimal, multiply the first digit by 16 and add the second digit (XY = X×16 + Y)."
 
@@ -163,7 +163,7 @@ Binary → Decimal 用位置值求和（128 64 32 16 8 4 2 1）：
 
 **考試小貼士**：`0111 1111` = 127（同 Loopback 地址 `127.0.0.1` 有關）、`1111 1111` = 255 = `FF`（即 Subnet Mask 嘅全 1 octet）。記住「4 個 1 = F」呢個對應，可以幫你一眼睇出答案。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Group the binary digits into nibbles of four, starting from the rightmost bit, and convert each nibble to its hexadecimal digit."
 > - "To convert binary to decimal, add together the positional values (128, 64, 32, 16, 8, 4, 2, 1) where the bit is 1."
 
@@ -209,7 +209,7 @@ Binary → Decimal 用位置值求和（128 64 32 16 8 4 2 1）：
 
 **檢查技巧**：轉完之後由 binary 反推返 decimal，睇下係咪一致；特別留意有冇漏咗 leading zeros（例如 5 一定要寫成 `00000101`，唔可以寫 `101`）。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "An IPv4 address is 32 bits long and is divided into four 8-bit sections called octets."
 > - "Convert each decimal octet into 8 binary bits, keeping any leading zeros, and join the octets with dots."
 > - "Each octet is written with exactly 8 bits, so the complete address is always 32 bits."
@@ -250,7 +250,7 @@ Binary → Decimal 用位置值求和（128 64 32 16 8 4 2 1）：
 
 **常見陷阱**：最後一組 `1010` 係「十六進制」嘅寫法（等於十進制 4112），唔係二進制 `1010`（等於十進制 10）！做呢類題目時要分清楚「邊個位數係 hex、邊個係 binary」，呢個正正係考你對進制嘅敏感度。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "An IPv6 address is 128 bits in length, written in hexadecimal as eight groups of four digits separated by colons."
 > - "Every 4 bits is represented by a single hexadecimal digit, so 32 hexadecimal digits represent 128 bits."
 > - "The first hexadecimal digit of the address is A, which equals the 4 binary bits 1010."

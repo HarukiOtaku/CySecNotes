@@ -125,6 +125,8 @@ p {
 
 ### 3.6 將樣式加入 HTML 嘅三種方法（Adding Styles to HTML）
 
+➜ 實作見 ITE3006_Lab04_CodeGuide.md
+
 CSS 可以透過三個層次加入 HTML，由「最局部」到「最全局」：
 
 | 方法 | 位置 | 影響範圍 |

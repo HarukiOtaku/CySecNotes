@@ -295,6 +295,8 @@ CREATE TABLE Order_line (
 );
 ```
 
+> ⚠️ 本段為輔助示範，型別（SMALLINT／CHAR(2)／TIMESTAMP）與 Chp3 教材 DDL（MEDIUMINT／state CHAR(2) 等）略有不同，作答以課堂題目為準。
+
 > **Exam Tip:** 記熟「**Child table 加 FK**」這一句。判定誰是 child：在 1:M 中，「多」的一方是 child；在 M:N 中，中間表是 child。
 
 ---
@@ -487,7 +489,9 @@ InvoiceItem ( invNo, itemNo, qty )                  ← description、unitPrice 
 
 **Transitive Dependency（遞移相依）：**
 
-> "A transitive dependency exists when no non-key attribute is dependent on another non-key attribute — i.e., a functional dependency between two non-key attributes, with which an intermediate dependency is involved."
+> "A transitive dependency exists when a non-key attribute is dependent on another non-key attribute — i.e., a functional dependency between two non-key attributes, with which an intermediate dependency is involved."
+
+> ⚠️ 原教材（Chp9 P.34）該句誤加 "No" 字；正確定義見本檔下表。
 
 一般式：**R ( X, Y, Z )**，其中：
 - `X → Y → Z`：Z 依賴 Y，Y 依賴 X；

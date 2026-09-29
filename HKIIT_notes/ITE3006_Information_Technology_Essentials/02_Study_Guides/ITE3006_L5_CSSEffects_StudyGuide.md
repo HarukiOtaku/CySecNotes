@@ -141,6 +141,8 @@ CSS3 另一個設計特點係**模組化（split into "modules"）**：CSS3 唔�
 
 ### 3.4 Box Model（盒模型）
 
+➜ 實作見 ITE3006_Lab05_CodeGuide.md
+
 Box Model 係成個 CSS 佈局嘅基石。佢嘅作用係**設定 HTML 元素嘅外觀同網頁嘅排版（set the appearance of HTML elements and the layout of a web page）**。概念好簡單：瀏覽器眼中嘅**每一個元素都係一個長方形盒仔**，而盒模型就係描述呢個盒仔點樣由內至外包含四層嘢——**content（內容）**、**padding（內距）**、**border（邊框）**、**margin（外距）**。
 
 > "The box model can be used to set the appearance of HTML elements and the layout of a web page."

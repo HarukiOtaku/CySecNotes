@@ -41,7 +41,7 @@
 
 繁中解說：MongoDB 的 **aggregation（聚合）** 意思是「把資料收集起來並做摘要統計」。實現聚合的引擎是 **aggregation pipeline（聚合管道）**：它是一條**依序執行**的處理流水線，可以對資料做**過濾（filter）、排序（sort）、分組（group）、重塑（reshape）與分析（analyze）**，而最關鍵的特性是——**管道任何時刻都不會修改集合內既有的資料**，所有轉變都發生在「流經管道的結果」上。管道由一個或多個 **stage（階段）** 組成，每個 stage 都是一個內建方法（built-in method），例如 `$match`、`$group`、`$project`、`$lookup`；上一個 stage 的輸出會原封不動成為下一個 stage 的輸入。語法上，`db.<collection>.aggregate(...)` 的參數可以是一個 stage 物件，亦可以是由多個 stage 組成的陣列。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Aggregation: Collection and summary of data."
 > - "Aggregation Pipeline: A way to filter, sort, group, reshape, and analyze data without changing any data in your collection."
 > - "Stage: One of the built-in methods that can be completed on the data, but does not permanently alter it."
@@ -78,14 +78,14 @@ db.Employee.aggregate([{ $match: { title: "Sales" } }]);
 SELECT * FROM Employee WHERE title = "Sales";
 ```
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "`$match` filters the documents, passing only those that match the specified condition to the next stage."
 > - "`$match` is the MongoDB equivalent of the SQL `WHERE` clause."
 > - "The `aggregate()` method accepts either a single stage object or an array of stage objects."
 
 > 地雷提醒：`$match` 的條件寫法與 `find()` 完全一致——包括比較運算子（如 `{ salary: { $gt: 10000 } }`）與正則表達式（如 `{ product_finish: /Ash/ }`），均可直接使用。
 
-### 3.4 統計文件數量（Number of Collections）
+### 3.4 統計文件數量（Number of Documents）
 
 繁中解說：要數「符合條件的文件有多少份」，有兩種等價寫法：`db.<TableName>.find({ condition }).count()` 或 `db.<TableName>.count({ condition })`。兩種寫法都只回傳一個數字。
 
@@ -101,7 +101,7 @@ db.Employee.count({ salary: { $gt: 10000 } });
 // 結果：4
 ```
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Use `.find(condition).count()` or `.count(condition)` to return the number of documents that match the condition."
 > - "`$gt` is the MongoDB comparison operator for greater than."
 
@@ -134,7 +134,7 @@ db.Product.aggregate({
 SELECT null AS _id, SUM(unit_price) AS Total FROM Product;
 ```
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "`$group` groups documents by the value of the `_id` field and computes aggregate values for each group."
 > - "`_id: null` treats the whole collection as a single group."
 > - "`"$field"` refers to the value of the field of the document."
@@ -164,7 +164,7 @@ db.Product.aggregate({
 //   Max: NumberDecimal("800"), Min: NumberDecimal("175") } ]
 ```
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "`$sum: 1` adds 1 for each document and is used to count the documents in a group."
 > - "`$avg`, `$max` and `$min` return the average, maximum and minimum values of the specified field in each group."
 > - "A single `$group` stage can compute several aggregate fields at the same time."
@@ -197,7 +197,7 @@ FROM Product
 GROUP BY product_finish;
 ```
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "To group by a field, set `_id` to `"$fieldName"` — each distinct value of that field becomes one group."
 > - "`$group` with `_id: "$product_finish"` is the MongoDB equivalent of `GROUP BY product_finish` in SQL."
 
@@ -228,7 +228,7 @@ WHERE product_finish LIKE "%Ash%"
 GROUP BY product_finish;
 ```
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "`$match` placed before `$group` filters the documents before grouping — it is the equivalent of the SQL `WHERE` clause."
 > - "A regex pattern such as `/Ash/` matches field values that contain 'Ash', equivalent to `LIKE "%Ash%"` in SQL."
 
@@ -270,7 +270,7 @@ GROUP BY product_finish
 HAVING Total > 1000;
 ```
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Stages are executed in order: the output of one stage is the input of the next stage."
 > - "A `$match` before `$group` cannot reference a field computed by the aggregation, because that field does not exist yet in the documents."
 > - "To filter groups by an aggregated value such as `Total`, place a second `$match` after the `$group` stage."
@@ -305,7 +305,7 @@ db.Orders.aggregate([
 // ]
 ```
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "`$project` reshapes each document: it selects which fields to pass to the next stage and can compute new fields from existing ones."
 > - "The embedded array `order_line` is not a single value — use `$sum: "$order_line.quantity"` to add up the `quantity` values of all elements inside it."
 > - "You cannot use `$group` on an embedded document at the first stage; use `$project` first to flatten or compute the embedded fields."
@@ -331,7 +331,7 @@ db.Orders.aggregate([
 // 結果：[ { total: 45 } ]
 ```
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "`{ $project: { _id: 0 } }` removes the `_id` field from the output documents."
 > - "A pipeline can chain `$project` → `$group` → `$project` to compute, summarize and then tidy up the output shape."
 
@@ -411,7 +411,7 @@ db.Orders.aggregate([
 // } ]
 ```
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "`$lookup` performs a left outer join with another collection and adds the matched documents as an array field."
 > - "`from` names the collection to join; `localField` is the foreign key in the current collection; `foreignField` is the primary key in the target collection; `as` is the name of the output array field."
 > - "The result of `$lookup` is always an array, even when only one document matches."

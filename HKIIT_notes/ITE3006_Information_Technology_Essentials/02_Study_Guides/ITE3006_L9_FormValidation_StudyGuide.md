@@ -39,6 +39,8 @@
 
 ### 3.1 點解需要表單驗證：Client-side 與 Server-side 嘅分工
 
+➜ 實作見 ITE3006_Lab09_CodeGuide.md
+
 HTML form 嘅用途係收集資料，等 web server 處理。教材開宗明義指出：**部分 validation rules 屬於 business specific，只能喺 server side 應用**（例如檢查信用卡號碼係咪真實、戶口有冇重複註冊——呢啲需要資料庫或商業邏輯）；**但同時，部分基本驗證任務好容易喺 browser 上用 HTML5 features 或者 JavaScript 完成**（例如必填、email 格式、數字範圍）。
 
 > **English Standard Definition:** "An HTML input form is expected to collect data that the web server will process. Some validation rules are business specific and can only be applied on the server side, but at the same time certain basic validation tasks can be easily done on the browser using HTML5 features or JavaScript."
@@ -182,7 +184,7 @@ HTML5 包含一套穩固嘅表單驗證機制（a solid form validation mechanis
 
 | 寫法 | 繁中解說 | 英文定義 |
 |------|----------|----------|
-| `|` | 表示「或」——字串含有 `|` 之前字串**或**之後字串嘅內容都得。 | "`|` means alternation (OR): the string matches the content before or after the `|`." |
+| `\|` | 表示「或」——字串含有 `\|` 之前字串**或**之後字串嘅內容都得。 | "`\|` means alternation (OR): the string matches the content before or after the `\|`." |
 | `[xyz]` | 表示字串含有括號中**任一個字元**即可。 | "`[xyz]` matches a single character that is any one of the characters inside the brackets." |
 | `-` | 喺方括號內用嚟表示**一組連續字元**，例如 `[a-z]`、`[0-9]`。 | "A hyphen `-` inside brackets defines a range of consecutive characters, e.g. `[a-z]` or `[0-9]`." |
 | `[^xyz]` | 表示字串**唔含有**括號中任何一個字元。 | "`[^xyz]` matches a single character that is NOT any of the characters inside the brackets." |
@@ -515,7 +517,7 @@ alert(document.getElementById("name").value);
 | quantifier `+` | 前一符號出現 1 次至無限次 | "`+` matches one or more occurrences of the preceding character; it is the same as `{1,}`." |
 | quantifier `?` | 前一符號出現 0 或 1 次 | "`?` matches zero or one occurrence of the preceding character; it is the same as `{0,1}`." |
 | quantifier `{m,n}` | 前一符號出現 m 至 n 次 | "`{m,n}` means the preceding symbol appears between m and n times in the string." |
-| alternation `|` | 「或」：符合前後任何一邊都得 | "The `|` character means OR: the string contains the content before the `|` or the content after it." |
+| alternation `\|` | 「或」：符合前後任何一邊都得 | "The `\|` character means OR: the string contains the content before the `\|` or the content after it." |
 | character class `[xyz]` | 括號內任何一個字元都算符合 | "`[xyz]` matches a string containing any one of the characters inside the brackets." |
 | range `[a-z]`, `[0-9]` | 用 `-` 表示連續字元範圍 | "A hyphen is used inside brackets to denote a range of consecutive characters, such as `[a-z]` or `[0-9]`." |
 | negation `[^xyz]` | 唔含有括號內任何字元先符合 | "`[^xyz]` matches a string that does NOT contain any character inside the brackets." |
@@ -601,7 +603,7 @@ alert(document.getElementById("name").value);
 | `+` | 1 至無限（`{1,}`） | 「加號至少一個」 |
 | `?` | 0 或 1（`{0,1}`） | 「問號可有可無，最多一個」 |
 | `{m,n}` / `{n,}` / `{n}` | m 至 n 次 / 至少 n 次 / 啱啱好 n 次 | 「花括號數次數」 |
-| `|` | 或（OR） | 「一條直線兩邊揀」 |
+| `\|` | 或（OR） | 「一條直線兩邊揀」 |
 | `[a-z]` | 範圍內任何一個 | 「方括號內任揀一」 |
 | `[^xyz]` | **唔**含括號內任何一個 | 「^ 入方括號 = 反面教材」 |
 | `\d` = `[0-9]`；`\D` = `[^0-9]` | 數字 / 非數字 | 「細 d 係 digit（數字）」 |

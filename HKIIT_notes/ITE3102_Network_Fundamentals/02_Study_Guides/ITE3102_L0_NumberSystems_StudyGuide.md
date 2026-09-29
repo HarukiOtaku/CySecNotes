@@ -33,7 +33,7 @@
 
 繁中解說：**Binary** 只使用 0 與 1，每一個數字叫一個 **Bit**；**Decimal** 則使用 0 至 9。網絡上的主機（Hosts）、伺服器（Servers）與網絡設備都用 binary 位址互相識別。一個 IPv4 位址是 32 個 bit 組成的字串，被分成 4 個 **Octet**（每 octet = 8 bits = 1 Byte），octet 之間以點分隔。為了方便人類閱讀，這種表示法會被轉換成 **Dotted Decimal Notation**（點分十進制）。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "The binary numbering system consists of 1s and 0s, called bits."
 > - "The decimal numbering system consists of digits 0 through 9."
 > - "Hosts, servers, and network equipment use binary addressing to identify each other."
@@ -44,7 +44,7 @@
 
 繁中解說：**Positional Notation** 的意思是：同一個數字，因為所處「位置」不同而代表不同數值。以十進制（radix = 10）為例，1234 中由右至左的位置 0、1、2、3 分別對應位置值 1、10、100、1000，所以 1234 = 1×1000 + 2×100 + 3×10 + 4×1。這個機制完全適用於二進制（radix = 2）：8 個 bit 的位置由右至左為 0–7，位置值分別是 2⁰=1、2¹=2、2²=4、2³=8、2⁴=16、2⁵=32、2⁶=64、2⁷=128。**這張位置值表（128 64 32 16 8 4 2 1）是整課所有換算的基礎，必須背熟。**
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Positional notation means that a digit represents different values depending on the 'position' the digit occupies in the sequence of numbers."
 > - "In the binary positional notation system, the position values are 128, 64, 32, 16, 8, 4, 2, 1 (from 2⁷ to 2⁰)."
 
@@ -66,7 +66,7 @@
 
 繁中解說：由最左邊、權重最大的位置（**Most Significant Bit, MSB**，即 128 位）開始，逐位比較：若十進制數字 n ≥ 該位置值，記下 binary 1 並把 n 減去該位置值；否則記下 binary 0，移到下一個位置值。重複此步驟直到 1 的位置為止，其餘空位補 0。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Start in the 128 position (the most significant bit). Is the decimal number of the octet (n) equal to or greater than 128?"
 > - "If no, record a binary 0 in the 128 positional value and move to the 64 positional value."
 > - "If yes, record a binary 1 in the 128 positional value, subtract 128 from the decimal number, and move to the 64 positional value."
@@ -88,14 +88,14 @@
 
 繁中解說：**Hexadecimal** 是 base-16 進制，使用數字 0–9 與字母 A–F（A=10, B=11, C=12, D=13, E=14, F=15）。用一個 hex digit 表達數值，比用四個 binary bit 簡潔得多，因此 hexadecimal 被用來表示 **IPv6 Address** 與 **MAC Address**。要理解 IPv6，必須能在 hex 與 decimal 之間互換。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Hexadecimal is a base sixteen numbering system, using the digits 0 through 9 and letters A to F."
 > - "It is easier to express a value as a single hexadecimal digit than as four binary bits."
 > - "Hexadecimal is used to represent IPv6 addresses and MAC addresses."
 
 **IPv6 位址結構**：IPv6 位址長 128 bits，每 4 個 bit 用 1 個 hex digit 表示，因此總共 32 個 hexadecimal values。每 4 個 hex digit 為一組，稱為 **Hextet**（一個 IPv6 位址共有 8 個 hextet）。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "IPv6 addresses are 128 bits in length. Every 4 bits is represented by a single hexadecimal digit, making a total of 32 hexadecimal values."
 > - "Each four hexadecimal character group is referred to as a hextet."
 
@@ -103,7 +103,7 @@
 
 繁中解說：三步法，以 binary 為橋樑——(1) 先把十進制數字轉成 8-bit binary；(2) 由最右邊開始，把 binary 每 4 個 bit 分成一組；(3) 每組轉成對應的 1 個 hex digit。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Convert the decimal number to 8-bit binary strings."
 > - "Divide the binary strings in groups of four starting from the rightmost position."
 > - "Convert each four binary numbers into their equivalent hexadecimal digit."
@@ -117,7 +117,7 @@
 
 繁中解說：逆向三步法——(1) 把每個 hex digit 轉成 4-bit binary；(2) 由最右邊開始組合成 8-bit 分組；(3) 每個 8-bit 分組轉成對應的十進制數字。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Convert the hexadecimal number to 4-bit binary strings."
 > - "Create 8-bit binary grouping starting from the rightmost position."
 > - "Convert each 8-bit binary grouping into their equivalent decimal digit."
@@ -131,7 +131,7 @@
 
 繁中解說：路由器與電腦只理解 binary，人類則習慣 decimal——因此熟悉兩種進制及其在網絡中的應用，是網絡專業人員的必備能力。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Routers and computers only understand binary, while humans work in decimal."
 
 ## 📖 4. 必考英文單字與答題句型庫（Core Vocabulary & Exam Key Phrases）

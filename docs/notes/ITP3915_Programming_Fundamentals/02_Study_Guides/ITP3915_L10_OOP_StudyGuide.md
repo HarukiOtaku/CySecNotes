@@ -23,7 +23,7 @@
 | 3 | 呼叫初始化器（`__init__`）去建立物件 | Invoke the initializer to create objects. |
 | 4 | 執行 instance methods、getter 同 setter | Run instance methods, getter and setter. |
 | 5 | 解釋 `self` 參數嘅作用（指向當前物件） | Explain that `self` refers to the current object and is the first parameter of every instance method. |
-| 6 | 解釋封裝：雙下底線屬性喺 class 外不可直接存取，會拋 `AttributeError` | Explain that names prefixed with double underscores are non-public and accessing them from outside raises an `AttributeError`. |
+| 6 | 解釋封裝：雙下底線屬性喺 class 外讀取會拋 `AttributeError`（只係 name mangling，唔係真正私有） | Explain that names prefixed with double underscores are non-public; reading them from outside raises an `AttributeError` (name mangling, not true privacy). |
 | 7 | 解釋 getter／setter 點樣提供額外存取控制（如驗證半徑必須大於 0） | Explain how getter and setter properties provide additional access control. |
 | 8 | 列出 OOP 四大特徵（封裝、繼承、多型態、抽象） | List the four characteristics of OOP: Encapsulation, Inheritance, Polymorphism and Abstraction. |
 
@@ -99,9 +99,9 @@ print(type(n))
 
 #### B1. Class 定義與實體化模板（必背語法骨架）
 
-**Class Definition 定義（建立藍圖）：** 自訂 class 嘅名稱**必須以大寫英文字母開頭**（Names of user-defined class should start with an uppercase letter）。
+**Class Definition 定義（建立藍圖）：** 慣例上（PEP 8）自訂 class 嘅名稱應以大寫英文字母開頭（Names of user-defined class should start with an uppercase letter）——Python 唔會強制（實測 `class circle:` 編譯得過）。
 
-```python
+```text
 class ClassName:
     def __init__(self, input1):
         self.__attribute1 = input1   # non-public instance attribute
@@ -211,7 +211,7 @@ Circle(5):
 
 #### B5. 封裝 (Encapsulation) 與非公開屬性
 
-**Encapsulation（封裝）** 係 OOP 其中一個核心特徵。喺 Python 入面，**以雙下底線（double underscores `__`）做前綴嘅名稱**會被視為**非公開（non-public）屬性**。呢啲屬性**除咗喺 class 內部之外，唔可以直接存取**——喺 class 外面試圖讀取或修改 `__radius` 會拋出 **`AttributeError`**。
+**Encapsulation（封裝）** 係 OOP 其中一個核心特徵。喺 Python 入面，**以雙下底線（double underscores `__`）做前綴嘅名稱**會被視為**非公開（non-public）屬性**。呢啲屬性**除咗喺 class 內部之外，唔可以直接存取**：讀 `circle1.__radius` 會 raise **`AttributeError`**（因為名字會被 **name mangling** 成 `_Circle__radius`）；但**改** `circle1.__radius` 唔會報錯——只係新增一個 shadow 屬性，`circle1._Circle__radius = 777` 仲可以繞過 setter 嘅 validation（實測：`circle1.__dict__` = `{'_Circle__radius': 4, '__radius': 99}`，`circle1.radius` 仍係 4）。即係「雙底線只係 name mangling，唔係真正私有」。
 
 封裝嘅好處：**防止資料被意外更新（prevent data from being updated by accident）**，保障物件資料嘅完整性。
 
@@ -372,7 +372,7 @@ print(circle1.radius)
 - **class 名稱**：以大寫字母開頭（start with an uppercase letter），例如 `Circle`。
 - **`__init__()`**：建立物件時自動執行（runs automatically）；`Circle(4)` 嘅 `4` 傳俾 `__init__` 嘅**第二個**參數（第一個係 `self`）。
 - **`self`**：指向當前物件，每個 instance method 嘅第一個參數。
-- **雙下底線 `__`** ＝ non-public：class 外直接存取 → **`AttributeError`**；目的係 prevent data from being updated by accident。
+- **雙下底線 `__`** ＝ non-public：class 外**讀取** → **`AttributeError`**（只係 name mangling）；但 class 外**賦值** `circle1.__radius = 99` 唔會報錯（只新增 shadow 屬性），`circle1._Circle__radius = 777` 仲可以繞過 setter validation（即「雙底線只係 name mangling，唔係真正私有」）；目的係 prevent data from being updated by accident。
 - **Getter** ＝ `@property`；**Setter** ＝ `@radius.setter`；setter 可以加 validation（`if newRadius > 0`）。
 - **範例輸出**：`circle1 = Circle(4)` → `circle1.radius = 3` → `print(circle1.radius)` 輸出 **`3`**（`__radius`: 4 → 3）。
 - **OOP 四大特徵**：**E**ncapsulation（封裝）、**I**nheritance（繼承）、**P**olymorphism（多型態）、**A**bstraction（抽象）→ 記憶法 **“EIPA”**。

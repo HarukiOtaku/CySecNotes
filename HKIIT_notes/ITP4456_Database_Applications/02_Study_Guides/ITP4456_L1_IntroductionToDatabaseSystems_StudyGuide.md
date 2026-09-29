@@ -40,7 +40,7 @@
 
 繁中解說：三個詞彙層層遞進。**Data**（資料）是電腦可以處理的有意義事實——文字、圖形、影像、聲音、影片片段等。**Information**（資訊）是經過處理、對決策有用的資料；資訊是「被詮釋的資料」（interpreted data）、是由資料衍生出來的知識（knowledge derived from data）。**Database**（資料庫）是邏輯上相關的資料加上對這些資料的描述（description）所組成的有組織集合，設計目的是滿足某機構的資訊需求——注意定義中「加上描述」就是指 metadata。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Data are meaningful facts, text, graphics, images, sound, video segments etc., which can be processed by a computer."
 > - "Information is data processed to be useful in decision making. Information is interpreted data. Information is knowledge derived from data."
 > - "A database is an organized collection of logically related data, and a description of this data, designed to meet the information needs of an organization."
@@ -49,7 +49,7 @@
 
 繁中解說：原始資料（raw data）本身幾乎沒有意義；把資料放在一起形成情境（context）之後，資料之間產生關聯，才創造出意義。例如單獨一個「1990」沒意義，但放在「出生年份」欄位中就有意義。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Data are useless in their present form; raw data carries little or no meaning."
 > - "By placing data together to form a context, data are now related to create meaning."
 
@@ -57,7 +57,7 @@
 
 繁中解說：**Metadata** 是「關於資料的資料」（data about data），描述資料的屬性／特性，例如 purpose（用途）、time and date（時間日期）、creator（建立者）、location（位置）。**Schema** 是資料庫的結構——例如 tables、views、routines 等結構性 metadata。**Data Dictionary**（資料字典）為資料集合提供情境，例如一個存放描述性 metadata 的儲存庫（repository）。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Metadata is data about data - it describes the properties/characteristics, e.g. purpose, time and date, creator, location."
 > - "A schema is the structure of a database, e.g. tables, views, routines, structural metadata."
 > - "A data dictionary gives context to a collection of data, e.g. a repository of descriptive metadata."
@@ -66,7 +66,7 @@
 
 繁中解說：資料庫有四大基本功能，縮寫為 **CRUD**：**Create**（建立）——把新記錄／文件插入資料庫；**Read**（讀取）——從資料庫檢索記錄／文件；**Update**（更新）——更新資料庫中的記錄／文件；**Delete**（刪除）——刪除資料庫中的記錄／文件。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "CRUD operations: Create - insert new records/documents into the database; Read - retrieve records/documents from the database; Update - update records/documents in the database; Delete - delete records/documents in the database."
 
 ### 3.2 File-based Systems（檔案系統）
@@ -75,7 +75,7 @@
 
 繁中解說：**File-based System** 是一組為最終用戶提供服務（例如報告）的應用程式集合，但**每個程式各自定義與管理自己的資料**。例子：Department 寫自己的程式處理學生資訊（programme & module）；Campus Secretariat 有自己的程式處理學生資訊（programme & payment）——同一批學生資料被不同部門重複維護。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "A file-based system is a collection of application programs that perform services for the end users (e.g. reports)."
 > - "Each program defines and manages its own data."
 
@@ -83,7 +83,7 @@
 
 繁中解說：檔案系統最大的問題是 **Program-Data Dependence（程式與資料相依）**：(1) 每個應用程式必須維護自己的資料；(2) 每個程式都要為每個檔案的 metadata 編寫程式碼；(3) 每個程式都要有自己的處理程序（reading、inserting、updating、deleting）；(4) 缺乏協調與中央控制；(5) 檔案格式不標準（non-standard file formats）；(6) 若檔案的實體儲存改變，存取該檔案的應用程式碼必須跟著改；(7) 若檔案結構改變，所有存取該資料的應用程式碼都要修改以適應新結構。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Each application program must maintain its own data; each application program needs to include code for the metadata of each file; each application program must have its own processing routines for reading, inserting, updating and deleting data."
 > - "There is a lack of coordination and central control, and non-standard file formats."
 > - "If the file's physical storage changes, the application code for accessing that file is required to change or update. If the file structure is changed, all application code that accesses this data needs to be changed to adapt to the new structure."
@@ -94,7 +94,7 @@
 
 繁中解說：**Database Management System (DBMS)** 是一套軟體的集合，讓用戶能夠**定義（define）、建立（create）、維護（maintain）**資料庫，並對資料庫提供**受控制的存取（controlled access）**。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "A Database Management System (DBMS) is a collection of software that enables users to define, create, maintain and provide controlled access to the database."
 
 #### 3.3.2 DBMS 的優點（Advantages）
@@ -109,7 +109,7 @@
 7. **Reduced Program Maintenance（減少程式維護）**——資料與應用程式更獨立，改動一方不會導致另一方要改動
 8. **Improved Backup and Recovery（改善備份與復原）**——DBMS 提供資料備份方法與復原方法
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "The design goal with the database approach is that previously separate data files are integrated into a single, logical structure. Each primary fact is recorded in only one place in the database."
 > - "By eliminating data redundancy, the chance of inconsistency is significantly reduced."
 > - "The database administration function could be granted single-point authority for establishing and enforcing data standards."
@@ -121,7 +121,7 @@
 
 繁中解說：DBMS 也有代價：**Complexity**（極度複雜的軟體）、**Size**（體積龐大）、**Cost**（成本——DBMS 軟體費用、額外硬體費用、轉換成本：從 legacy system 轉換資料及員工培訓、資料遷移 data migration 成本）、**Performance**（檔案系統針對特定應用編寫，而 DBMS 為一般用途編寫，效能未必最優）、**Higher Impact of a Failure**（故障影響更大）。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "A DBMS is an extremely complex software."
 > - "Costs include the DBMS software, additional hardware, conversion (data conversion from legacy systems and staff training), and data migration costs."
 > - "File-based systems are written for a specific application, while a DBMS is written for more general use."
@@ -136,7 +136,7 @@
 | Data Security | 安全性較低；存取控制機制有限；加密要逐檔手動實施 | 提供複雜安全功能：Access Control、Encryption、Auditing、Backup and Recovery |
 | Data Independence | 缺乏資料獨立性 | 提供資料獨立性 |
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "The file-based systems often involve different systems/programs that have separate copies of the same data, leading to a high level of data redundancy."
 > - "DBMS reduce data redundancy by managing data centrally and controlling its storage."
 > - "DBMS provides different and complex security features, including access control, encryption, auditing, and data backup and recovery."
@@ -147,7 +147,7 @@
 
 繁中解說：三層架構的目標有六點：(1) 所有用戶都應能存取同一份資料；(2) 用戶的 view 不受其他 view 的變更影響；(3) 用戶無需知道資料庫實體儲存的細節；(4) 概念結構（conceptual structure）的變更不應影響用戶；(5) 資料庫儲存結構的變更不應影響用戶的 views；(6) 內部結構不應受儲存實體層面的變更影響。總括而言：**分層隔離，各層變更互不波及**。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "All users should be able to access the same data. A user's view is immune to changes made in other views."
 > - "Users should not need to know physical database storage details."
 > - "Change of the conceptual structure of the database should not affect users. Change of database storage structures should not affect users' views."
@@ -156,7 +156,7 @@
 
 繁中解說：**ANSI-SPARC Three-level Architecture** 把資料庫分為三層：**External Level**（外部層）——個別用戶的 views（每用戶可有多個 view）；**Conceptual Level**（概念層）——整個機構的「社群觀點」（community view），描述整體邏輯結構；**Internal Level**（內部層）——資料的實體儲存（physical storage）細節。三層之間由 mapping 連接，令上層變更不會影響下層。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "The ANSI-SPARC three-level architecture separates the database into the external level (individual user views), the conceptual level (the community view of the whole database), and the internal level (physical storage)."
 
 ### 3.5 Relational Database（關聯式資料庫）
@@ -172,7 +172,7 @@
 - **Cardinality（基數）** = 一個 relation 中 tuple 的數目
 - **Relationship（關係）** = 表與表之間基於互動而建立的邏輯連接
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "A relation is a table with columns and rows; it is the logical structure of the database. Data in a relation may not be physically structured in rows and columns."
 > - "An attribute/field is a named column of a relation."
 > - "A domain is the set of allowable values for one or more attributes, e.g. the domain of an age attribute might be any integer between 0 and 120."
@@ -184,14 +184,14 @@
 
 繁中解說：以講義的例子為準——Programme relation 有 4 個 attributes（pgmCode、name、level、semesters），**Degree = 4**，有 3 列資料（IT114105、IT114122、IT114124），**Cardinality = 3**。Student relation 有 8 個 attributes（stdNo、name、address、gender、DOB、phone、email、programme），每列是一個 **Tuple**；兩個 relations 透過 programme（如 IT114122）建立 **Relationship**。答題時必須能指出圖中哪個是 Relation、Attribute、Tuple、Degree、Cardinality、Relationship。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "In the Programme relation, degree = 4 (four attributes) and cardinality = 3 (three tuples)."
 
 #### 3.5.3 ACID 屬性
 
 繁中解說：**ACID** 是一組屬性，保證關聯式資料庫管理系統（RDBMS）中的交易（transactions）被可靠地處理。四個字母分別是：**Atomicity（原子性）**——交易要麼全部完成、要麼全部不發生；**Consistency（一致性）**——交易前後資料庫都處於一致狀態；**Isolation（隔離性）**——並行交易互不干擾；**Durability（持久性）**——交易完成後其效果永久保存（即使系統故障）。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "ACID is a set of properties that guarantee that database transactions are processed reliably in a relational database management system."
 > - "ACID stands for Atomicity, Consistency, Isolation, and Durability."
 
@@ -199,7 +199,7 @@
 
 繁中解說：關聯式資料庫在資料結構較簡單、較**靜態（static）**時表現良好；但隨着科技與 big data 應用進步，傳統關聯式資料庫難以應付**快速膨脹的資料量**與**越來越複雜的資料結構**：(1) **水平擴展（Horizontal scaling）**——加入更多伺服器到資料庫——困難且有限（可能需要額外層，例如 MySQL Cluster、Citrus）；(2) 改變 schema 結構極度昂貴、耗時，而且經常涉及停機或服務中斷。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Relational databases work well when data structures were much simpler and more static."
 > - "Horizontal scaling (adding more servers) is difficult and limited; additional layers may be required, e.g. MySQL Cluster."
 > - "Changing the schema structure can be extremely expensive, time-consuming, and often involve downtime or service interruptions."
@@ -210,7 +210,7 @@
 
 繁中解說：**NoSQL**（非關聯式）資料庫因為提供**更靈活（flexible）、可擴展（scalable）且成本效益更高（cost-efficient）**的資料庫而日益流行。NoSQL 資料庫具有**動態 Schema（dynamic schema）**，允許以 **JSON** 格式存放「非結構化資料（unstructured data）」，**無需事先定義 schema**。例子（MongoDB 風格的文件）：`{ _id: <ObjectId1>, username: "123xyz", contact: { phone: "123-456-7890", email: "xyz@example.com" } }`；存取可用 `db.users.find({ "contact.email": "xyz@example.com" })`。NoSQL 亦支援**可選的 Schema Validator**（以 `$jsonSchema` 定義 bsonType 與 required 欄位，例如 username 必須是 string、contact 必須包含 email），即「彈性為主，需要時仍可強制結構」。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "NoSQL databases are non-relational and became more popular for offering more flexible, scalable and cost-efficient databases."
 > - "NoSQL databases feature dynamic schema and allow 'unstructured data' in JSON format without having to first define the schema."
 > - "An optional schema validator (e.g. $jsonSchema) can enforce structure, such as required fields and bsonType."
@@ -229,7 +229,7 @@
 | 擴展 | 水平與垂直擴展皆可行 | 垂直擴展可行，但水平擴展困難 |
 | 效能 | 大量簡單讀寫請求下效能極佳 | 每秒大量讀寫查詢時有限制 |
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Consider a NoSQL datastore when your workloads don't require ACID guarantees, your data is dynamic and frequently changes, data can be expressed without relationships, data is typically nested in a few collections, and you need fast writes."
 > - "Consider a relational database when ACID guarantees are required, your data is predictable and highly structured, data is best expressed relationally, write safety is a requirement, and vertical scaling is preferred."
 
@@ -237,7 +237,7 @@
 
 繁中解說：講義末段以圖表比較熱門的 NoSQL 與 Relational 資料庫：NoSQL 陣營常見代表如 MongoDB（本課 JSON 例子即用它）；Relational 陣營常見代表如 MySQL、Oracle、SQL Server、PostgreSQL 等。記住 MongoDB 屬 NoSQL、MySQL／Oracle／SQL Server／PostgreSQL 屬 Relational 即可應付常見選擇題。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Popular relational databases include MySQL, Oracle, SQL Server, and PostgreSQL; popular NoSQL databases include MongoDB."
 
 ## 📖 4. 必考英文單字與答題句型庫（Core Vocabulary & Exam Key Phrases）

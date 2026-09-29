@@ -568,4 +568,4 @@ var sport = document.f1.sport.value;                    // 簡單版
 
 ---
 
-*本 CodeGuide 依據教材 `ITE3006_Lab09.txt`、原始碼 `01_Raw_Materials/Code/Topic09/lab/lab09_1.html`、`01_Raw_Materials/Summaries/Topic 9 Summary.html` 及 `01_Raw_Materials/Code/Topic09/lecture/` 示範檔整理，供 ITE3006 Web 實務測驗溫習用。*
+*本 CodeGuide 依據教材 `01_Raw_Materials/Labs/Lab09 (modified 2016-03-29).pdf`、原始碼 `01_Raw_Materials/Code/Topic09/lab/lab09_1.html`、`01_Raw_Materials/Summaries/Topic 9 Summary.html` 及 `01_Raw_Materials/Code/Topic09/lecture/` 示範檔整理，供 ITE3006 Web 實務測驗溫習用。*

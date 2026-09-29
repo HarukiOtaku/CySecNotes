@@ -115,7 +115,7 @@
 > **English Standard Definition (range syntax)**
 > "`range(start, stop, step)` is a function that generates a list of numbers based on an incremental or decremental pattern: `start` is optional and defaults to 0; `stop` is required and is NOT included in the result; `step` is optional and defaults to 1."
 
-**關鍵陷阱**：`range()` 的回傳值是 **range object**，**不能直接 print**。必須用 `list()` 將佢轉換成 Python list 先睇到內容。
+**關鍵陷阱**：`range()` 的回傳值是 **range object**；`print(range(5))` 只會印 `range(0, 5)`，睇唔到元素。要睇內容就要用 `list()` 將佢轉換成 Python list。
 
 ```python
 numbers = range(5)
@@ -129,7 +129,7 @@ range(0, 5)
 ```
 
 > **English Standard Definition (range object)**
-> "A range object (the return value of `range()`) cannot be printed directly; to view its content, convert the range object to a Python list using `list()`."
+> "A range object (the return value of `range()`) prints only as `range(0, 5)` — it does not show its elements; to view its content, convert the range object to a Python list using `list()`."
 
 **等價寫法**：`range(10)` 相等於 `range(0, 10)`，亦相等於 `range(0, 10, 1)`。
 
@@ -475,7 +475,7 @@ Done
 | `iteration` | 一次迴圈（一次迭代） | "One iteration refers to one single pass through the body of the loop." |
 | `definite loop` | 明確迴圈——對 sequence 每個項目恰好迭代一次 | "A `for` loop is a definite loop that iterates once over each item in a sequence." |
 | `range(start, stop, step)` | 產生數字列表嘅函數；`start` 預設 0、`stop` 必填且不包含、`step` 預設 1 | "`range(start, stop, step)` generates a list of numbers; `stop` is required and is NOT included in the result." |
-| `range object` | `range()` 嘅回傳值，唔可以直接 print，要用 `list()` 轉換 | "A range object cannot be printed directly; convert it to a Python list with `list()`." |
+| `range object` | `range()` 嘅回傳值，`print()` 只出 `range(0, 5)`；要 `list()` 先睇到元素 | "A range object prints only as `range(0, 5)`; convert it to a Python list with `list()` to see its elements." |
 | `iteration variable` | 迭代變數——每次迭代儲存當前項目 | "The iteration variable serves as an iterative storage for each item during every iteration of the sequence." |
 | `suite` | 縮排形成嘅重複任務區塊 | "Use indentation to create a suite for the repeated tasks." |
 | `enumerate(seq)` | 將序列轉成 (位置, 項目) 對，預設由 0 開始 | "`enumerate(seq)` reorganises the items into (position, item) pairs, starting from 0 by default." |
@@ -505,7 +505,7 @@ Done
 
 **階段 2：背誦什麼英文短語（Memorise Key Phrases）**
 - "`range(start, stop, step)` — `start` is optional, default 0; `stop` is required and NOT included; `step` is optional, default 1."
-- "A range object cannot be printed directly — convert it to a Python list with `list()`."
+- "`print(range(5))` shows only `range(0, 5)`, not its elements — convert the range object to a Python list with `list()`."
 - "A `for` loop is a definite loop that iterates once over each item in a sequence; use indentation to create a suite."
 - "`break` exits the loop; `continue` skips the rest of the current iteration; the `else` clause runs only if the loop completed all iterations (no `break`)."
 - "`enumerate(seq)` returns (position, item) pairs, starting from 0 by default; unpack them with `for pos, item in enumerate(seq):`."
@@ -522,7 +522,7 @@ Done
 - 追蹤題："Trace the following loop and state the output" → 逐步寫出每次迭代輸出。
 - 概念題："Explain the difference between `break` and `continue`." → "`break` exits the entire loop, while `continue` skips only the rest of the current iteration and moves to the next item."
 - 陷阱題："When does the `else` clause of a `for` loop execute?" → "It executes only when the loop completes all its iterations without hitting a `break`."
-- 改錯題："Why can't we `print(range(5))` directly?" → "Because `range()` returns a range object, not a list; we must convert it with `list()`."
+- 改錯題："Why does `print(range(5))` show `range(0, 5)` instead of the elements?" → "Because `range()` returns a range object, not a list; we must convert it with `list()` to see the elements."
 
 ---
 
@@ -561,7 +561,7 @@ Done
 - **for-else 鐵律**："**else runs when no break**" —— 冇 break 先至行 else。
 - **縮排 = 歸屬**："**Indented = repeated; unindented = once**" —— 縮排內每次迭代都行，縮排外只行一次。
 - **print 位置口訣**："**Print first, old value; update first, new value**" —— 先印後改係舊值（10,30,90），先改後印係新值（30,90,270）。
-- **list() 轉換**："**Range object? `list()` it!**" —— range 對象唔可以直接 print，用 `list()` 包住先睇到。
+- **list() 轉換**："**Range object? `list()` it!**" —— `print(range(5))` 只出 `range(0, 5)`，用 `list()` 包住先睇到元素。
 
 ### 6.4 一頁睇晒：每個程式範例嘅輸出
 

@@ -230,7 +230,7 @@ False
 
 條件陳述句係一種**控制流程區塊（control flow block）**，容許程式根據條件嘅結果做**決定（decisions）**同提供**替代方案（alternatives）**。通用語法如下：
 
-```python
+```text
 if condition1:
     do something only if condition1 is true
 elif condition2:

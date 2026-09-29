@@ -116,6 +116,8 @@
 | Dynamic IP / mask / gateway / DNS at start-up | **DHCP** | server 67／client 68 | UDP |
 | File sharing in Microsoft networks | **SMB** | —（教材無列 port） | — |
 
+> ⚠️ 講義原文將 HTTPS 寫成 TCP, UDP 443；實務上 HTTPS 只行 TCP。考卷跟講義。
+
 ### 3.7 Client-Server Model（slide 10）
 
 繁中解說：**Client** 同 **server processes** 兩者都屬於 application layer。呢個模型嘅核心係：application layer protocol **定義 request 同 response 嘅格式**——client 發 request，server 回 response。教材例子係用 ISP 嘅 email service 嚟 send、receive 同 store email。判斷題口訣：**「有專用伺服器提供服務」＝ client-server**（Tutorial Q12 第 1 題：workstation 向 DNS server 發 DNS request）。

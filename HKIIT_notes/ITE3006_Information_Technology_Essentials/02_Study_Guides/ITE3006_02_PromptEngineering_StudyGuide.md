@@ -115,7 +115,7 @@ Highlight the cozy atmosphere and free Wi-Fi."
 
 > **English Standard Definition:** "The RTF framework is highly recommended to kick-start your journey of writing prompts, and it fits many use cases."
 
-**其他 Prompt 框架（Other Prompt Frameworks）：** 教材只點名、冇喺本課展開——**RODES、RISEN、RACE、APE** 等（…etc.）。考試重心喺 RTF；其餘框架識列名即可，有興趣可睇教材「Suggested Reading」（見 §6.4）。
+**其他 Prompt 框架（Other Prompt Frameworks）：** 教材只點名、冇喺本課展開——**RODES、RISEN、RACE、APE** 等（…etc.）。考試重心喺 RTF；其餘框架識列名即可，有興趣可睇教材「Suggested Reading」（見 §6.5）。
 
 ---
 
@@ -308,7 +308,7 @@ Highlight the cozy atmosphere and free Wi-Fi."
 
 ### 6.3 八類提問 + 技巧極速對照
 
-- 提問八類：**D**irect、**E**xploratory、**I**nstructional、**C**omparative、**H**ypothetical、**C**larification、**C**reative、**F**eedback — 口訣「**DI-IC-HCC-F**」諗唔掂就記**例子**：首都是哪（direct）、羅馬歷史（exploratory）、烤蛋糕步驟（instructional）、Python vs Java（comparative）、水底呼吸（hypothetical）、量子物理（clarification）、龍故事（creative）、可再生能源意見（feedback）。
+- 提問八類：**D**irect、**E**xploratory、**I**nstructional、**C**omparative、**H**ypothetical、**C**larification、**C**reative、**F**eedback — 口訣「**D-E-I-C-H-C-C-F**」諗唔掂就記**例子**：首都是哪（direct）、羅馬歷史（exploratory）、烤蛋糕步驟（instructional）、Python vs Java（comparative）、水底呼吸（hypothetical）、量子物理（clarification）、龍故事（creative）、可再生能源意見（feedback）。
 - 技巧對比：**CoT**（一條 prompt 逐步諗）vs **D&C**（拆多條）；**Zero/One/Few-Shot**（0／1／幾個例子）；**Referencing**（錨定指定資料）；**Negative prompting**（講明唔好生成咩 → 視覺生成特別有效）。
 - 最佳實踐五式：**最新模型 → 由指令開始（`###` 分隔）→ 清晰具體 → 畀例子 → 唔好模糊**。
 

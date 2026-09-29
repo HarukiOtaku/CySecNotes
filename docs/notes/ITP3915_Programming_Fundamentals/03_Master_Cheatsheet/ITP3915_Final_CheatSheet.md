@@ -24,16 +24,17 @@
 
 **三大必須記住**：拼字要正確（`student` ≠ `students`）｜**Case Sensitive**（`student` ≠ `Student`）｜**縮排分隔 code block**（一層 = 4 spaces／2 spaces／1 tab）
 
-**Arithmetic Operators（20 和 3）**：`+`→23｜`-`→17｜`*`→60｜`/`→6.66666666｜`//`→6｜`**`→8000｜`%`→2
+**Arithmetic Operators（20 和 3）**：`+`→23｜`-`→17｜`*`→60｜`/`→6.666666666666667｜`//`→6｜`**`→8000｜`%`→2
 
 **Operator Precedence**：`( )` → `**` → `*` `/` `%`（左至右）→ `+` `-`（左至右）
-- 必考：`print(7 + 6 - 5 * 4 / 3 ** 2)` → **10.7777778**（`3**2`=9 → `20/9`≈2.2222222 → 13−2.2222222）｜`print(1 + 2 - 3)` → **0**｜`print(1 - (2 - 3))` → **2**
+- 必考：`print(7 + 6 - 5 * 4 / 3 ** 2)` → ≈ **10.7777778**（`3**2`=9 → `20/9`≈2.2222222 → 13−2.2222222）｜`print(1 + 2 - 3)` → **0**｜`print(1 - (2 - 3))` → **2**
 
 **Literals 五類型**：Numeric（`123`、`-4`、`3.14`，不加引號）｜String（`"Hello"`、三引號多行，必須加引號）｜Boolean（`True`／`False`，reserved words）｜Special（`None`，reserved word）｜Collection（list／tuple／dict／set）；Literal = 固定值（"Literals are fixed values - the value cannot be changed."）
 
 **Variables**：記憶體中有名稱的位置，**store → retrieve**，內容可改；規則＝字母／數字／底線、**不能數字開頭**、Case Sensitive、要有意義
 - 好：`spam` `eggs` `spam23` `_speed`｜壞：`23spam` `#sign` `var.12`
-- 禁用 **Reserved Words**：and, del, for, is, raise, assert, elif, from, lambda, return, break, else, global, not, try, class, except, if, or, while, continue, exec, import, pass, yield, def, finally, in, print, as, with
+- 禁用 **Reserved Words**（Python 3，共 35 個）：False, None, True, and, as, assert, async, await, break, class, continue, def, del, elif, else, except, finally, for, from, global, if, import, in, is, lambda, nonlocal, not, or, pass, raise, return, try, while, with, yield
+  > ⚠️ 原投影片（Lecture 1）沿用 Python 2 清單（含 exec／print）。Python 3 佢哋唔係關鍵字（實測：`print = 5` 編譯得過、`'print' in keyword.kwlist` → False）；考試若問 "list Python reserved words"，請用上面 Python 3 清單。
 - 命名風格：變數 mixedCase `stuName`／lower_case_with_underscores `student_name`；類別 `Student`；常數 UPPERCASE `DEFAULT_WARNING`
 
 **執行順序與賦值（必考追蹤）**：Statements 由上至下 → `x = 2; x = 4; print(x)` = **4**｜`=` 右邊先算、左邊後存 → `x = x * 100`（讀 2 → 2×100 → 寫回）= **200**｜Comments：`#` 之後全部被忽略（描述程式碼／記錄作者／暫時停用某行；建議避免中文註釋）
@@ -116,7 +117,7 @@
 
 **`range(start, stop, step)`**：`start` 可選預設 `0`｜`stop` **必填、永不包含**｜`step` 可選預設 `1`
 - `list(range(5))` → `[0, 1, 2, 3, 4]`｜`range(10)` = `range(0,10)` = `range(0,10,1)`｜`list(range(0,0,1))` → `[]`｜`list(range(1,10,2))` → `[1, 3, 5, 7, 9]`｜`list(range(20,14,-2))` → `[20, 18, 16]`
-- ⚠️ `range()` 回傳 **range object**，唔可以直接 print，要 `list()` 轉換
+- ⚠️ `range()` 回傳 **range object**：`print(range(5))` 只會出 `range(0, 5)`，睇唔到元素；要 `list()` 轉換先睇到內容
 
 **三種迭代次數控制**：特定數字（definite，`range(5)`）｜項目數量（definite，`for x in ['a','b','c']`）｜條件（indefinite，逐行讀檔案到 EOF）
 - `for` = **definite loop**：對 sequence 每個項目恰好迭代一次；用縮排建立 suite｜**縮排內 = repeated（每次迭代）；縮排外 = once（只一次）**｜迭代變數（`item`）＝ iterative storage
@@ -137,7 +138,7 @@
 
 **英文極速記憶句**
 - "range(start, stop, step) generates a list of numbers; start defaults to 0, stop is required and is NOT included, and step defaults to 1."
-- "A range object cannot be printed directly; convert it to a Python list with list()."｜"A for loop is a definite loop that iterates once over each item in a sequence."
+- "A range object prints only as `range(0, 5)` — it does not show its elements; convert it to a Python list with `list()` to view its content."｜"A for loop is a definite loop that iterates once over each item in a sequence."
 - "An else clause runs only if the loop completed all its iterations; it is skipped when the loop is terminated by break."
 - "continue skips the rest of the current iteration and moves to the next item."
 
@@ -219,7 +220,7 @@
 
 **Mutable vs Immutable（錯誤訊息必背）**：List `x = [9,8,7]; x[2] = 6` → `[9, 8, 6]`（成功）｜Tuple `y = (5,4,3); y[2] = 0` → `'tuple' object does not support item assignment`｜String `z = "ABC"; z[2] = "D"` → `'str' object does not support item assignment`
 - 迷思：`tupleFriends = ("Peter","Susan","Mary","Peter")`（重新賦值）**會成功**——係 **rebinding** 到新 tuple，原本嗰個冇改；「Immutable」＝項目唔可以**原地**改動
-- 取捨：Tuple 較 **memory-efficient**、**perform better**；List **更多 built-in functions**（insert／remove／sort）；Tuple 可做 dict key（**hashable** + immutable），List **唔可以**（mutable、冇辦法處理 `__hash__()`）→ `{("Kelvin","ITP3915"): "B"}` 有效；`{["Kelvin","ITP3915"]: "B"}` 無效（`TypeError: unhashable type: 'list'`）
+- 取捨：Tuple 較 **memory-efficient**、**perform better**；List **更多 built-in functions**（insert／remove／sort）；Tuple 可做 dict key（**hashable** + immutable），List **唔可以**（mutable、冇辦法處理 `__hash__()`）→ `{("Kelvin","ITP3915"): "B"}` 有效；`{["Kelvin","ITP3915"]: "B"}` 無效（`TypeError: cannot use 'list' as a dict key (unhashable type: 'list')`，訊息文字視 Python 版本而異）
 
 **英文極速記憶句**
 - "Items are indexed by their position number in the sequence, starting from 0."｜"Tuples are immutable (items cannot be updated), whereas lists are mutable."
@@ -394,7 +395,7 @@ class Circle:
 - **Getter ＝ `@property`** → 可以好似屬性咁寫 `circle1.radius`（唔使括號）；**Setter ＝ `@radius.setter`** → `circle1.radius = 3` 自動觸發
 - 用途：**control how attributes are set or retrieved** + **additional access control**（setter 內嘅 `if newRadius > 0` 就係 data validation）
 - **`self`**＝關鍵字，**指向當前物件（refers to the current object）**，每個 instance method 都以 `self` 做第一個參數；每個 `Circle` 物件有**自己獨立**嘅 `__radius`
-- **雙下底線 `__` 前綴 ＝ non-public attribute**：class 外**唔可以直接存取** → **`AttributeError: 'Circle' object has no attribute '__radius'`**；目的＝**prevent data from being updated by accident**
+- **雙下底線 `__` 前綴 ＝ non-public attribute**：class 外**讀取** `circle1.__radius` → **`AttributeError: 'Circle' object has no attribute '__radius'`**（名字被 mangling 成 `_Circle__radius`）；但 class 外**賦值** `circle1.__radius = 99` 唔會報錯（只新增 shadow 屬性），`circle1._Circle__radius = 777` 仲可以繞過 setter validation（即「雙底線只係 name mangling，唔係真正私有」）；目的＝**prevent data from being updated by accident**
 
 **必考追蹤題**：`circle1 = Circle(4)` → `newRadius = 4` → `self.__radius = 4`｜`circle2 = Circle(5)` → `self.__radius = 5`（兩個獨立物件）
 - `circle1.radius = 3` → 觸發 setter → `3 > 0` 成立 → `__radius` 由 4 變成 **3**；`print(circle1.radius)` → getter → 輸出 **`3`**
@@ -502,7 +503,7 @@ def calcSum(num1, num2, num3):    # def + 名 + 括號 + 冒號；主體必須�
     return total                  # 可選；冇 return 即回傳 None
 result = calcSum(-100, 0, 4)      # 呼叫（一定要先定義後呼叫）
 num = round(123.456, 2)           # 123.46（存入變數，亦可直接 print）
-print("Ming", "_", "\t")          # positional arguments
+print("Ming", "_", "\t")          # positional arguments → 輸出 Ming _ \t（預設 sep=' '）
 print("Ming", end="\t", sep="_")  # keyword arguments
 PASS_SCORE = 40                   # 全域常數；listScores = [34, 81, 50] 全域複合型別
 
@@ -556,7 +557,7 @@ print(circle1.radius)        # 3
 ## 英文極速記憶句（跨課最高頻精選）
 
 - **L1** "Python is case sensitive: student and Student are different names."｜"Anything after a # is ignored by the Python interpreter."｜**L2** "input() returns the user input as a String."｜"The default end character of print() is \n (new line); the default separator is a space."
-- **L3** "The and operator is True only when ALL conditions are True; the or operator is True when at least one condition is True."｜"The order of evaluation is: Parentheses, not, and, then or."｜**L4** "stop is required and is NOT included in the result; a range object cannot be printed directly — use list()."｜"The else clause of a for loop runs only if the loop completed all its iterations (no break)."
+- **L3** "The and operator is True only when ALL conditions are True; the or operator is True when at least one condition is True."｜"The order of evaluation is: Parentheses, not, and, then or."｜**L4** "stop is required and is NOT included in the result; a range object prints only as `range(0, 5)`, so use `list()` to view its elements."｜"The else clause of a for loop runs only if the loop completed all its iterations (no break)."
 - **L5** "The iterative variable must be defined before the loop begins and updated inside the loop."｜"PEP 8: comparisons to singletons like None should always be done with is or is not."｜**L6** "Tuples are immutable (items cannot be updated), whereas lists are mutable."｜"Index out of range → IndexError; item not found → ValueError; modifying immutable → item assignment error."
 - **L7** "get() returns the default value without raising an error; use discard() instead of remove() to prevent KeyError."｜"A set is an unordered collection of unique keys, similar to the DISTINCT feature in databases."｜**L8** "A function definition is just a plan; a function call actually runs the tasks."｜"Local variables work only inside the function; global variables can be used anywhere in the program."
 - **L9** "Errors detected during execution are called exceptions."｜"No error → skip except; error → run except; no match → crash."｜**L10** "Classes are blueprints; an object is an instance of a class."｜"Names prefixed with double underscores are non-public; accessing them from outside raises an AttributeError."
@@ -565,7 +566,7 @@ print(circle1.radius)        # 3
 
 ## 最後 60 秒自測清單
 
-- [ ] 能心算 `7 + 6 - 5 * 4 / 3 ** 2`（10.7777778）並追蹤 `x = x * 100`（200，先讀後寫）
+- [ ] 能心算 `7 + 6 - 5 * 4 / 3 ** 2`（≈ 10.7777778）並追蹤 `x = x * 100`（200，先讀後寫）
 - [ ] 能說出 5 種 Literal 類型各舉一例；能判斷 `23spam` / `_speed` / `var.12` 哪個合法
 - [ ] 能解釋 Programming 與 Scripting 的分別（英文作答）
 - [ ] 能背出 `input()` **永遠回傳 String**；能分辨 `print("A","B")` vs 兩個 `print()` vs `sep=""`

@@ -9,7 +9,7 @@
 
 ## 1. 📝 課程概要與實務情境 (Summary & Real-world Context)
 
-本講重點在於 Python 的 `while` 迴圈（while-loop）。`for` 迴圈適合「已知要跑幾多次」或「已知要逐項處理某個 list/sequence」的情境；但現實中很多任務根本唔知道要重複幾多次，例如「繼續溫 ITP3915 直到合格為止」。呢類「次數不確定（indefinite）」的重複工作，就要用 `while` 迴圈：只要 condition（條件）係 `True`，迴圈內的 suite（程式碼區塊）就會不斷執行；一旦條件變為 `False`，迴圈即時結束。教材亦會教你三個典型 use case：倒數計時（counting down）、滿足要求（fulfilling a requirement）、輸入驗證（input validation）同用 sentinel 值（例如 `"exit"`）退出迴圈，以及 infinite loop（無盡迴圈）的成因與防範。
+本講重點在於 Python 的 `while` 迴圈（while-loop）。`for` 迴圈適合「已知要跑幾多次」或「已知要逐項處理某個 list/sequence」的情境；但現實中很多任務根本唔知道要重複幾多次，例如「繼續溫 ITP3915 直到合格為止」。呢類「次數不確定（indefinite）」的重複工作，就要用 `while` 迴圈：只要 condition（條件）係 `True`，迴圈內的 suite（程式碼區塊）就會不斷執行；一旦條件變為 `False`，迴圈即時結束。教材亦會教你四個典型 use case：倒數計時（counting down）、滿足要求（fulfilling a requirement）、輸入驗證（input validation）同用 sentinel 值（例如 `"exit"`）退出迴圈，以及 infinite loop（無盡迴圈）的成因與防範。
 
 實務上寫 Code 嘅場景好常見：例如你寫一個「AI token 計費器」，每次呼叫 AI 都扣 1000 tokens，直到 token 用盡先停止 —— 呢個就係 `while token > 0:` 的典型應用；又例如你寫一個「登入程式」，要不停要求使用者輸入密碼，直到佢輸入正確先放行，仲要防止佢輸入非數字時 crash —— 呢啲都係 `while` 迴圈配上 input validation（例如 `.isdecimal()`）嘅真實寫法。另外，本講仲會教你用 VS Code 的 debugger（除錯工具）逐行暫停執行、睇住變數值，快速搵出迴圈邏輯錯誤，呢啲都係考試同實習都會用到嘅硬技能。
 

@@ -181,6 +181,8 @@
 
 ### 3.6 合併儲存格：`rowspan` 與 `colspan` (Joining Table Rows and Columns)
 
+➜ 實作見 ITE3006_Lab02_Extra_CodeGuide.md
+
 文字（或內容）可以橫跨多列或多欄，即儲存格可以被合併，靠的是 **`<th>` 或 `<td>` 元素上的 `rowspan` 或 `colspan` 屬性**。
 
 > **English Standard Definition — Colspan:**
@@ -585,13 +587,13 @@ Row 5: | Mickey Mouse (td colspan=2 ←合併) | column 3c (td) |
 | 一列 | `<tr>` | "tr = table row" |
 | 欄標題格 | `<th>` | "th = table heading" |
 | 資料格 | `<td>` | "td = table data" |
-| 格內水平對齊 | `align="left|right|center"` | "align = horizontal" |
-| 格內垂直對齊 | `valign="top|bottom|middle"` | "valign = vertical, flush with top/bottom/middle" |
+| 格內水平對齊 | `align="left\|right\|center"` | "align = horizontal" |
+| 格內垂直對齊 | `valign="top\|bottom\|middle"` | "valign = vertical, flush with top/bottom/middle" |
 | 向右合併欄 | `colspan="n"` | "colspan = current + n−1 cells to the right" |
 | 向下合併列 | `rowspan="n"` | "rowspan = current + n−1 rows below; skip it in later rows" |
 | 插入圖片 | `<img src="..." alt="..." width=".." height=".." border="0" />` | "img = empty element; src = file/URL; alt = text when image cannot display" |
 | 圖片做連結 | `<a href="..."><img src="..." border="0" /></a>` | "put img inside a; no underline, maybe a border" |
-| 網頁內嵌小視窗 | `<iframe src="URL" frameborder="yes|no">...</iframe>` | "iframe = floating / internal frame" |
+| 網頁內嵌小視窗 | `<iframe src="URL" frameborder="yes\|no">...</iframe>` | "iframe = floating / internal frame" |
 | 連結在框架內開 | `<iframe name="X">` + `<a target="X">` | "target = name → page loads inside the frame" |
 
 ### 6.2 英文極速記憶口訣 (Rapid Memory Mnemonics)

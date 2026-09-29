@@ -110,6 +110,8 @@
 | **Source / Destination Address** | 封包來源／目的地嘅 Network layer host address | 兩個全程不變 |
 | **Options（optional）／ Padding** | 選項／填充位 | 非必需 |
 
+> ⚠️ 技術上（RFC 791）IPv4 **Total Length** 欄位係 IP header + data 嘅總長；ITN 講義（Lecture 6）用語係 “size of the data portion of the packet”。考卷若問 "size of the ____ of the packet" 請跟講義答 **data portion**。
+
 > **English Standard Definition:** Version contains the IP version number (4). Header Length (IHL) specifies the size of the packet header in 4 byte words (the minimum size is 5, meaning 5 × 4 = 20 bytes).
 > **English Standard Definition:** Type of Service is used to assign a priority to each packet; Total Length is the size of the data portion of the packet.
 > **English Standard Definition:** Time to Live (TTL) is decremented at each hop to prevent packets being passed around the network in routing loops.

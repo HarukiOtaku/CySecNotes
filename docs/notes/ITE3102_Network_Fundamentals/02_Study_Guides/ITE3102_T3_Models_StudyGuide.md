@@ -50,7 +50,7 @@
 
 OSI 是「參考模型」：**Application / Presentation / Session / Transport / Network / Data Link / Physical** 共 7 層；TCP/IP 是「實用模型」，把 OSI 頂三層（Application、Presentation、Session）合併為一層 **Application**，把底兩層（Data Link、Physical）合併為 **Network Access**，中間的 **Transport** 與 **Network（TCP/IP 叫 Internet）** 一一對應。協議歸類只看「功能」：凡是應用程式之間的協議（**DHCP、DNS、FTP、HTTP、BOOTP、IMAP、POP、SMTP**）全屬 Application 層；負責「可靠／不可靠端到端傳輸」的是 **TCP、UDP**（Transport）；負責「邏輯定址與路由」的是 **IP (IPv4, IPv6)**，附帶診斷用途的 **ICMP**（Network / Internet 層）；負責「把 Frame 送上實體媒介」的 LAN/WAN 技術 **ATM、Ethernet、Frame Relay、PPP、WLAN** 全屬 Data Link / Network Access 層。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "The OSI model is a conceptual framework that standardizes the functions of a communication system into seven layers: Application, Presentation, Session, Transport, Network, Data Link, and Physical."
 > - "The TCP/IP model is the practical model used on the Internet; it has four layers: Application, Transport, Internet, and Network Access."
 > - "The Transport layer is responsible for end-to-end communication; TCP provides reliable delivery and UDP provides best-effort delivery."
@@ -76,7 +76,7 @@ OSI 是「參考模型」：**Application / Presentation / Session / Transport /
 
 這類「功能 → 層」的題目要用關鍵字對號入座：見到 **frames**（幀）一定是 **Data Link**（Data Link 的 PDU 正是 Frame）；見到 **path determination**（選路）與 **logical addressing**（邏輯定址，即 IP 位址）一定是 **Network**；見到 **encoding/decoding** 與 **binary**（位元）一定是 **Physical**（物理層負責把 bit 轉成訊號）；見到 **data representation**（資料表示）與 **encryption**（加密）一定是 **Presentation**；見到 **end-to-end** 與 **reliability**（可靠性）一定是 **Transport**（TCP 的標誌）；見到 **dialogue**（對話）與 **data exchange** 管理一定是 **Session**；見到 **process-to-process**（程式與程式之間）一定是 **Application**。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "The Data Link layer maintains data frames and provides physical addressing (MAC addresses)."
 > - "The Network layer performs path determination and logical addressing using IP addresses."
 > - "The Physical layer performs encoding and decoding of bits for binary transmission."
@@ -103,7 +103,7 @@ OSI 是「參考模型」：**Application / Presentation / Session / Transport /
 
 TCP/IP 只有 4 層，判別更快：**hardware devices and media**（硬件與媒介）→ **Network Access**（TCP/IP 底層就是處理硬件與實體媒介）；**best path**（最佳路徑，即路由）→ **Internet**（等於 OSI Network 層，唯一負責選路的一層）；**represents data to the user**（向用戶呈現資料）＋ **encoding** 與 **dialog control** → **Application**（TCP/IP 把 OSI 的 Application、Presentation、Session 三層功能全部併入 Application）；最後一題最容易錯——**supports communication between diverse devices**（支援不同設備之間的通訊）指的是 **Transport**，因為 TCP/IP 的 Transport 層正是負責在「不同設備上的應用程式」之間提供通訊服務（對應 Cisco 教材原文 "The transport layer supports communication between diverse devices across diverse networks"），而不是 Network Access 或 Internet。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "The Network Access layer controls the hardware devices and media that make up the network."
 > - "The Internet layer determines the best path through the network."
 > - "The Application layer represents data to the user, plus encoding and dialog control."
@@ -130,7 +130,7 @@ TCP/IP 只有 4 層，判別更快：**hardware devices and media**（硬件與�
 
 把五個名詞想成「傳訊息的五道工序」：(1) **Message sizing** 是「拆細」——長訊息先拆成小片段（segment/packet）方便傳輸；(2) **Message encoding** 是「轉換」——把資訊轉成另一種雙方都接受的形式（例如文字轉 bit）；(3) **Message encapsulation** 是「打包套疊」——把上一層的 PDU 放入下一層的 header 之內（一層包一層）；(4) **Message timing** 是「計時與秩序」——涵蓋 access method（何時可以開始送）、flow control（流量控制）、response timeout（等幾耐回應）；(5) **Message delivery options** 是「送給誰」——個人、群組或全部人（即 Unicast / Multicast / Broadcast）。注意最易混淆的一對：**encoding 是「轉換格式」**，**encapsulation 是「套入另一格式」**，兩個字都含「format」但意思不同——看到 "inside another" 就是 encapsulation，看到 "converts ... into another form" 就是 encoding。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Message sizing breaks up a long message into smaller pieces."
 > - "Message encoding is the process of converting information into another acceptable form for transmission."
 > - "Message encapsulation is the process of placing one message format inside another message format."
@@ -154,7 +154,7 @@ TCP/IP 只有 4 層，判別更快：**hardware devices and media**（硬件與�
 
 三個詞都是「時間／節奏」控制，但職責不同：**Flow control** 處理「速度」——發送方送得太快會令接收方 buffer 爆滿而掉包，所以要協商傳送節奏；**Access method** 處理「開始時機」——決定「誰、幾時」可以開始送出訊息（例如 Ethernet 的 CSMA/CD）；**Response timeout** 處理「等待」——設定一個可接受的等待時間，若超過時間沒有回應就採取後續行動（例如重傳）。關鍵字速記：**too much data / too quickly → Flow control**；**when to begin → Access method**；**how long to wait → Response timeout**。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Flow control ensures that packets are not dropped because too much data is being sent too quickly."
 > - "The access method determines when someone is able to begin sending a message."
 > - "Response timeout specifies how long to wait for a response and what action to take if a response timeout occurs."
@@ -176,7 +176,7 @@ TCP/IP 只有 4 層，判別更快：**hardware devices and media**（硬件與�
 
 「送給誰」三級分明：**Unicast = one-to-one**（只送給一個特定目的地，日常上網絕大多數流量）；**Multicast = one-to-many**（送給「一群」已加入群組的接收者，例如 IPTV 串流）；**Broadcast = one-to-all**（送給網段內所有人，例如 DHCP Discover 及 ARP request）。考試常把三個英文名與三個 "one-to-X" 拆開考配對，只要記住「U=one-to-one、M=one-to-many、B=one-to-all」即可秒殺。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Unicast is a one-to-one delivery option: a message is sent to a single destination."
 > - "Multicast is a one-to-many delivery option: a message is sent to a group of interested recipients."
 > - "Broadcast is a one-to-all delivery option: a message is sent to every host in the network."
@@ -204,7 +204,7 @@ TCP/IP 只有 4 層，判別更快：**hardware devices and media**（硬件與�
 
 **PDU（Protocol Data Unit）** 是「資料在某層的形態名稱」，一層一名字：最頂層叫 **Data**；落到 Transport 加上 header 叫 **Segment**；落到 Network 叫 **Packet**；落到 Data Link 變成 **Frame**；最後在 Physical 以 **Bits**（位元流）傳上媒介。背誦口訣：**「資料→段→包→幀→位元」**（Data → Segment → Packet → Frame → Bits），對應層數由 5、4、3、2、1 逐層向下。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "The PDU at the Application layer is called data, at the Transport layer it is called a segment, at the Network layer it is called a packet, at the Data Link layer it is called a frame, and at the Physical layer it is called bits."
 > - "A Protocol Data Unit (PDU) is the form that a piece of data takes at a particular network layer."
 
@@ -222,7 +222,7 @@ TCP/IP 只有 4 層，判別更快：**hardware devices and media**（硬件與�
 
 **Encapsulation（封裝）** 是由發送方「由上至下」進行的：應用程式產生 **Data** → Transport 層加 TCP/UDP header 變成 **Segment** → Network 層加 IP header 變成 **Packet** → Data Link 層加 frame header/trailer 變成 **Frame** → Physical 層轉成 **Bits** 送上媒介。每一層都「加一層 header」，所以順序必然是 Data → Segment → Packet → Frame → Bits。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "During encapsulation, the PDU changes as it moves down the layers: Data, then Segment, then Packet, then Frame, and finally Bits for transmission."
 
 **🎯 Exam Answer Phrase**
@@ -239,7 +239,7 @@ TCP/IP 只有 4 層，判別更快：**hardware devices and media**（硬件與�
 
 **De-encapsulation（解封）** 是接收方「由下至上」的逆過程：收到 **Bits** → Physical 層還原 → Data Link 層剝去 frame header 得回 **Frame** 內的 **Packet** → Network 層剝去 IP header 得回 **Segment** → Transport 層剝去 TCP/UDP header 得回 **Data** 交給應用程式。所以只是把 (b) 的順序完全倒轉——這是送分題，只要記得「封裝向下、解封向上」就不會錯。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "De-encapsulation is the reverse process: Bits → Frame → Packet → Segment → Data, as each layer strips its own header."
 
 **🎯 Exam Answer Phrase**
@@ -276,7 +276,7 @@ TCP/IP 只有 4 層，判別更快：**hardware devices and media**（硬件與�
 
 先判斷「本地還是跨網段」：ServerB（172.16.1.99）與 HostB（172.16.2.99）同屬 172.16.0.0/16（注意 Subnet Mask 是 /16，所以兩個 .x.x 都在同一網段），是 **local communication**。同網段傳送時，**不需要經過 Router**：Sender 直接用 ARP 查到目的地 HostB 的 MAC，Frame 直接由 ServerB 送到 HostB。所以 Destination MAC = HostB 的 MAC（BBBB.BBBB.BBBB），Source MAC = ServerB 自己的 MAC（BBBB.1234.5678）；IP 欄位永遠是「真正的來源與目的地」，即 Source IP = 172.16.1.99、Destination IP = 172.16.2.99。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "For local communication, the destination MAC address is the MAC address of the destination host itself."
 > - "The Source and Destination IP addresses always identify the original sender and the final receiver; they do not change during local delivery."
 
@@ -298,7 +298,7 @@ TCP/IP 只有 4 層，判別更快：**hardware devices and media**（硬件與�
 
 ServerB 要傳給 HostA（192.168.1.110），不在同一網段，屬 **remote communication**。主機發現目的地不在自己網段時，會把 Frame 送給 **Default Gateway（Router）**——因為 ServerB 不知道 HostA 的 MAC，只知道 RouterB-G1 的 MAC。所以這一跳的 **Destination MAC = RouterB-G1 的 MAC（BBBB.CCCC.1111）**，Source MAC 仍是 ServerB 自己；而 **IP 欄位完全不變**：Source IP = ServerB（172.16.1.99），Destination IP = HostA（192.168.1.110），因為 IP 代表「最終來源與最終目的地」，永遠不會改成 Router 的 IP。這是全題最重要的規律。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "For remote communication, the source host sends the frame to its default gateway (router), so the destination MAC address is the router's MAC address."
 > - "The IP addresses are never changed to the router's addresses; they always remain the original source and final destination."
 
@@ -320,7 +320,7 @@ ServerB 要傳給 HostA（192.168.1.110），不在同一網段，屬 **remote c
 
 Packet 沿途經過兩個 Router：RouterB 由 S1 轉送給 RouterA，RouterA 收到後 **de-capsulate**（剝去 WAN 的 Frame），查路由表發現目的地 HostA 在自己的 G0 網段（192.168.1.0/24），於是 **re-encapsulate** 成新的 Ethernet Frame 從 G0 送給 HostA。因為這是「最後一跳」，Destination MAC 換成真正目的地 **HostA 的 MAC（AAAA.AAAA.AAAA）**，Source MAC 換成送出介面 **RouterA-G0 的 MAC（AAAA.CCCC.0000）**——注意 Router 轉發時只改 MAC（Frame 每跳重造），**IP 欄位端到端完全一樣**（B7 = 172.16.1.99、B8 = 192.168.1.110）。記住口訣：**「MAC 每跳換、IP 永不變」**。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Each router de-encapsulates and re-encapsulates the packet with new source and destination MAC addresses at every hop."
 > - "MAC addresses change at every hop, but the IP addresses remain the same end-to-end."
 

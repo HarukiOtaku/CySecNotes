@@ -43,7 +43,7 @@
 
 繁中解說：本模組嘅整體學習成果係「執行資料庫操作，去實現資料模型，並喺應用程式中操作資料」——即係將 Chapter 6 設計好嘅 NoSQL data model，用 MongoDB 指令實際建立（create）、讀取（read）、更新（update）、刪除（delete）資料。本章就係 NoSQL DML 嘅第一炮：Basic Data Manipulation（進階操作喺 Chapter 8）。
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "On completion of the module, students are expected to be able to: perform database operations to implement data models and manipulate data in the applications."
 
 #### 3.1.2 Sample Data in MongoDB — Employee（員工）
@@ -61,7 +61,7 @@
 }
 ```
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Primary Key Retained if it is real information in the business."
 > - "Each document has an `_id` field; if omitted, MongoDB generates an ObjectId automatically."
 
@@ -90,7 +90,7 @@
   "description": "Computer Desk 48\"" }
 ```
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Assume Product_id is not necessary in the real world."
 > - "Documents in the same collection may have different fields (schema-less)."
 > - "A double quote inside a string must be escaped with a backslash (`\"`)."
@@ -125,7 +125,7 @@
   ] }
 ```
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "An order document embeds its order_line array; each element is an embedded document referencing a product by ObjectId."
 > - "`ISODate` stores a date/time value; `ObjectId` references a document in another collection."
 
@@ -142,7 +142,7 @@ switched to db Ordering
 > use("Ordering");
 ```
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Use `use <databaseName>` to switch to (and create) a database; the console responds 'switched to db Ordering'."
 
 #### 3.2.2 Create Collections Explicitly（明確建立集合，可選）
@@ -154,7 +154,7 @@ switched to db Ordering
 { ok : 1 }
 ```
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "`db.createCollection('name')` creates an empty collection explicitly; the response `{ ok: 1 }` means the operation succeeded (1 means 'True')."
 
 #### 3.2.3 Drop Collection（刪除集合）
@@ -166,7 +166,7 @@ switched to db Ordering
 true
 ```
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "`db.<collection>.drop()` removes the collection; the command returns `true` on success."
 
 #### 3.2.4 Drop Database（刪除資料庫）
@@ -180,7 +180,7 @@ switched to db Ordering
 { ok: 1, dropped: 'Ordering' }
 ```
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "To drop a database, first `use` it, then run `db.dropDatabase()`; the response `{ ok: 1, dropped: 'Ordering' }` confirms the database was removed."
 
 ### 3.3 Query Document — 基本讀取操作
@@ -198,7 +198,7 @@ db.TableName.find(
 db.TableName.findOne(...);            // Return the first matched result
 ```
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "The order of the clauses cannot be changed: conditions come first, projection second."
 > - "MongoDB is case sensitive, even for table names and field names."
 > - "Conditions and Projection are in BSON format."
@@ -219,7 +219,7 @@ db.TableName.findOne(...);            // Return the first matched result
 SELECT * FROM Employee;
 ```
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "`find()` with no arguments, or `find({})`, returns all documents of the collection."
 > - "There is no response if no data matches the condition."
 
@@ -243,7 +243,7 @@ db.Employee.find({ _id: ObjectId("5f34cc13d02f2223c0b952e3") });
 SELECT * FROM Employee WHERE title = "Sales";
 ```
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Basic syntax: `{ field: value, ... }` — matches documents where the field equals the value."
 > - "Match `_id` with `ObjectId("...")`, not with a plain string."
 
@@ -273,7 +273,7 @@ SELECT * FROM Employee WHERE salary <= 10000;
 SELECT * FROM Employee WHERE salary BETWEEN 10000 AND 15000;
 ```
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Comparison operators: `$gt` (greater than), `$gte` (greater than or equal), `$lt` (less than), `$lte` (less than or equal)."
 > - "Basic syntax: `{ field: { operator: value }, ... }`."
 > - "An inclusive range is written as `{ salary: { $gte: 10000, $lte: 15000 } }`, equivalent to SQL `BETWEEN 10000 AND 15000`."
@@ -295,7 +295,7 @@ db.Product.find({ description: null });
 db.Product.find({ description: { $exists: false } });
 ```
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Basic syntax: `{ field: null, ... }` matches documents where the field is missing OR its value is null."
 > - "Basic syntax: `{ field: { $exists: [true|false] } }` tests whether the field exists at all."
 > - "`$exists: false` matches only documents that do NOT have the field."
@@ -323,7 +323,7 @@ SELECT * FROM Employee WHERE title <> "Sales";
 SELECT * FROM Employee WHERE title NOT IN ("Manager", "Sales");
 ```
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Comparison operators: `$eq` (equal), `$ne` (not equal), `$in` (in a set), `$nin` (not in a set)."
 > - "`$in` / `$nin` take an array of values, e.g. `{ title: { $nin: ["Manager", "Sales"] } }`."
 
@@ -347,7 +347,7 @@ db.Employee.find({ $and: [
 SELECT * FROM Employee WHERE salary > 10000 AND title = "Sales";
 ```
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Implicit AND: `{ field1: value1, field2: { operator: value2 }, ... }` — comma-separated fields in one document."
 > - "Explicit AND: `{ $and: [ { condition1 }, { condition2 }, ... ] }`."
 > - "Both forms require ALL conditions to be true, like SQL `AND`."
@@ -377,7 +377,7 @@ db.Employee.find({ $or: [
 SELECT * FROM Employee WHERE salary <= 10000 OR title = "Manager";
 ```
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Same field, multiple values: `{ field: { $in: [value1, value2, ...] } }`."
 > - "Different fields: `{ $or: [ { condition1 }, { condition2 }, ... ] }`."
 > - "`$or` matches documents satisfying AT LEAST ONE condition, like SQL `OR`."
@@ -404,7 +404,7 @@ SELECT * FROM Employee WHERE lastname LIKE "L%";
 SELECT * FROM Employee WHERE title LIKE "%r";
 ```
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Basic syntax: `{ field: /regex/, ... }` — a regular expression is written between two slashes, without quotes."
 > - "`^` anchors the pattern to the start of the string; `$` anchors it to the end."
 
@@ -429,7 +429,7 @@ SELECT * FROM Employee WHERE lastname LIKE "__a%";
 SELECT * FROM Customer WHERE customer_address LIKE "% Tian";
 ```
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "`\w{2}a` means letter 'a' preceded by exactly 2 word characters; `\d` matches a single digit."
 > - "`{n}` is a quantifier meaning exactly n occurrences of the preceding token."
 
@@ -453,7 +453,7 @@ db.Employee.find({}, { emp_id: 1, firstname: 1 });
 SELECT _id, emp_id, firstname FROM Employee;
 ```
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Basic Syntax: `{ field1: [0|1], field2: [0|1], ... }` — 1 (or true) includes the field, 0 (or false) excludes it."
 > - "`_id` is included by default."
 
@@ -477,7 +477,7 @@ db.Employee.find({}, { _id: 0, emp_id: 1, firstname: 1 });
 SELECT emp_id, firstname FROM Employee;
 ```
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Exclude `_id` with `{ _id: 0 }`; `_id` is the only field that can be mixed with inclusion (`1`) in a projection."
 > - "You cannot mix 1 and 0 for other fields in the same projection."
 
@@ -500,7 +500,7 @@ db.Employee.find({}, { _id: 0, emp_id: 1, firstname: 1 }).sort({ firstname: -1 }
 SELECT emp_id, firstname FROM Employee ORDER BY firstname DESC;
 ```
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Basic syntax: `db.Tablename.find(...).sort({ field1: [-1|1] })`."
 > - "Either Descending (-1) or Ascending (1) order — `-1` means descending, `1` means ascending."
 
@@ -518,7 +518,7 @@ SELECT emp_id, firstname FROM Employee ORDER BY firstname DESC;
 SELECT DISTINCT postal_code FROM Customer;
 ```
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Basic syntax: `db.Tablename.distinct(field);` — returns an array of distinct values of the given field."
 > - "The field name must be quoted, e.g. `db.Customer.distinct("postal_code")`."
 
@@ -544,7 +544,7 @@ db.inventory.find({ tags: ["red", "blank"] });
 // 只匹配 notebook（元素與次序完全一致）
 ```
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Matching an array with `{ tags: ["red", "blank"] }` requires exact matching, including the field order."
 > - "A document matches only if its array equals the given array element-by-element in the same order."
 
@@ -557,7 +557,7 @@ db.inventory.find({ tags: { $all: ["red", "blank"] } });
 // 匹配 journal, notebook, paper, planner（包含兩元素即可，次序不限）
 ```
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "`{ tags: { $all: ["red", "blank"] } }` matches documents whose array contains ALL of the specified elements, regardless of order or extra elements."
 
 #### 3.4.3 Match an Item（單元素匹配）
@@ -569,7 +569,7 @@ db.inventory.find({ tags: "red" });
 // 匹配所有 tags 陣列包含 "red" 嘅文件（journal, notebook, paper, planner）
 ```
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "`{ tags: "red" }` matches documents whose array contains the element "red"."
 
 #### 3.4.4 Match Array Size（$size：陣列長度）
@@ -581,7 +581,7 @@ db.inventory.find({ "tags": { $size: 3 } });
 // 只匹配 paper（tags 剛好有 3 個元素）
 ```
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "`{ "tags": { $size: 3 } }` matches documents whose array has exactly 3 elements."
 
 ### 3.5 Query Embedded Document / Array — 嵌入式文件／陣列查詢
@@ -614,17 +614,17 @@ db.Orders.find(
   { "order_id": 1009, "order_date": ISODate("2012-10-16T00:00:00Z"), ... } ]
 ```
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Use dot notation to match a field inside an embedded document or array element, e.g. `{ "order_line.quantity": 2 }`."
 > - "The field name should be quoted for embedded document / field."
 > - "Orders are matched if they contain at least one order_line object which has quantity of 2."
 
 #### 3.5.2 Match Embedded Document with $elemMatch（對陣列元素同時施加多個條件）
 
-繁中解說：dot notation 嘅限制係「唔可以要求**同一個陣列元素**同時滿足多個條件」。要用 **`$elemMatch`**：`{ results: { $elemMatch: { $gte: 80, $lt: 85 } } }`——匹配「`results` 陣列入面**至少有一個元素同時 >= 80 且 < 85**」嘅文件。樣本 `scores` 集合（`results` 係普通數字陣列）：`_id:1` 係 `[82,85,88]`——82 同時符合 >= 80 同 < 85，所以匹配；`_id:2` 係 `[75,88,89]`——冇任何單一元素同時符合兩個條件（75 < 80，88 唔 < 85）；其餘都唔匹配。**所以結果只有 `_id:1`**。
+繁中解說：dot notation 嘅限制係「唔可以要求**同一個陣列元素**同時滿足多個條件」。要用 **`$elemMatch`**：`{ results: { $elemMatch: { $gte: 80, $lt: 85 } } }`——匹配「`results` 陣列入面**至少有一個元素同時 >= 80 且 < 85**」嘅文件。樣本 `score` 集合（`results` 係普通數字陣列）：`_id:1` 係 `[82,85,88]`——82 同時符合 >= 80 同 < 85，所以匹配；`_id:2` 係 `[75,88,89]`——冇任何單一元素同時符合兩個條件（75 < 80，88 唔 < 85）；其餘都唔匹配。**所以結果只有 `_id:1`**。
 
 ```javascript
-// scores 集合樣本
+// score 集合樣本
 [ { "_id": 1, "results": [82, 85, 88] },
   { "_id": 2, "results": [75, 88, 89] },
   { "_id": 3, "results": [50, 20, 70] },
@@ -635,7 +635,9 @@ db.Orders.find(
 db.score.find({ results: { $elemMatch: { $gte: 80, $lt: 85 } } });
 ```
 
-> English Standard Definitions:
+> ⚠️ 教材原文兩處名稱不一致（`scores` 集合／`db.score.find()`），此處統一為 `score`。
+
+> **English Standard Definition:**
 > - "`$elemMatch` matches documents where the array contains AT LEAST ONE element satisfying ALL of the given conditions at the same time."
 > - "`db.score.find({ results: { $elemMatch: { $gte: 80, $lt: 85 } } })` — the same element must be both >= 80 and < 85."
 
@@ -666,7 +668,7 @@ db.survey.find({ results: { $elemMatch: { product: "xyz", score: { $gte: 8 } } }
 db.survey.find({ results: { $elemMatch: { product: "def", score: { $gt: 6, $lt: 8 } } } });
 ```
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "`$elemMatch` on an array of embedded documents requires ONE element to satisfy all conditions together, e.g. product equal to "xyz" AND score >= 8."
 > - "Each condition applies to the SAME embedded element, not across different elements."
 
@@ -693,7 +695,7 @@ INSERT INTO Product (product_name, product_finish, unit_price, on_hand)
 VALUES ("End Table","Cherry",175,8);
 ```
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "`db.TableName.insertOne({ ... })` inserts a single document; the system will generate `_id` if it is omitted."
 > - "The response `{ acknowledged: 1, insertedId: ObjectId(...) }` confirms the insertion and returns the new document's `_id`."
 
@@ -711,7 +713,7 @@ db.Product.insertOne({
 });
 ```
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "If you provide `_id` explicitly, MongoDB uses your value instead of generating one."
 
 #### 3.6.3 Insert Multiple Documents（插入多份文件：insertMany）
@@ -736,7 +738,7 @@ INSERT INTO Product (product_name, product_finish)
 VALUES ("End Table","Cherry"), ("Table","Natural Ash");
 ```
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "`db.TableName.insertMany([ { ... }, { ... }, ... ])` inserts multiple documents at once; the argument is an array."
 > - "The response includes `insertedIds`, mapping each index ('0', '1', ...) to the generated `_id`."
 
@@ -752,7 +754,7 @@ db.Product.insertMany([
 // 回應（節錄）：... "errmsg": "E11000 duplicate key error collection: Ordering.Product index: _id_ dup key: { _id: ObjectId('5f34cd0f92abc114f65f18fc') }", "op": { "_id": ObjectId("5f34cd0f92abc114f65f18fc"), "product_name": "Table", "product_finish": "Natural Ash" } ...
 ```
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "`_id` must be unique; inserting documents with the same `_id` raises error E11000 duplicate key error."
 > - "The error message shows the collection, the index (`_id_`), and the duplicate key value."
 
@@ -762,7 +764,7 @@ db.Product.insertMany([
 
 - **刪除全部**：`db.Product.deleteMany({ })`（空條件 = 全部）→ 回傳 `{ acknowledged: 1, deletedCount: 13 }`——`deletedCount` 顯示實際刪咗幾多份（呢度 13）。
 - **按條件刪除**：`db.Orders.deleteMany({ emp: ObjectId("5f34cc13d02f2223c0b952e3") })`——刪除所有 emp 等於指定 ObjectId 嘅訂單。
-- **刪除第一份匹配**：`db.Employee.deleteOne({ emp: ObjectId("5f34cc13d02f2223c0b952e3") })`——只刪第一份符合條件嘅文件。
+- **刪除第一份匹配**：`db.Employee.deleteOne({ emp_id: 301 })`——只刪第一份符合條件嘅文件。
 
 等價 SQL：`DELETE FROM Product;`、`DELETE FROM Orders WHERE emp = "5f34cc13d02f2223c0b952e3"`。
 
@@ -775,8 +777,10 @@ db.Product.deleteMany({ });
 db.Orders.deleteMany({ emp: ObjectId("5f34cc13d02f2223c0b952e3") });
 
 // 只刪除第一份匹配文件
-db.Employee.deleteOne({ emp: ObjectId("5f34cc13d02f2223c0b952e3") });
+db.Employee.deleteOne({ emp_id: 301 });
 ```
+
+> ⚠️ 原教材該例用 emp 欄位（屬 Orders 集合），屬筆誤；Employee 集合嘅欄位係 emp_id。
 
 ```sql
 -- SQL 等價寫法
@@ -784,7 +788,7 @@ DELETE FROM Product;
 DELETE FROM Orders WHERE emp = "5f34cc13d02f2223c0b952e3";
 ```
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "`deleteMany({})` deletes all documents; `deleteMany({ condition })` deletes all matching documents."
 > - "`deleteOne({ condition })` deletes only the first document matching the condition."
 > - "`deletedCount` reports how many documents were actually deleted."
@@ -806,7 +810,7 @@ db.Tablename.updateMany(
 );
 ```
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "Update operators: `$set` (set field values), `$inc` (increment), `$mul` (multiply), `$rename` (rename fields), `$unset` (remove fields)."
 
 #### 3.6.7 Update Documents — Update Field Values（$set 設定欄位值）
@@ -827,7 +831,7 @@ db.Employee.updateMany(
 UPDATE Employee SET salary = 10000000;
 ```
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "`$set: { field: value }` sets (overwrites) the field value of matching documents."
 > - "`matchedCount` = documents matching the condition; `modifiedCount` = documents actually modified; `upsertedCount` = documents inserted by upsert; `insertedId` is null for updates."
 
@@ -847,7 +851,7 @@ db.Customer.updateMany(
 UPDATE Customer SET customer_address = "new address" WHERE postal_code = 999077;
 ```
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "With a condition, `updateMany` updates only the documents matching the condition, like SQL `UPDATE ... WHERE ...`."
 
 #### 3.6.9 Update Documents — with Existing Data（$inc / $mul：基於現有值計算）
@@ -873,7 +877,7 @@ db.Employee.updateMany(
 UPDATE Employee SET salary = salary + 3000;
 ```
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "`$inc: { field: amount }` adds (or subtracts) the amount to the field's existing value."
 > - "`$mul: { field: factor }` multiplies the field's existing value by the factor."
 
@@ -894,7 +898,7 @@ db.Customer.updateMany(
 ALTER TABLE Customer RENAME customer_address To address;
 ```
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "`$rename: { oldName: newName }` renames a field in matching documents."
 
 #### 3.6.11 Update Document — Remove Fields（$unset 刪除欄位）
@@ -914,7 +918,7 @@ db.Customer.updateMany(
 ALTER TABLE Customer DROP address;
 ```
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "`$unset: { field: "" }` removes the field (and its value) from matching documents."
 
 #### 3.6.12 Update Single Document（updateOne：只更新第一份）
@@ -928,7 +932,7 @@ db.Customer.updateOne(
 );
 ```
 
-> English Standard Definitions:
+> **English Standard Definition:**
 > - "`updateOne` updates only the first document matching the condition, using the same syntax as `updateMany`."
 
 ## 📖 4. 必考英文術語與答題句型庫（Core Vocabulary & Exam Key Phrases）
