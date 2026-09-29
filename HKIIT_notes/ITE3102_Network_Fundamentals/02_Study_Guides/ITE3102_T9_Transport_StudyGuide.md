@@ -1,6 +1,7 @@
 # ITE3102 Network Fundamentals — Tutorial 9 雙語練習題解 Guide（Transport Layer: TCP/UDP）
 
 > 本 Guide 對應教材：《Network Fundamentals Tutorial 9 – Transport Layer》。逐題保留英文題目原文，答案與解說以香港繁體中文撰寫；所有核心定義、技術特徵與答題重點均以英文標準定義句（English Blockquote）呈現，英文專有名詞一律保留原文，方便考試直接用英文作答。
+> **理論延伸**：`ITE3102_L9_TransportLayer_StudyGuide.md`（同一課 Lecture 講義完整理論版）
 
 ---
 

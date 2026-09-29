@@ -1,11 +1,11 @@
 # ITE3102 Network Fundamentals — Final Cheat Sheet（考前極速總複習）
 
-> **覆蓋範圍**：Lecture 0 Number Systems（Module 5）／ Lecture 1 Networking Today（Module 1）／ T3 Network Models（OSI & TCP/IP）／ T4 Network Access（Physical & Data Link）／ T5 Ethernet（ARP、Switch、Frame）／ T6 Network Layer（Routing、IPv4/IPv6 Header）／ T7 IPv4 Addressing & Subnetting（VLSM）／ T8 & L8 IPv6 Addressing ／ T9 Transport Layer（TCP／UDP）／ T10 Application Layer（HTTP／DNS／DHCP／Email／FTP）
+> **覆蓋範圍**：Lecture 0 Number Systems（Module 5）／ Lecture 1 Networking Today（Module 1）／ T3 Network Models（OSI & TCP/IP）／ T4 Network Access（Physical & Data Link）／ T5 Ethernet（ARP、Switch、Frame）／ T6 Network Layer（Routing、IPv4/IPv6 Header）／ T7 IPv4 Addressing & Subnetting（VLSM）／ T8 & L8 IPv6 Addressing ／ T9 Transport Layer（TCP／UDP）／ T10 Application Layer（HTTP／DNS／DHCP／Email／FTP）／ L3 Network Models（Module 3）／ L4 Network Access（Module 4 & 6）／ L5 Ethernet（Module 7）／ L6 Network Layer（Router）／ L7 IPv4 Addressing（Module 11）／ L9 Transport Layer（Module 14）／ L10 Application Layer（Module 15）
 > **使用時機**：考試前 5–10 分鐘快速掃描；只保留「關鍵數字、對比表、英文口訣」。
 > 詳細解說請回查：`02_Study_Guides/` 內對應各課的 Study Guide（⚠️ 正確資料夾名係 `02_Study_Guides`，唔好寫錯成任何加咗 AI 字樣嘅變體）
 > ⚠️ 本檔只寫「理論」；Packet Tracer 情境、Cisco IOS 指令、Windows 指令速查由另一章負責（緊接本檔之後）。
 
-**速覽目錄**：P1 Number Systems｜P2 Networking Today｜P3 Network Models（OSI／TCP-IP）｜P4 Network Access｜P5 Ethernet｜P6 Network Layer｜P7 IPv4 Addressing & Subnetting｜P8 IPv6 Addressing｜P9 Transport Layer｜P10 Application Layer｜英文極速記憶句｜最後 60 秒自測清單
+**速覽目錄**：P1 Number Systems｜P2 Networking Today｜P3 Network Models（OSI／TCP-IP）｜P4 Network Access｜P5 Ethernet｜P6 Network Layer｜P7 IPv4 Addressing & Subnetting｜P8 IPv6 Addressing｜P9 Transport Layer｜P10 Application Layer｜P11 Network Models｜P12 Network Access｜P13 Ethernet｜P14 Network Layer｜P15 IPv4 Addressing｜P16 Transport Layer｜P17 Application Layer｜英文極速記憶句｜最後 60 秒自測清單
 
 ---
 
@@ -878,6 +878,614 @@
 
 ---
 
+## Part 11 — L3: Network Models（協議與模型）
+（來源：`ITE3102_L3_NetworkModels_StudyGuide.md` 講義深度補完；Part 3 已覆蓋嘅模型對照／PDU／投遞方式唔重覆）
+
+### 11.1 通訊三要素與四大要求
+
+- 三要素：**Source（sender）**、**Destination（receiver）**、**Channel（media）**（提供通訊路徑）
+- 通訊要照顧四件事：**identified sender and receiver**；**common language and grammar**；**speed and timing of delivery**；**confirmation or acknowledgment**
+
+### 11.2 Protocol 四大類型
+
+| 類型 | 一句講清 |
+|---|---|
+| Network Communications | 令兩部以上設備喺一個或多個網絡通訊 |
+| Network Security | authentication、data integrity、data encryption |
+| Routing | 令 router 交換路由資訊、比較路徑、選最佳路徑 |
+| Service Discovery | 自動偵測設備或服務 |
+
+### 11.3 Protocol 六大功能
+
+| 功能 | 一句講清 |
+|---|---|
+| Addressing | identifies sender and receiver |
+| Reliability | provides guaranteed delivery |
+| Flow Control | manages the rate of data transmission |
+| Sequencing | 為每個 transmitted segment 加 unique label |
+| Error Detection | 判斷傳輸途中資料有冇 corrupt |
+| Application Interface | process-to-process communications |
+
+### 11.4 Protocol Suite 四大家族
+
+| Suite | 性質／維護者 |
+|---|---|
+| TCP/IP（Internet Protocol Suite） | **最常用**；由 **IETF** 維護 |
+| OSI protocols | 由 **ISO** 同 **ITU** 開發 |
+| AppleTalk / Novell NetWare | **proprietary**（廠商專有） |
+| Open standard suite | TCP/IP 係 open standard：public 免費、任何 vendor 可用 |
+
+- Open standards 鼓勵 **interoperability、competition、innovation**；standards-based 就係經標準組織批准，確保 interoperability
+
+### 11.5 標準組織十強（一句對應）
+
+| 組織 | 職責 |
+|---|---|
+| ISOC | 推廣互聯網開放發展同演進 |
+| IAB | 管理同開發 internet standards |
+| IETF | 開發、更新、維護 internet 同 TCP/IP 技術 |
+| IRTF | 專注長期研究（long-term research） |
+| ICANN | coordinates IP address allocation、domain name 管理 |
+| IANA | 為 ICANN 監管 IP allocation、domain name、protocol identifiers |
+| IEEE | power、healthcare、telecom、networking 標準（Ethernet、WLAN） |
+| EIA | wiring、connectors、**19-inch racks** |
+| TIA | radio equipment、cellular towers、VoIP、satellite |
+| ITU-T | video compression、IPTV、broadband（**DSL**） |
+
+口訣：ISOC 推廣 → IAB 管標準 → IETF 維護 TCP/IP → IRTF 研究；ICANN **統籌** → IANA **執行**。
+
+### 11.6 分層模型四大好處＋兩個加速概念
+
+- 四大好處：**assist in protocol design**、**prevent changes in one layer from affecting other layers**、**foster competition**、**provide a common language**
+- **Segmentation** 兩大好處：**increases speed**（唔使等整份傳完）＋ **increases efficiency**（只重傳失敗嘅 segment）
+- **Multiplexing**：將多條 segmented data streams **interleave** 埋一齊
+
+### 11.7 兩套位址：Layer 2 vs Layer 3
+
+| Layer | 別名 | 特性 |
+|---|---|---|
+| **Layer 2** | MAC address / physical address / data link address | **physically embedded into the NIC**；**local** addressing |
+| **Layer 3** | IP address / logical address / hierarchical address / network address | **network portion**（左邊，識別 group）＋ **host portion**（識別個別設備） |
+
+- IP packet 內嘅 source IP／destination IP 永遠係 original source 同 final destination；**well-known port numbers identify the applications**
+- 主機取 IP 兩種方法：**DHCP** 動態派 ／ **statically assigned**（人手填 IP、subnet mask、default gateway、DNS）
+
+### 11.8 英文記憶句
+
+- "Protocols are the rules that communications will follow."
+- "A protocol suite is a set of protocols that work together to provide comprehensive network communication services."
+- "TCP/IP is an open standard protocol suite that is freely available to the public and can be used by any vendor."
+- "Open standards encourage interoperability, competition, and innovation."
+- "The IETF develops, updates, and maintains internet and TCP/IP technologies."
+- "ICANN coordinates IP address allocation and the management of domain names."
+- "Layered models assist in protocol design, prevent changes in one layer from affecting other layers, foster competition, and provide a common language."
+- "Segmentation increases speed and increases efficiency."
+
+---
+
+## Part 12 — L4: Network Access（實體層與 Data Link）
+（來源：`ITE3102_L4_NetworkAccess_StudyGuide.md` 講義深度補完；Part 4 已覆蓋嘅線材選用／拓撲／frame 欄位唔重覆）
+
+### 12.1 Physical Layer 定位同三大功能區
+
+- 職責：**transports bits across the network media**，係 encapsulation 嘅**最後一步**（將 frame encode 成 signals）
+
+| 功能區 | 內容 |
+|---|---|
+| Physical Components | hardware devices、media、connectors |
+| Encoding | 將 bits 轉成下一個裝置認得嘅格式 |
+| Signaling | 0 同 1 喺媒介上點表示 |
+
+### 12.2 Encoding 三招與 Signaling 三種
+
+- Encoding 方法：**Manchester**、**4B/5B**、**8B/10B**
+- Signaling：Copper = **electrical signals**；Fiber = **light pulses**；Wireless = **microwave signals**
+
+### 12.3 四個「速度」概念同單位（Latency 係新增）
+
+| 概念 | 定義 | 大細關係 |
+|---|---|---|
+| Bandwidth | capacity at which a medium can carry data | 最高（理論） |
+| Throughput | transfer of bits across the media（實際） | ≤ Bandwidth |
+| Goodput | usable data；= Throughput − traffic overhead | ≤ Throughput |
+| **Latency** | amount of time, **including delays**, for data to travel from one point to another | 越細越好 |
+
+- 單位：**1 Kbps = 1,000 bps｜1 Mbps = 10^6 bps｜1 Gbps = 10^9 bps｜1 Tbps = 10^12 bps**
+
+### 12.4 銅線三兄弟＋三大麻煩
+
+- **UTP**：無屏蔽、**最常見 networking media**、最平、用 **RJ-45**；**STP**：braided 或 foil shield（抗噪最好、貴、難裝）；**Coaxial**：單芯銅導體＋塑料絕緣＋編織銅網（同時做第二導線）＋外皮（無線天線、cable internet）
+
+| 麻煩 | 解法 |
+|---|---|
+| **Attenuation** | 行得越遠訊號越弱 → 守線長上限 |
+| **EMI／RFI** | 金屬 shielding ＋ grounding |
+| **Crosstalk** | 絞線：一對線用相反極性，令 magnetic fields **cancel** |
+
+- **TIA/EIA-568** 規定：cable types、cable lengths、connectors、cable termination、testing methods
+
+### 12.5 光纖：SMF vs MMF
+
+| | Single-Mode Fiber (SMF) | Multimode Fiber (MMF) |
+|---|---|---|
+| Core | 極細 | 較大 |
+| 光源 | **expensive lasers** | **cheaper LEDs** |
+| 用途 | long-distance | 最多 **10 Gbps / 550 meters** |
+| Patch cord 顏色 | **Yellow** | **Orange／Aqua** |
+
+- **Dispersion**：光脈衝隨時間擴散；越大 → loss of signal strength 越大（MMF 較大）
+- 接頭：**ST**（Straight-Tip）、**SC**（Subscriber Connector）、**LC**（Lucent Connector）
+- 四大應用：Enterprise、**FTTH**（always-on broadband）、Long-Haul、Submarine；光纖完全免疫 EMI/RFI
+
+### 12.6 無線：四大限制＋四個 IEEE 標準
+
+- 限制：Coverage area、Interference、Security、**Shared medium**（WLAN 行 **half-duplex**，多人同時用 → 每人頻寬下降）
+- **Wi-Fi = IEEE 802.11**（WLAN）｜**Bluetooth = IEEE 802.15**（WPAN）｜**WiMAX = IEEE 802.16**（point-to-multipoint 寬頻無線接入）｜**Zigbee = IEEE 802.15.4**（低速率、低功耗 IoT）
+- 兩件裝備：**Wireless AP**（集中無線訊號 → 接 copper-based infrastructure）＋ **Wireless NIC Adapters**（畀主機無線能力）
+
+### 12.7 Data Link Layer：目的同每跳四動作
+
+- 職責：負責 **communications between end-device NICs**，將 **Layer 3 packets 封裝成 Layer 2 frames**，做 error detection、掉棄 corrupt frames
+- 兩子層：**LLC**（對上層 networking software）× **MAC**（對下硬件：data encapsulation + media access control）；標準由 **IEEE、ITU、ISO、ANSI** 定義
+- Router 每跳四動作：**accept frame → de-encapsulate → re-encapsulate → forward**
+- LAN／WAN frame 種類（由 logical topology + physical media 決定）：**Ethernet、802.11 Wireless、PPP、HDLC、Frame-Relay**
+
+### 12.8 媒體存取控制：爭用式 vs 受控式
+
+| | Contention-based（爭用式） | Controlled Access（受控式） |
+|---|---|---|
+| 特性 | 所有 node 行 half-duplex，**爭用媒介** | **deterministic**：每個 node 有自己嘅時間 |
+| 例子 | **CSMA/CD**（legacy bus Ethernet：偵測碰撞 → 隨機等 → 重傳）；**CSMA/CA**（IEEE 802.11 WLAN：附上 time duration） | **Token Ring、ARCNET** |
+
+### 12.9 英文記憶句
+
+- "The physical layer transports bits across the network media and is the last step in the encapsulation process."
+- "Encoding converts the stream of bits into a format recognizable by the next device in the network path."
+- "Latency is the amount of time, including delays, for data to travel from one given point to another."
+- "Copper cable mitigates EMI and RFI by using metallic shielding and grounding, and mitigates crosstalk by twisting opposing circuit pair wires together."
+- "Single-mode fiber has a very small core and uses expensive lasers; multimode fiber has a larger core and uses less expensive LEDs."
+- "The Data Link Layer consists of two sublayers: Logical Link Control (LLC) and Media Access Control (MAC)."
+- "Contention-based access means all nodes compete for use of the medium, while controlled access is deterministic."
+
+---
+
+## Part 13 — L5: Ethernet（以太網、ARP、Switch）
+（來源：`ITE3102_L5_Ethernet_StudyGuide.md`；`⚠️ 教材外補充` 標註照原文保留）
+
+### 13.1 Ethernet 定位同兩個子層
+
+- **最廣泛使用嘅 LAN 技術**，同時喺 **data link layer 同 physical layer** 運作；定義喺 **IEEE 802.2 同 IEEE 802.3**；**LLC（software）**同上層溝通／標明上層協議，**MAC（hardware）**做 data encapsulation + media access control
+
+### 13.2 Ethernet Frame 大細（必背 5 個數）
+
+| 情況 | 數值 |
+|---|---|
+| Frame 最小 | **64 bytes**（由 Destination MAC 數到 FCS，**Preamble 唔計**） |
+| Frame 最大 | **1518 bytes** |
+| Jumbo / baby giant | 大過 **1500 bytes** |
+| Runt / collision fragment | 細過 **64 bytes** |
+| Pad | 太細嘅 packet 加 pad，令 frame 升到 **64 bytes** |
+
+### 13.3 Type 欄位值（識別封裝咗邊個上層協議）
+
+- Type 值：**0x800 = IPv4｜0x86DD = IPv6｜0x806 = ARP**；FCS 用 **CRC** 偵錯
+
+### 13.4 MAC 位址結構（必背數字）
+
+| 項目 | 值 |
+|---|---|
+| 長度 | **48 bits = 12 hexadecimal digits = 6 bytes** |
+| OUI | 頭 **6 個 hex digits（頭 3 bytes）**由 **IEEE** 指派畀廠商；尾 6 位喺同一 OUI 內必須唯一 |
+| BIA (Burned-In Address) | MAC **永久**編碼入 ROM chip |
+| Broadcast | **FF-FF-FF-FF-FF-FF**（48 個 1） |
+| Multicast | 以 **01-00-5E** 開頭；IPv4 multicast range = **224.0.0.0 – 239.255.255.255** |
+
+### 13.5 Switch 學習／轉發同 MAC 表
+
+- 表名：**MAC address table**（又叫 **CAM table**），做 MAC ↔ port 對應
+- **Learn**：睇入 frame 嘅 **source MAC + 入 port**，唔存在就加新 entry；**refresh timer** 默認保留 **5 分鐘**
+- **Forward**：查 **destination MAC**；查唔到（**unknown unicast**）→ **flooding**（除入 port 外全部）；broadcast／multicast frame 一樣 flooding
+
+### 13.6 三種 Frame 轉發模式
+
+| | Fast-forward（= Cut-Through） | Fragment-free | Store-and-Forward |
+|---|---|---|---|
+| 幾時轉 | 一讀到 destination address 即轉 | 存夠 **64 bytes** 先轉 | 收晒全個 frame 先轉 |
+| 檢查 | 冇 | 過濾頭 64 bytes 內嘅錯誤／collision | **CRC** 驗證，壞 frame 丟棄 |
+| 特性 | 最快、可能連壞 frame 都照轉 | 折衷 | 最可靠、延遲較高 |
+
+（**⚠️ 教材外補充**：**Fast-forward 即 Cut-Through**；**Store-and-Forward** = 緩存整個 frame、用 **CRC** 檢查有冇被改過先轉發。）
+
+### 13.7 Memory Buffering 兩種（**⚠️ 教材外補充**）
+
+- **Port-based**：每個入 port 有自己 queue，frame 只可經對應出 port 傳；一個 port 擠塞會拖住其他 frame
+- **Shared memory**：所有 frame 入一個所有 port 共用嘅 buffer，port 動態分配空間，彈性較高
+
+### 13.8 Duplex／Speed／Auto-MDIX
+
+- **Full-duplex** 兩端可同時收發；**Half-duplex** 同一時間只有一端可發；**Duplex Mismatch** = 一邊 half、一邊 full
+- **Auto-MDIX**：默認啟用，switch 自己偵測纜線類型（所以 crossover 屬 legacy）
+- （**⚠️ 教材外補充**）**Auto-negotiation**：自動協商 **speed 同 duplex**；協商失敗（如對端寫死 half-duplex）就會出現 **duplex mismatch**
+
+### 13.9 ARP 四種情境（本地 / 跨網絡 × Frame / ARP）
+
+| 情境 | 查邊個 IP | Destination MAC |
+|---|---|---|
+| 本地通訊 Frame | — | 目的裝置自己嘅 MAC |
+| 跨網絡通訊 Frame | — | **Default Gateway 嘅 MAC**（之後逐 hop 換） |
+| 本地通訊 ARP | ARP **目的裝置**嘅 IP | — |
+| 跨網絡通訊 ARP | ARP **只有 Default Gateway** 嘅 IP | — |
+
+- **ARP Request = Layer 2 broadcast（FFFF.FFFF.FFFF）**；**ARP Reply = unicast**（回覆自己 MAC）
+- **ARP table（ARP cache）**：IP → physical address，存喺 **RAM**；Source／Destination IP 全程唔變
+
+### 13.10 ARP 保安同廣播域（**⚠️ 教材外補充**）
+
+- **ARP Spoofing／poisoning**：攻擊者用自己 MAC 冒充 default gateway 發 ARP reply，令受害者送錯流量（Man-in-the-Middle）；企業用 **dynamic ARP inspection** ＋ **IP Source Guard** 核對 MAC ↔ IP 綁定
+- **Broadcast domain**：一個 broadcast frame 可以到達嘅範圍；switch 唔會分割（broadcast 照 flooding），**只有 Router 先會分開**
+- **Port security**：限制每個 port 可學到嘅 MAC 數量或綁定固定 MAC，防未知裝置同 MAC flooding；**collision domain** 方面 hub = 一個共用碰撞域，**switch 每個 port 各自獨立**，所以碰撞大減
+
+### 13.11 英文記憶句
+
+- "Ethernet is the most widely used LAN technology today and operates in the data link layer and the physical layer."
+- "Minimum 64 bytes, maximum 1518 bytes, counted from the destination MAC through the FCS; the preamble is not included."
+- "A MAC address is a 48-bit binary value expressed as 12 hexadecimal digits; the first 6 hexadecimal digits are the vendor-assigned OUI."
+- "The Type field identifies the upper layer protocol encapsulated: 0x800 for IPv4, 0x86DD for IPv6, 0x806 for ARP."
+- "Every frame that enters a switch is examined for source MAC address and port number, and the switch forwards frames by matching the destination MAC address."
+- "If the destination MAC address is not in the table, the switch forwards the frame out all ports except the incoming port."
+- "MAC addresses change in different frames, but the source and destination IP addresses stay the same in all frames."
+
+---
+
+## Part 14 — L6: Network Layer（網絡層、Router）
+（來源：`ITE3102_L6_NetworkLayer_StudyGuide.md` 講義深度補完；本 Part 只寫概念同流程，IOS 指令一律見「Cisco IOS 指令速查」章）
+
+### 14.1 Network Layer 兩大功能同封裝
+
+- 兩大功能：**path determination（選路）** ＋ **logical addressing（邏輯定址）**
+- 封裝：Transport layer 嘅 **segment** → 加 **network header** → 變成 **packet**；到目的地 **de-capsulate**，將 segment 交上 Transport layer
+- Network layer 嘅 PDU 叫 **packet**
+
+### 14.2 Packet Forwarding：逐跳換 Frame
+
+- Router 收 frame → 拎出 packet → 將 packet 封裝入**另一個** frame（每段鏈路換一次 Layer 2 frame）
+- 例子：**R2 將 packet 封裝入 PPP frame**——另一種 Layer 2 frame，**唔需要 MAC address**
+- **Broadcast domain**：一個邏輯網絡，包含所有可以由「送往 data link layer broadcast address 嘅 frame」到達嘅裝置；**router 介面分隔廣播域**
+
+### 14.3 IPv4 Header 四大欄位（必背數字）
+
+| 欄位 | 內容 |
+|---|---|
+| **IHL / Header Length** | 以 **4-byte word** 為單位；最小 = **5 → 5 × 4 = 20 bytes** |
+| **Total Length** | 係 **packet 資料部分**嘅大小（⚠️ 唔係 header 長度） |
+| **TTL (Time To Live)** | 每跳減 1，防止 packet 喺 routing loop 內兜 |
+| **Protocol** | 下一個上層協議：**1 = ICMP、6 = TCP、17 = UDP** |
+
+### 14.4 IPv4 三大限制 vs IPv6 特性
+
+| IPv4 限制 | 內容 |
+|---|---|
+| **IP address depletion** | 約 **4 billion** 個地址，新裝置指數增長 → 唔夠用 |
+| **Internet routing table expansion** | 大量 routes 會拖慢 router |
+| **NAT** | 令多部機共用一個 IPv4 地址；但影響需要 **end-to-end connectivity** 嘅技術 |
+
+| IPv6 特性 | 內容 |
+|---|---|
+| **128-bit hierarchical addressing** | 地址空間大得多，**免 NAT** |
+| 簡化 header | 欄位更少，處理更有效率 |
+| 欄位改名 | Traffic Class、Flow Label、Payload Length（= 舊 Total Length）、Next Header（= Layer 4 protocol）、**Hop Limit**（取代 TTL） |
+| Version 值 | **0110**（二進制） |
+
+### 14.5 Host 轉發決策同 Default Gateway
+
+- 判斷：目標同自己**同一 network address** → **local host**（frame 直接填對方 MAC）；唔同 → **remote host**（frame 送去 default gateway）
+- **127.0.0.1** = loopback interface，ping 自己部機、測試 **TCP/IP protocol stack**
+- 取 IP 兩種方法：**DHCP 動態派** ／ **static 人手設定**（IP + subnet mask + default gateway）
+- **Host routing table**：`0.0.0.0 – 0.0.0.0` entry 指向 **default gateway**；`127.0.0.1` 係 loopback interface
+- **Default Gateway** = 同一個網段嘅 router 介面 IP，負責將流量送去其他網絡
+
+### 14.6 Router 功能同路由決策
+
+- Router 專責**將 packet 由一個網絡轉去另一個網絡**
+- **Directly connected network**：直接接喺自己介面上；**Remote network**：要經另一部 router 先去到
+- 路由決策流程：**睇 destination IP → 決定 destination network → 查 routing table → 重封裝成新 frame，由 exit interface 出**
+- 出介面兩種寫法：**exit interface** ／ **next-hop**；**directly connected network 冇 next-hop**
+
+### 14.7 路由來源四種＋收斂
+
+| 來源 | 點嚟 |
+|---|---|
+| **Direct route（代碼 C）** | 介面設好 IP 並 activate 就**自動產生** |
+| **Static route（代碼 S）** | **人手**設定，固定路徑；拓撲一變就要人手改 |
+| **Default static route** | `0.0.0.0 0.0.0.0`；routing table 冇去該目的地嘅路徑時使用 |
+| **Dynamic route（D = EIGRP、O = OSPF）** | Router 用 routing protocols 自動交換路由資訊 |
+
+- **Administrative Distance（AD）**：多條路去同一目的地時，**數字最低**嘅先被裝入 routing table；**directly connected = 0、static = 1、EIGRP = 90**
+- AD 唔係 metric：AD 鬥「唔同來源」嘅可信度，metric 用嚟喺「同一個協議內」比路徑好壞
+- **Convergence**：router 完成交換同更新 routing tables 就叫收斂咗
+
+### 14.8 Router 硬件、介面同開機流程
+
+- Router **係一部專門化嘅電腦**：有 **CPU** ＋ **Cisco IOS** ＋ 記憶體同儲存（RAM／ROM／NVRAM／Flash）
+- 介面：**Console port** = initial configuration + CLI 管理；**AUX port**（RJ-45）= remote management access；**LAN interface** 接內部設備；**WAN interface** 接外部網絡
+- 開機四步：**POST（ROM）→ Bootstrap（ROM）→ Load IOS（Flash → RAM）→ Startup Config（NVRAM → RAM；冇 config 就入 setup mode）**
+- **Initial settings**：device name、securing EXEC mode、VTY lines 同密碼、legal notification、management SVI、儲存 configuration
+- **Loopback interface（router 層面）**：**logical／software** interface，唔係實體 port、**自動 UP**，OSPF 好重要
+
+### 14.9 英文記憶句
+
+- "The function of the network layer is to determine the best path through the network (path determination and logical addressing)."
+- "The network layer PDU is called a packet."
+- "R1 receives the frame, takes out the packet, and encapsulates the packet in another frame."
+- "Header Length (IHL) specifies the size of the packet header in 4 byte words; the minimum size is 5, meaning 20 bytes."
+- "TTL is decremented at each hop to prevent packets being passed around the network in routing loops."
+- "IPv6 uses 128-bit hierarchical addressing and eliminates the need for NAT."
+- "A default static route is used when the routing table does not contain a path for a destination network."
+- "If multiple paths to a destination exist, the path with the lowest Administrative Distance is installed in the routing table."
+- "Routers have converged after they have finished exchanging and updating their routing tables."
+
+---
+
+## Part 15 — L7: IPv4 Addressing（IPv4 定址與 Subnetting）
+### 15.1 ANDing 計算（求 Network Address）
+
+| A | B | A AND B |
+|---|---|---|
+| 1 | 1 | **1** |
+| 1 | 0 | 0 |
+| 0 | 1 | 0 |
+| 0 | 0 | 0 |
+
+- 口訣：**只有 1 AND 1 = 1**；mask 位 = 1 → 原封不動（x AND 1 = x），mask 位 = 0 → 全部歸零（x AND 0 = 0）→ 結果必定係 host bits 全 0 嘅 **network address**。
+- 示範：`192.168.10.10` AND `255.255.255.0` = **192.168.10.0**（`11000000.10101000.00001010.00001010` AND `11111111.11111111.11111111.00000000`）。
+- 用途：兩個 IP 分別 AND mask，network address 相同 → 同一 subnet。
+### 15.2 Mask ↔ Binary ↔ Prefix ↔ Block Size
+
+| Prefix | Subnet Mask | 最後 octet（binary） | Block Size |
+|---|---|---|---|
+| /8 | 255.0.0.0 | 00000000 | — |
+| /16 | 255.255.0.0 | 00000000 | — |
+| /24 | 255.255.255.0 | 00000000 | 256 |
+| /25 | 255.255.255.128 | 10000000 | 128 |
+| /26 | 255.255.255.192 | 11000000 | 64 |
+| /27 | 255.255.255.224 | 11100000 | 32 |
+| /28 | 255.255.255.240 | 11110000 | 16 |
+| /29 | 255.255.255.248 | 11111000 | 8 |
+| /30 | 255.255.255.252 | 11111100 | 4 |
+
+- 速記：**128→/25、192→/26、224→/27、240→/28、248→/29、252→/30**；**prefix length = mask 中 1 嘅數目**，寫成 **slash notation**。
+### 15.3 三種地址（Network／Host／Broadcast）
+
+- `192.168.10.0/24`：Network **.0**（host 全 0）｜First Host **.1**（**all 0s and a 1**）｜Last Host **.254**（**all 1s and a 0**）｜Broadcast **.255**（host 全 1）。
+- IPv4 = **32-bit hierarchical address**（network portion ＋ host portion），寫成 **dotted-decimal**（4 octets、每個 0–255）；mask 由左至右逐 bit 比較，1 = network、0 = host。
+- 定位：First = **Network + 1**；Last = **Broadcast − 1**；Broadcast = **Network + Block − 1**；/24 可用 host = 2^8 − 2 = **254**（network 同 broadcast 唔可以派）。
+### 15.4 Octet Boundary（/8、/16、/24）
+
+| 由 | 切去 | 借 bit | # subnets | 每 subnet # hosts |
+|---|---|---|---|---|
+| /8 | /16 | 8 | 256 | 65,534 |
+| /8 | /24 | 16 | 65,536 | 254 |
+| /16 | /24 | 8 | 256 | 254 |
+
+- **/16 網絡全套**：/17 255.255.128.0｜2｜32,766 · /18 255.255.192.0｜4｜16,382 · /19 255.255.224.0｜8｜8,190 · /20 255.255.240.0｜16｜4,094 · /21 255.255.248.0｜32｜2,046 · /22 255.255.252.0｜64｜1,022 · /23 255.255.254.0｜128｜510 · /24 255.255.255.0｜256｜254 · /25｜512｜126 · /26｜1,024｜62 · /27｜2,048｜30 · /28｜4,096｜14 · /29｜8,192｜6 · /30｜16,384｜2。
+- 鐵律：**prefix 越長 → 每 subnet host 越少**（/17 剩 15 host bit → 2^15 − 2 = 32,766）；⚠️ 教材 slide 16 尾行 `10.2255.255.254` 係打錯，正確係 **`10.255.255.254`**。
+### 15.5 三個招牌例子（由需求反推借幾多 bit）
+
+| 例 | 輸入 | 反推 | 答案 |
+|---|---|---|---|
+| 100 subnets | 172.16.0.0/16 | 2^6 = 64 唔夠 → 借 7 bit | **/23**、255.255.254.0、128 subnets、每 510 host |
+| 1000 subnets | 10.0.0.0/8 | 2^9 = 512 唔夠 → 借 10 bit | **/18**、255.255.192.0、1024 subnets、每 16,382 host |
+| 10 subnets | 172.16.0.0/22（1,022 host） | 2^4 = 16 ≥ 10 → 借 4 bit；62 ≥ 40 ✓ | **/26**、255.255.255.192 |
+
+- ⚠️ slide 27 尾句「for a total of 128 subnets」係打錯，正確係 **1024**（同句前面已寫 2^10 = 1024）。
+- 借位上限：**"The last two bits cannot be borrowed."** → /16 最多借 14 bit、/8 最多借 22 bit、最細切到 **/30**。
+### 15.6 VLSM 保育計算
+
+- 情景：需 7 subnets（**four LANs ＋ three WAN links**），最大 host = 28（Building D）。
+- 固定長度揀 **/27**（2^3 = 8 subnets、每 30 host IP）→ 但 WAN link 只需 2 個地址 → 每條浪費 28、**3 × 28 = 84 個浪費**。
+- 解法 **VLSM**：**subnet a subnet**——LAN 用 /27、WAN link 用 **/30**（剛好 2 host）→ 零浪費。
+### 15.7 地址種類（Private／Special／Legacy／管理）
+
+| 類型 | 範圍／重點 |
+|---|---|
+| Private（RFC 1918） | 10.0.0.0/8、172.16.0.0/12（172.16–172.31）、192.168.0.0/16；**唔可全球路由**，靠 **NAT** 轉譯出街 |
+| Multicast | **224.0.0.0 – 239.255.255.255**（首 octet 224–239）；router 交換 routing info |
+| Loopback | **127.0.0.0/8**（常用 127.0.0.1）；測試本機 TCP/IP 有冇正常 |
+| Link-Local / APIPA | **169.254.0.0/16**；Windows DHCP client 搵唔到 server 時自我配置 |
+| Legacy Classes | A 0/8–127/8；B 128/16–191.255/16；C 192/24–223.255.255/24；D 224–239；E 240–255 |
+| IANA / RIR | IANA 派 block 畀 **5 個 RIR**，RIR 再派畀 ISP |
+
+- Classful 已被 **classless addressing** 取代（忽略 A／B／C 規則、可用任何 prefix），因為 classful **wasted many IPv4 addresses**。
+- **U／B／M**：Unicast 1 對 1；Broadcast 1 對全部（**direct** = 特定網絡、**limited** = 本機網絡）；Multicast 1 對選定群組。
+### 15.8 為何要 Subnet ＋ 企業設計
+
+- 大 broadcast domain 壞處：主機產生 **excessive broadcasts** 拖慢網絡；switch 將 broadcast 由所有介面推出去，**唯一會擋 broadcast 嘅設備 = router**。
+- Subnetting 三大好處：**減整體網絡流量／提升效能**、**可於 subnet 之間實施安全政策**、**減少受異常廣播流量影響嘅設備數**。
+- 切割依據：**Location（地點）／Group or Function（群組功能）／Device Type（設備類型）**。
+- **Intranet** = 公司內部網絡（用 **private address**）；**DMZ** = 對外伺服器區（**必須用 public address**）。
+- 定址分工：**end user clients 用 DHCP**（減錯）、**servers/peripherals 用 static**（可預測）、對外 server 用 **public IP（多數經 NAT）**、**intermediary devices** 為管理／監控／保安、**gateway = router／firewall**。
+### 15.9 英文記憶句
+
+- "A logical AND operation is used in determining the network address; only a 1 AND 1 produces a 1."
+- "The prefix length is the number of bits set to 1 in the subnet mask, written in slash notation."
+- "The first address has all 0s and a 1 in the host portion; the last address has all 1s and a 0."
+- "Borrowing n bits creates 2^n subnets, and each subnet has 2^h minus 2 usable hosts."
+- "The last two bits cannot be borrowed."
+- "The only device that stops broadcasts is a router."
+- "According to RFC 1918, the private ranges are 10.0.0.0/8, 172.16.0.0/12 and 192.168.0.0/16."
+- "VLSM avoids wasting addresses by enabling us to subnet a subnet."
+- "End user clients most use DHCP, while servers should have a predictable static IP address."
+
+---
+
+## Part 16 — L9: Transport Layer（TCP／UDP 深入）
+### 16.1 Header 欄位逐個 bit 數（必背）
+
+| 協議 | 欄位（bit） | 總大小 |
+|---|---|---|
+| UDP | Source Port 16、Destination Port 16、Length 16、Checksum 16 | **8 bytes（64 bits）** |
+| TCP | Source Port 16、Dest Port 16、Sequence Number 32、Acknowledgment Number 32、Header Length 4、Reserved 6、Control Bits 6、Window 16、Checksum 16、Urgent 16 | **20 Bytes Total** |
+
+- 判題：**只有 4 個欄位、有 Length 欄位 → UDP**；見到 Sequence／Acknowledgment → TCP。
+- TCP 同 UDP **共有嘅 4 個欄位** = Source Port、Destination Port、Length、Checksum；**Header Length** 又叫 **data offset**（4-bit）；**Reserved** = 6-bit（留待將來用）。
+### 16.2 Well-known Port 必背表
+
+| Port | Protocol | Application |
+|---|---|---|
+| 20 | TCP | FTP - Data |
+| 21 | TCP | FTP - Control |
+| 22 | TCP | SSH |
+| 23 | TCP | Telnet |
+| 25 | TCP | SMTP |
+| 53 | UDP, TCP | DNS |
+| 67 | UDP | DHCP - Server |
+| 68 | UDP | DHCP - Client |
+| 69 | UDP | TFTP |
+| 80 | TCP | HTTP |
+| 110 | TCP | POP3 |
+| 143 | TCP | IMAP |
+| 161 | UDP | SNMP |
+| 443 | TCP | HTTPS |
+
+- 三大範圍：**Well-known 0–1,023／Registered 1,024–49,151（例 Cisco RADIUS 1812）／Private-Dynamic 49,152–65,535（ephemeral）**。
+### 16.3 Socket 與一問一答
+
+- **Socket = IP address ＋ Port number**；source socket 識別 client、destination socket 識別 server。
+- **Source port = 回郵地址（return address）**，由發送方動態揀選；**Destination port** 話畀對方知要求緊邊個服務（例 **port 80 for web service**）；伺服器上每個 application process 用一個獨立 port。
+- 一問一答時 **source／destination port 對調**：client 隨機 source port → server well-known port；回覆時 server well-known 做 source、client 原 source port 做 destination。
+### 16.4 `netstat` 輸出解讀
+
+```text
+Proto  Local Address          Foreign Address            State
+TCP    192.168.1.124:3126     192.168.0.2:netbios-ssn    ESTABLISHED
+TCP    192.168.1.124:3158     207.138.126.152:http       ESTABLISHED
+TCP    192.168.1.124:3166     www.cisco.com:http         ESTABLISHED
+```
+
+- **Local Address** = 本機 IP ＋ 本機 port；**Foreign Address** = 對端 IP／主機名 ＋ 對端 port／服務名；**State** = **ESTABLISHED**。
+- 用途：檢查 host 上 **open／running 嘅 TCP connections**；**unexplained TCP connections 可以係重大安全威脅**；範例係 **6 sessions、2 clients**；指令 `netstat`／`netstat -n`。
+### 16.5 三次交握 ＋ 四次揮手 ＋ 序號
+
+| Step | 控制位 | 意思 |
+|---|---|---|
+| 1（client→server） | **SYN** | 要求建立 client-to-server session |
+| 2（server→client） | **SYN, ACK** | 確認並反向要求 server-to-client session |
+| 3（client→server） | **ACK** | 確認 server-to-client session |
+
+- 三大功能：① 確認目的設備**喺網絡上存在**；② 驗證有 **active service** 喺該 destination port 接受請求；③ 通知目的設備 source client 打算喺該 port **建立通訊 session**。
+- 呢個 connection／session 機制正正令 **TCP reliability 得以成立**。
+- 四次揮手次序（兩邊各自關閉自己方向）：**FIN → ACK → FIN → ACK**。
+- **Sequence Number**：session setup 時定 **ISN**，之後按已傳 byte 數遞增；**亂序到嘅 segments 會留住等重排**；**完整收到並重組完成**先交上 application layer。
+- **Acknowledgment Number** = 接收端**下一個期望收到嘅 byte**（最後成功收到嘅 byte + 1，累積式）；例：收到 byte 1–5000 → ack = **5001**。
+### 16.6 六個 Control Bits
+
+| Flag | 意思 |
+|---|---|
+| **URG** | Urgent pointer field significant |
+| **ACK** | 確認 flag（用於連線建立同 session 終止） |
+| **PSH** | Push function |
+| **RST** | 發生錯誤或 timeout 時 reset 連線 |
+| **SYN** | synchronize sequence numbers（建立連線） |
+| **FIN** | 發送方冇更多數據（終止 session） |
+
+- 由左至右口訣：**URG ACK PSH RST SYN FIN**。
+### 16.7 重傳、SACK、壅塞避免同 Flow Control
+
+- **Retransmission**：TCP 為**未經確認嘅數據**重傳 segments（"No matter how well designed a network is, data loss occasionally occurs."）。
+- **SACK（Selective Acknowledgment）**：**喺三次交握期間協商**；接收方可明確指出邊啲 segments（**包括唔連續嘅**）已收到，發送方只需重傳真正缺失嗰幾段。
+- **Congestion**：過載 router 會**丟棄封包**；TCP 用 **congestion handling mechanisms、timers、algorithms** 避免同控制 → sender 縮細 send window、減慢傳送。
+- **Window size** = 等 ACK 之前可送幾多 bytes；**MSS** = 每個 TCP segment 最多可攜帶嘅數據量；**Send Window** = 未收 ACK 前可送出嘅**最後一個 byte**。
+- Flow control 定義：**"the amount of data that the destination can receive and process reliably."**
+- Slide 39 例（**最後可送 byte 編號**）：Initial Window = **10000**、MSS = **1460**；收 2 segments → ACK **2921** → Send Window **12920**；再收 1 → ACK **4381** → Send Window **14380**。另一寫法（**剩餘 byte 數**）：10000 − 2×1460 = **7080**，再 − 1460 = **5620**。
+### 16.8 英文記憶句
+
+- "The transport layer provides logical communications between applications running on different hosts."
+- "TCP is a connection-oriented protocol that establishes a session before forwarding any traffic."
+- "UDP is a connectionless, best-effort protocol with very little overhead and data checking."
+- "A socket is a combination of the Transport layer port number and Network layer IP address."
+- "The three-way handshake is SYN, SYN, ACK, and ACK."
+- "TCP session termination uses four steps: FIN, ACK, FIN, ACK."
+- "The acknowledgement number indicates the next byte expected by the receiver."
+- "Well-known ports are 0 to 1,023; registered ports are 1,024 to 49,151 and private ports are 49,152 to 65,535."
+
+---
+
+## Part 17 — L10: Application Layer（應用層協定深入）
+### 17.1 OSI 上三層分工（application／presentation／session）
+
+| OSI 層 | 職責 |
+|---|---|
+| 7 Application | **closest to the end user**；喺 source 同 destination 嘅**程式之間**交換資料 |
+| 6 Presentation | **Format**（轉成兼容格式）／**Compress**／**Encrypt** |
+| 5 Session | **Create & maintain dialogs**；initiate、keep active、**restart disrupted or idle sessions** |
+
+- TCP/IP Application Layer = OSI **5 ＋ 6 ＋ 7** 合併成一層。
+- 兼容性鐵律：protocol 要喺 **source 同 destination 兩邊都實作**且 **compatible** 先可以通訊。
+- 分類速記：**Layer 7 = 協定**（DHCP／DNS／HTTP…）；**Layer 6 = 資料格式標準**（GIF／JPEG／MPEG）。
+### 17.2 三種架構（client-server vs P2P）
+
+| 特徵 | Client-Server | P2P Network | P2P Application |
+|---|---|---|---|
+| 專用伺服器 | 有 | 無 | 無 |
+| 角色設定 | 固定 | **per request basis** | 軟件決定 |
+| User interface | — | — | 需要 |
+| Background service | — | — | 需要 |
+| 例子 | DNS 查詢、ISP email service | 同事部 PC 掛住嘅 printer | BitTorrent、Direct Connect、eDonkey、Freenet |
+
+- **Gnutella** = 用戶之間分享**完整檔案（whole files）**；**BitTorrent** = 同時分享**好多檔案嘅碎片（pieces of many files）**。
+- Client-Server：application layer protocol **定義 request／response 嘅格式**。
+### 17.3 URL 三部分 ＋ 開網頁五步
+
+- URL 三部分：**scheme（http）／server name（www.cisco.com）／specific file name（index.html）**。
+- 五步：① browser 解讀 URL → ② 問 **name server** 把 www.cisco.com 轉成 **numeric address** → ③ 發 **HTTP GET** 要求 index.html → ④ server 回 **HTML code** → ⑤ browser **deciphers HTML 並 formats** 個頁面。
+### 17.4 Email：SMTP／POP／IMAP
+
+| 協定 | 角色 | 原件去向 | Port（TCP） |
+|---|---|---|---|
+| **SMTP** | 寄出／server 對 server 轉送 | —（負責推） | 25 |
+| **POP3** | 收信 | download 後 **server 上刪除** | 110 |
+| **IMAP** | 收信 | download 副本，**原件留在 server** | 143 |
+
+- 架構鐵律：**email client 唔會直接同另一個 email client 通訊**；兩個 client 都靠 **mail server** transport messages，mail servers 之間互相 transport messages **from one domain to another**。
+- SMTP message = **header ＋ body**；body 可以係任何數量嘅文字，但 header **必須有格式正確嘅 recipient address 同 sender address**。
+- 揀邊個：server 儲存空間有限 → **POP**；要喺唔同地點睇返同一批郵件 → **IMAP**。
+### 17.5 DNS：作用、訊息、階層
+
+| 項目 | 內容 |
+|---|---|
+| 作用 | **dynamic translation of a domain name into the correct IP address** |
+| Message sections | **Header、Question、Answer、Authority、Additional** |
+| Record types | **A（IPv4）、AAAA（IPv6）、NS（authoritative name server）、MX（mail exchange server）、CNAME（alias）** |
+| Hierarchy | 每個 server 只管一小部分 name-to-IP mappings，唔屬自己 zone 嘅查詢 **forward** 去其他 servers |
+| TLD | 代表**組織類型或來源國家**：**.com** business、**.org** non-profit、**.au** Australia、**.co** Colombia |
+
+- Resolve 流程：**先查自己 records** → 解唔到 → **聯絡其他 servers** → **暫時 cache** 個 IP。
+- 指令：**`nslookup`** = 手動發 DNS query ＋ 排查 name resolution；**`ipconfig /displaydns`** = 顯示 Windows PC 上所有 cached DNS entries。
+### 17.6 DHCP：DORA、Port、Lease
+
+- Port：**server 67／client 68**（UDP）；自動派 **IP address、subnet mask、default gateway、DNS server**。
+- **DORA**：**D**iscover（client 廣播搵 server）→ **O**ffer（suggested lease）→ **R**equest（client 指明想用邊個 offer）→ **A**cknowledge（lease **finalized**）。
+- 失效：原本 offer 唔再有效 → server 回 **DHCPNAK**；地址有 **lease（租期）**，唔係永久擁有。
+- **DHCPv6 四個訊息**：**SOLICIT、ADVERTISE、INFORMATION REQUEST、REPLY**。
+- 用邊個：**end user devices 用 DHCP**；**gateways／switches／servers／printers 用 static addressing**（要固定地址先搵得到）。
+### 17.7 FTP 同 SMB
+
+- **FTP**：**reliable、connection-oriented、acknowledged**；**第一條連接 TCP 21 = control traffic**、**第二條連接 TCP 20 = actual data transfer**（先控制、後資料）；client 可 **pull（download）／push（upload）**。
+- **TFTP**：**connectionless**、UDP **69**；**SMB**：**client/server file sharing protocol**，Microsoft networking 嘅 **mainstay**、**long-term connection**，資源如本機一樣。
+- SMB messages **三個功能**：① **start／authenticate／terminate sessions**；② **control file and printer access**；③ **allow an application to send or receive messages to or from another device**。
+### 17.8 英文記憶句
+
+- "The upper three layers of the OSI model (application, presentation, and session) define functions of the single TCP/IP application layer."
+- "The presentation layer formats, compresses and encrypts data at the source device."
+- "The session layer creates and maintains dialogs and restarts disrupted or idle sessions."
+- "No dedicated server is required in a peer-to-peer network; each device can act as both a server and a client on a per request basis."
+- "With POP email is downloaded and then deleted on the server; with IMAP the original messages are stored on the server."
+- "The DNS protocol allows for the dynamic translation of a domain name into the correct IP address."
+- "DHCP is DORA: Discover finds the server, Offer suggests a lease, Request identifies it, and Acknowledge confirms it."
+- "FTP uses TCP port 21 for control traffic and TCP port 20 for the actual data transfer."
+- "SMB is a client/server file sharing protocol whose file-sharing and print services are the mainstay of Microsoft networking."
+
+
 ## Cisco IOS 指令速查（Packet Tracer 實作必備）
 
 > 指令逐字取自 ITE3102 PT0–PT11 CodeGuide 及原始 PT 教材（`01_Raw_Materials/PacketTracer` 內 .docx／.txt），冇自行改寫語法。
@@ -942,7 +1550,12 @@ IPv6 定址指令：所有 PT CodeGuide 及原始 .docx 教材都冇（源頭筆
 | Switch 設 default gateway | `ip default-gateway 192.168.100.1` |
 | 動態路由（PT11 已預設） | `router rip` → `network 192.168.100.0` → `version 2`（可選） |
 
-靜態路由指令 `ip route <network> <mask> <next-hop>`：所有源頭筆記都冇（源頭筆記未提及）。Routing table 代碼：`C` = Connected、`O` = OSPF、`S` = Static、`R` = RIP。
+靜態路由指令（來源：`Lecture6_NetworkLayer.pptx` — Lecture 6 Network Layer 講義）：
+- `ip route <network> <mask> {next-hop-ip | exit-intf}` — 為指定網絡設 static route。例：`R2(config)# ip route 192.168.10.0 255.255.255.0 s0/0/0`（用出口介面）；`R2(config)# ip route 192.168.11.0 255.255.255.0 209.165.200.225`（用 next-hop router IP）。
+- `ip route 0.0.0.0 0.0.0.0 {exit-intf | next-hop-ip}` — default static route（所有未知目的地）。例：`R1(config)# ip route 0.0.0.0 0.0.0.0 Serial0/0/0`。
+Routing table 代碼：`C` = Connected、`L` = Local、`O` = OSPF、`S` = Static、`R` = RIP、`D` = EIGRP。
+
+> ⚠️ 註：本節舊版寫住「靜態路由指令所有源頭筆記都冇」——當時只有 Packet Tracer CodeGuide 作來源。Lecture 6 講義（`ITE3102_L6_NetworkLayer_StudyGuide.md` §3.x）已經明確示範上述指令，故已更正。
 
 ### E. 驗証／排錯指令（來源：PT4／PT5／PT6／PT9／PT10 CodeGuide）
 

@@ -3,6 +3,7 @@
 > **來源**：ITE3102 Network Fundamentals — Tutorial 3: Network Models（OSI & TCP/IP Models）
 > **原始檔**：`01_Raw_Materials/Tutorials/T3-Models.docx`
 > **閱讀方法**：繁中解說理解答題邏輯 → 英文 Blockquote 直接背誦 → 對照答案自測 → 考前用懶人包速記
+> **理論延伸**：`ITE3102_L3_NetworkModels_StudyGuide.md`（同一課 Lecture 講義完整理論版）
 
 ---
 

@@ -1,6 +1,7 @@
 # ITE3102 Network Fundamentals — Tutorial 10: Application Layer 應用層 雙語練習題解 Guide
 
 > 本 Guide 對應 Tutorial 10: Applications，逐題提供「題目原文 → 答案 → 答題邏輯 → 英文答題句」，學生只靠本文件即可完成練習並掌握考試答題能力。
+> **理論延伸**：`ITE3102_L10_ApplicationLayer_StudyGuide.md`（同一課 Lecture 講義完整理論版）
 
 ---
 

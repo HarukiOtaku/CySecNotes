@@ -3,6 +3,7 @@
 **課題：Network Layer（網絡層）**
 
 > 本 Guide 對應 Tutorial 6 全部分練習（主練習 Q1–Q3，含拓撲圖重建；另附 CCNA1 題組 Q1–Q8）。核心定義一律以英文標準定義句（Standard Definition）呈現，解說用香港繁體中文，方便同學「睇得明、記得熟、考得答」。
+> **理論延伸**：`ITE3102_L6_NetworkLayer_StudyGuide.md`（同一課 Lecture 講義完整理論版）
 
 ---
 
