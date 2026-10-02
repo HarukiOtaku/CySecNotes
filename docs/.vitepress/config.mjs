@@ -20,7 +20,6 @@ const notesDir = path.resolve(__dirname, '../notes')
 //    （沒有對應的資料夾會直接顯示原始名稱，所以不加也不會壞）
 // ------------------------------------------------------------
 const CATEGORY_LABELS = {
-  '00-guide': '🚀 製作說明',
   'ITE3006_Information_Technology_Essentials': '💻 ITE3006 資訊科技基礎',
   'ITE3102_Network_Fundamentals': '🌐 ITE3102 網絡基礎',
   'ITP3915_Programming_Fundamentals': '🐍 ITP3915 程式基礎',
