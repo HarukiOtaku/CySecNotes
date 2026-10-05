@@ -222,7 +222,7 @@ host:port:username:password
 
 ## 🛠️ 5. 逐節實戰步驟（Try it yourself — Walkthrough）
 
-> **背景**：靶場係一個政府入口網站風格嘅 PHP + SQLite app，內部網域係 `hkgov-service.local`。以下每個命令／URL／payload **同原文逐字一致**。原文嘅 Try it yourself 分兩層：先有三個獨立任務（步驟 1–3），第 4 步「Build a target list」再叫你跟一個 5 步嘅 OSINT-to-access 流程。本節照原文次序全部展開。
+> **背景**（⚠️ 教材外補充：原文 §8 冇寫技術棧，此句綜合全教程／§0）：靶場係一個政府入口網站風格嘅 PHP + SQLite app，內部網域係 `hkgov-service.local`。以下每個命令／URL／payload **同原文逐字一致**。原文嘅 Try it yourself 分兩層：先有三個獨立任務（步驟 1–3），第 4 步「Build a target list」再叫你跟一個 5 步嘅 OSINT-to-access 流程。本節照原文次序全部展開。
 
 ### 步驟 1：由 stealer log／breach source 撈目標憑證（原文 p.100）
 
@@ -354,6 +354,8 @@ python3 tools/brute.py http://localhost:8080
 喺 Burp Repeater（或直接改 URL）用 `id=1`、`id=3`、`id=4` 重播：
 - **`id=1` 回傳 `New admin tools`**——呢條係 `admin` 同 `it.helpdesk` 之間、**從來冇牽涉 john.doe** 嘅 message。
 證明：viewer **淨係靠 ID 拎 row**，**從來唔檢查 ownership**。原文話 Section 3 就係端到端利用呢個 flaw。
+
+> ⚠️ 教材原文如此：原文 **§8 同 §3 對「邊條 message 屬邊個 id」嘅講法唔一致**（§8 話 `id=1` 係 admin↔it.helpdesk 嗰條、`id=2` 係自己嗰條；§3 就話自己嗰條喺 `id=1`、要試 `id=2/3` 才搵到 admin 嘅）。兩處都忠實照抄原文 → **以你自己 lab 實測到嘅為準**。
 
 **完成後你手上應該有（原文總結）**：一份已確認帳號清單、真名、職銜、一個可預測嘅 email 格式、同——最重要嘅——**一個 work 嘅登入**。呢個就係 brute-force、credential-stuffing、或魚叉式釣魚嘅起點，而且已經打開咗 app 嘅內部頁。
 

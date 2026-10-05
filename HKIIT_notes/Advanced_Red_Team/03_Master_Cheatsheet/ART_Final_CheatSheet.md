@@ -265,7 +265,7 @@
 | §9 | fingerprint → 揀 wordlist → 撞 `/backup/` → 下載 config／dump／`.git` → 掘秘密 | 可預測檔名＋無存取控制 |
 | §10 | `?lang=../../../../../../etc/passwd` 證 traversal → 讀 backup source | include 會執行 PHP |
 | §11 | LFI 讀內部備忘錄 → 重建密碼 → 讀 `/etc/passwd` 搵 UID 0 → SSH root | 內部文件洩露模式＋無 MFA |
-| §12 | `{"role":"*"}` → 比較記錄數 → `{"$ne":"..."}` → `{"password":{"$ne":""}}` 登入 | decode 值入 query object |
+| §12 | `{"role":"*"}` → 比較記錄數 → `{"$ne":"..."}` → `{"username":"admin","password":{"$ne":""}}` 登入 | decode 值入 query object |
 | §13 | 改 `redirect_uri` 偷 code → 取新鮮 state → force-login → 見 admin | redirect_uri 無 exact match |
 | §14 | `/services.php` 等試 URL 參數 → metadata → internal api secrets／users → imgproxy `file://` | 伺服器被信任 |
 

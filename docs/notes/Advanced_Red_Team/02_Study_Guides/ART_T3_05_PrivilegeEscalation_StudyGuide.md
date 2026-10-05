@@ -321,6 +321,7 @@ http://localhost:8080/uploads/shell.php?cmd=id
 - **做乜**：喺 address bar 將 `id` 值改成 `2`、`3`……一路試。應用程式從不檢查擁有權，所以你可以讀到其他用戶之間嘅訊息。
 - **喺邊度睇**：每一條 `/message.php?id=N` 嘅回應內容。
 - **預期結果**：你搵到一封由 **admin 寄去 it.helpdesk** 嘅訊息，提到管理入口喺 `/admin/`、upload helper 喺 `/admin/upload.php`。
+- ⚠️ **教材原文如此**：原文 **§3 同 §8 對 message id 嘅講法唔一致**（§8 話 `id=1` 係 admin↔it.helpdesk、`id=2` 係自己；§3 話自己嗰條喺 `id=1`、要試 `id=2/3` 才搵到 admin 嗰條）。**以你 lab 實測為準**。
 - **成功／失敗點分辨**：睇到**唔屬於 `john.doe`** 嘅訊息內容 ＝ IDOR 成功。若每條 id 都只出自己嘅訊息或者錯誤頁，就要確認 session 仍在。
 - 原文對應截圖 → `> **圖示描述**：/message.php?id=2 或類似頁面顯示一封並非寄畀 john.doe 嘅內部訊息，內容明文提到管理入口 /admin/ 同 /admin/upload.php 兩個路徑。（原教材截圖，本筆記不轉載圖片）`（對應 Screenshot 30）
 
