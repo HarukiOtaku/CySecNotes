@@ -89,7 +89,7 @@
 
 **繁中解說**：原文開頭講清楚成個 tutorial 嘅目標有三大條：**（1）Think like an attacker**，喺一個擬真嘅政府入口網站搵出常見 web 漏洞；**（2）Exploit each vulnerability safely inside the lab**，即係喺靶場安全地利用漏洞，同時明白防守方應該點修；**（3）Progress through a 15-section attack chain**，由公開偵察一路行到主機淪陷（六階段見下）。
 
-**Main Techniques You Will Learn（原文 p.1，共 15 項技術）**：原文列出成個 tutorial 會用到嘅技術，我照原文順序列出（每項都係之後某一節會學嘅內容）：
+**Main Techniques You Will Learn（原文 p.1，共 14 項技術）**：原文列出成個 tutorial 會用到嘅技術，我照原文順序列出（每項都係之後某一節會學嘅內容）：
 
 | # | 原文技術名稱 | 繁中意思 |
 |---|---|---|

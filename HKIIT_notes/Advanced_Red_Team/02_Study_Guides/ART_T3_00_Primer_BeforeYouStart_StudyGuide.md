@@ -205,10 +205,12 @@ Host: localhost:8080
 User-Agent: Mozilla/5.0
 Content-Type: application/x-www-form-urlencoded
 Cookie: PHPSESSID=abc123
-Content-Length: 27
+Content-Length: 30
 
 username=alice&password=secret
 ```
+
+> ⚠️ 教材外補充：`Content-Length` 係 **body 嘅位元組數**（唔計 request line 同 headers）。上面 body `username=alice&password=secret` 剛好 30 bytes，所以寫 `30`。呢個數字唔重要（瀏覽器自動計），但考試會問「Content-Length 代表咩」——答案係「body 長度」。
 
 | 部分 | 例子 | 意思 |
 |---|---|---|
@@ -481,13 +483,23 @@ UNION SELECT id, password FROM users;
 SELECT id FROM users WHERE username = '' AND password = '';
 ```
 
-攻擊者喺 username 欄填 `' OR '1'='1` 之後，字串變成：
+攻擊者喺 username 欄填 `' OR '1'='1' -- `（**注意尾部嗰兩個減號係 SQL 註解**）之後，字串變成：
 
 ```sql
-SELECT id FROM users WHERE username = '' OR '1'='1' AND password = '';
+SELECT id FROM users WHERE username = '' OR '1'='1' -- ' AND password = '';
 ```
 
-`'1'='1'` 永遠成立，於是條件對**每一行**都成立 → **繞過登入**。呢個就係最經典嘅 `OR '1'='1`。
+`--` 之後嘅嘢全部被當成註解，所以條件只剩 `username = '' OR '1'='1'`；而 `'1'='1'` 永遠成立 → 條件對**每一行**都成立 → **繞過登入**。呢個就係最經典嘅 `OR '1'='1' -- `。
+
+> ⚠️ 教材外補充（**新手最常撞嘅牆**）：**要睇原查詢左邊嗰半句係否為真**。
+> - 若原值係**空**（如上例 `username = ''`），只填 `' OR '1'='1` 組成嘅查詢係
+>   `SELECT id FROM users WHERE username = '' OR '1'='1' AND password = '';`
+>   —— `AND` 優先次序**高於** `OR`，即實際等於 `username = '' OR ('1'='1' AND password = '')`；左邊 false、右邊又 false → **冇任何一行符合，登入失敗**。（用 SQLite 實測：回 0 行。）
+> - 若原值係**一個真實帳號**（例如 §4 靶場用嘅 `admin' OR '1'='1`），查詢會變成
+>   `username = 'admin' OR ('1'='1' AND password = 'x')` —— 左邊 `username = 'admin'` 已經為真 → **登入成功**（因為 `OR` 只要一邊真就成立）。所以靶場唔需要註解都打得通。
+> - 加上 `-- ` 註解（本 primer 用嘅寫法）就**兩邊都穩**：`--` 之後全部被當成註解，條件只剩 `username = '' OR '1'='1'`，無論如何都為真。
+>
+> ➜ 靶場實際用嘅無註解變體、同點解（lab filter 封咗 `--`）見 `ART_T3_04_InitialAccess_B_Injection_OAuth_StudyGuide.md` §4。
 
 > **English Standard Definition:** If untrusted input is concatenated into a query string, the attacker can break out of the value and rewrite the query logic.
 
