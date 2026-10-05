@@ -43,7 +43,7 @@
 
 ## 🧩 3. 零經驗先修（Prerequisites, in plain words）
 
-呢一節係原文假設你「已經識」但冇解釋嘅基礎。每一項：一句定義 ＋ 一個生活化比喻 ＋ 一句英文。原文冇提供 Before You Start / Tool Setup Guide / Glossary，所以以下全部係教材外補充。
+呢一節係原文假設你「已經識」但冇解釋嘅基礎。每一項：一句定義 ＋ 一個生活化比喻 ＋ 一句英文。原文 Introduction 叫你去睇 Before You Start／Tool Setup Guide／Glossary，但整份 PDF 根本冇呢三章（此檔覆蓋嘅 §1／§2／§6 亦冇）——所以以下全部係教材外補充。
 
 > ⚠️ 教材外補充：以下所有名詞嘅白話拆解，係為零實戰經驗學生而寫。
 

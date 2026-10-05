@@ -1,4 +1,4 @@
-# ART_T3 Stage 0：環境與工具 ＋ 攻擊鏈總覽（Lab Setup, Tools & Attack-Chain Overview）— 雙語應考學習指南
+# ART_T3 Stage 0（檔案編號 01）：環境與工具 ＋ 攻擊鏈總覽（Lab Setup, Tools & Attack-Chain Overview）— 雙語應考學習指南
 
 > **原教材**：Advanced Red Team — Tutorial 3（PDF p.1–11）｜覆蓋 section：§0（Lab Setup）＋ front matter（Tutorial Aims、Introduction、Attack Chain、Table of Contents）
 > **這份檔喺攻擊鏈嘅位**：Stage 0 = 攻擊鏈嘅「第 0 階段：環境與工具」。呢份唔係打靶，而係**起好個靶場、較好個代理、學識兩個核心工具（Repeater／Intruder）**，並且睇清楚之後 14 節會走去邊份筆記。

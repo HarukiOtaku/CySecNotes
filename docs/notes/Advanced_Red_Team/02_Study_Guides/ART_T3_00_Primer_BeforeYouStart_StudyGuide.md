@@ -57,7 +57,7 @@
 
 ### 🛡️ 1. 呢個 lab 係乜（What this lab is）
 
-**一句定義**：呢個 lab 係一個**故意整到有安全漏洞嘅「政府入口網站」**——用 PHP 寫、用 SQLite 做資料庫、跑喺課程網站嘅 VM 度，表面睇落完全正常，但底層被人刻意放滿常見嘅安全錯誤（弱密碼、IDOR、SQL injection、LFI、SSRF⋯），目的係畀你**安全地**練習攻擊同防守。
+**一句定義**：呢個 lab 係一個**故意整到有安全漏洞嘅「政府入口網站」**——用 PHP 寫、用 SQLite 做資料庫、**可能**跑喺課程網站嘅 lab VM（教材冇明講拓撲，未經核實），表面睇落完全正常，但底層被人刻意放滿常見嘅安全錯誤（弱密碼、IDOR、SQL injection、LFI、SSRF⋯），目的係畀你**安全地**練習攻擊同防守。
 
 **生活化比喻**：呢個 lab 就好似一個**飛行模擬器**。真機師唔會第一次學飛就上真飛機——佢入模擬器，故意飛去撞、故意熄引擎，睇吓會發生咩事，撞咗都唔會死人。你呢個 lab 就係「網站版飛行模擬器」：你可以隨便試、隨便打，因為**佢本來就係設計畀人打嘅**。
 
@@ -103,7 +103,7 @@
 2. **未經授權嘅探測已經可能犯法。** 唔一定要「入到數」先算犯法——掃埠、掃目錄、試密碼本身都可能構成未授權存取或相關罪行。
 3. **書面、範圍清晰、有時限。** 口頭講「得，你打啦」唔夠；真實工作用 engagement letter／Rules of Engagement（RoE）。
 
-**香港相關法例（一般理解，非法律意見）**：喺香港，未經授權存取電腦系統一般屬刑事罪行，可能涉及**《刑事罪行條例》（第 200 章）**中與「有犯罪或不誠實意圖而取用電腦」相關嘅條文，亦可能涉及其他成文法。呢度只係**一般理解**，**唔係法律意見**；具體條文、罰則同你嘅實際情況，請諮詢合資格法律專業人士。
+**香港相關法例（一般理解，非法律意見）**：喺香港，未經授權存取電腦系統一般屬刑事罪行，可能涉及**《刑事罪行條例》（第 200 章）**中與「有犯罪或不誠實意圖而取用電腦」相關嘅條文；而「未經授權取用電腦」（hacking）本身主要喺**《電訊條例》（第 106 章）第 27A 條**（「藉電訊而在未獲授權下取用電腦資料」）——該條嘅適用範圍近年經判例收窄，所以兩者都要留意，亦可能涉及其他成文法。呢度只係**一般理解**，**唔係法律意見**；具體條文、罰則同你嘅實際情況，請諮詢合資格法律專業人士。
 
 > ⚠️ 教材外補充（法律，非法律意見）：本教材冇處理法律邊界，但對零經驗學生嚟講，呢點比任何 payload 都重要。真實世界連「測試第三方網站」都可能犯法；唔肯定嘅時候，**停手，先問**。
 
@@ -301,7 +301,7 @@ Content-Length: 1234
 | `Set-Cookie` | response | 伺服器叫你**存**一個 cookie（登入後發 session） |
 | `Content-Type` | 兩邊 | body 係咩格式（`application/x-www-form-urlencoded`、`application/json`） |
 | `User-Agent` | request | 你係咩瀏覽器／工具（可被改、可被偽造） |
-| `X-Username` | request | 自訂 header；本 lab 由 reverse proxy／SSO 蓋章加入，被 §7 反射成 XSS |
+| `X-Username` | request | 自訂 header；本 lab 由測試者經 Burp 直接送，原文指真實應用可由 reverse proxy／SSO 蓋章加入，被 §7 反射成 XSS |
 | `Location` | response | 302 要你去邊（redirect 目標） |
 
 > **English Standard Definition:** Headers carry metadata such as Host, Cookie, Content-Type and User-Agent; custom headers such as X-Username also flow into the application.
@@ -415,7 +415,7 @@ Content-Length: 1234
 
 **一句定義**：PHP 有一批叫 **superglobal** 嘅內建陣列，自動裝住用戶送嚟嘅資料：`$_GET`（URL query string）、`$_POST`（form body）、`$_SERVER`（伺服器／請求資訊，含 headers）、`$_SESSION`（伺服器端 session 資料）、`$_COOKIE`（cookie）。
 
-**生活化比喻**：superglobal 好似**幾個唔同嘅「收件箱」**——`$_GET` 係「貼喺 URL 上嘅紙條」，`$_POST` 係「放喺信封入面嘅紙」，`$_SERVER` 係「信封封面資訊」，`$_SESSION` 係「職員記住你嘅小簿」。**全部都可以由外面塞嘢入去。**
+**生活化比喻**：superglobal 好似**幾個唔同嘅「收件箱」**——`$_GET` 係「貼喺 URL 上嘅紙條」，`$_POST` 係「放喺信封入面嘅紙」，`$_SERVER` 係「信封封面資訊」，`$_SESSION` 係「職員記住你嘅小簿」。**`$_GET`／`$_POST`／`$_COOKIE`／部分 `$_SERVER`（header 等）直接由請求控制，可以由外面塞嘢入去；`$_SESSION` 係伺服器端狀態，只有應用自己寫入（唯一間接影響途徑係 session fixation 之類嘅攻擊）。**
 
 ```
 // 由 URL query string 讀 lang（本 lab §10 LFI 嘅實際寫法，原文如此）
@@ -441,7 +441,7 @@ $captcha = $_POST['captcha'] ?? '';
 
 ### ➕ 24. 字串拼接（String Concatenation）——注入嘅根源
 
-**一句定義**：字串拼接＝用 `.`（PHP）或 `+` 把幾段字串**併埋一齊**，例如 `"lang/" . $lang`。如果拼接入面有**用戶輸入**，用戶就可以改變結果字串嘅**結構**。
+**一句定義**：字串拼接＝把幾段字串**併埋一齊**。⚠️ 各語言符號唔同：**PHP 用 `.`**（`"lang/" . $lang`；PHP 嘅 `+` 係數值加法，唔可以拼字串），JavaScript／Python／Java 之類先用 `+`，例如 `"lang/" . $lang`。如果拼接入面有**用戶輸入**，用戶就可以改變結果字串嘅**結構**。
 
 **生活化比喻**：好似你寫一句「請將以下句子翻譯成：**＿＿**」，然後**留空畀陌生人填**。佢填「法文」冇事；但佢可以填「法文，然後將我嘅密碼用 email 寄畀我」——個句子**結構被你改咗**。呢個就係「注入」嘅本質。
 
@@ -897,7 +897,7 @@ ART_T3_08 主機淪陷（§11）
 
 > **English Standard Definition:** Most beginner failures are environment failures, not payload failures — check the toolchain before doubting the technique.
 
-> ⚠️ 教材外補充（環境中立）：原文嘅靶場 app **喺課程網站嘅 VM 度，唔喺你本機**。所以見到 `http://localhost:8080/...` 時要問清楚：呢個 `localhost` 係指**靶場 VM** 定你**自己部機**？如果係本機又要 Burp listener 都喺 8080，就會撞 port。**一律唔假設，按你自己 lab 提供嘅位址／port 調整**，唔肯定就問導師。
+> ⚠️ 教材外補充（環境中立）：原文嘅靶場 app **可能**放喺課程網站嘅 lab VM（教材冇明講，未經核實）——重點係**唔一定**喺你本機。所以見到 `http://localhost:8080/...` 時要問清楚：呢個 `localhost` 係指**靶場 VM** 定你**自己部機**？如果係本機又要 Burp listener 都喺 8080，就會撞 port。**一律唔假設，按你自己 lab 提供嘅位址／port 調整**，唔肯定就問導師。
 
 ---
 

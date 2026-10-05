@@ -518,7 +518,7 @@ hello
 >
 > **English key points**：The root cause is a missing **object-level authorization (ownership) check**. The application uses the user-supplied identifier (e.g. `id`) to fetch the record directly, but never verifies that the requesting user is allowed to access that specific object. Sequential numeric IDs provide no protection because they are **guessable / enumerable** — an attacker simply increments the value (`id=1,2,3`). On every object request the server must verify **ownership or permission**: confirm the currently authenticated user owns (or is otherwise authorised to access) that object, server-side.
 >
-> **繁中拆解**：考 IDOR 要答出三件事 ——**(1) 缺嘅係邊個檢查**：缺 **object-level authorization（ownship check）**，唔係缺 authentication；**(2) 為何順序 ID 冇保護**：因為順序／可預測 = 可枚舉，攻擊者毋須猜，`id++` 就掃全表；**(3) 伺服器每次要驗乜**：要喺**伺服器端**驗證「當前用戶係唔係擁有（或獲授權存取）呢個物件」—— 用 session 入面嘅身份去比對物件嘅 owner，而唔係信 URL 個數字。
+> **繁中拆解**：考 IDOR 要答出三件事 ——**(1) 缺嘅係邊個檢查**：缺 **object-level authorization（ownership check）**，唔係缺 authentication；**(2) 為何順序 ID 冇保護**：因為順序／可預測 = 可枚舉，攻擊者毋須猜，`id++` 就掃全表；**(3) 伺服器每次要驗乜**：要喺**伺服器端**驗證「當前用戶係唔係擁有（或獲授權存取）呢個物件」—— 用 session 入面嘅身份去比對物件嘅 owner，而唔係信 URL 個數字。
 >
 > **常見錯答**：只答「要加密個 ID」或者「用 UUID」。UUID 可以減低可預測性，但**唔係**根本修正 —— 如果冇 ownership check，一個 leaked UUID 一樣可以越權存取。**根因係缺 authorization check，唔係 ID 形式。**
 

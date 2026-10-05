@@ -14,7 +14,7 @@
 
 **呢份檔覆蓋原文嘅邊幾個 section**：只有 §8（OSINT / Username Leakage）。原文 §8 內容分兩大塊：概念部分（What is it and why does it work?／How to find it）同實作部分（Try it yourself，一路做到 IDOR 打樁）。本檔會完整重寫兩塊，並補上原文缺失嘅新手背景同建議答案。
 
-**前置假設**：呢個階段**唔需要**任何前置階段（佢就係第一步）。但你起碼要已經完成 §0 嘅環境設定（靶場 VM 起好、Burp + FoxyProxy + CA 裝好），因為本檔部分步驟要用到 Burp 嘅 Proxy → HTTP history 去記錄攻擊面。如果未 setup，➜ 見 `ART_T3_01_Setup_Tools_AttackChain_StudyGuide.md`。靶場係一個「政府入口網站」風格嘅 PHP + SQLite app，程式喺課程 VM 度（唔喺本機），所以下文所有路徑都當「喺 lab root 做」。
+**前置假設**：呢個階段**唔需要**任何前置階段（佢就係第一步）。但你起碼要已經完成 §0 嘅環境設定（靶場 VM 起好、Burp + FoxyProxy + CA 裝好），因為本檔部分步驟要用到 Burp 嘅 Proxy → HTTP history 去記錄攻擊面。如果未 setup，➜ 見 `ART_T3_01_Setup_Tools_AttackChain_StudyGuide.md`。⚠️ 教材外補充：靶場係一個「政府入口網站」風格嘅 PHP + SQLite app；程式**可能**放喺課程網站嘅 lab VM（教材文字冇明講拓撲，未經核實），所以下文所有路徑一律當「喺 lab root 做」。
 
 **實務情境一（真實滲透測試）**：你受僱做一次授權測試，目標公司官網有公開嘅「團隊成員」頁，列出全名、職銜、email。你留意到 email 格式係 `first.last@corp.com`。同時你喺目標嘅公開 GitHub repo 度，由 commit history 搵到有人 commit 過一份 `config.php.bak`。呢啲全部係「攻擊者未入侵之前就已經有」嘅資料——**減少要猜嘅嘢**，係 OSINT 嘅全部價值。
 
