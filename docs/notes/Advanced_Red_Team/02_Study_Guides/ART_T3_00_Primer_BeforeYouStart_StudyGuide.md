@@ -8,7 +8,7 @@
 
 ---
 
-## 🧭 0. 呢份檔點用（How to use this primer）
+### 🧭 0. 呢份檔點用（How to use this primer）
 
 呢份檔解決一個好實際嘅問題：**原文一開始就叫人「If you are completely new to web security, start with Before You Start」，但呢一章根本冇喺 PDF 出現過。** 原文由第 4 頁就開始假設你識 Kali、識 Burp、識 HTTP。對零經驗嘅你，一跳入去就會撞牆。所以呢份檔就係嗰段**缺失嘅橋**。
 
@@ -53,9 +53,9 @@
 
 ---
 
-# Part A — 呢個 lab 係乜、心態、法律與道德邊界
+## Part A — 呢個 lab 係乜、心態、法律與道德邊界
 
-## 🛡️ 1. 呢個 lab 係乜（What this lab is）
+### 🛡️ 1. 呢個 lab 係乜（What this lab is）
 
 **一句定義**：呢個 lab 係一個**故意整到有安全漏洞嘅「政府入口網站」**——用 PHP 寫、用 SQLite 做資料庫、跑喺課程網站嘅 VM 度，表面睇落完全正常，但底層被人刻意放滿常見嘅安全錯誤（弱密碼、IDOR、SQL injection、LFI、SSRF⋯），目的係畀你**安全地**練習攻擊同防守。
 
@@ -69,7 +69,7 @@
 
 > **English Standard Definition:** A site that works and looks normal is not automatically secure; your job is to find the mistakes the developer never noticed.
 
-## 🧠 2. 你應該帶住咩心態（攻防思維）
+### 🧠 2. 你應該帶住咩心態（攻防思維）
 
 **一句定義**：攻防思維（attacker-and-defender mindset）＝ 每次見到一個功能，同時問兩條問題：**（1）攻擊者可以點樣繞過或濫用佢？（2）防守者當初應該點寫先唔會出錯？**
 
@@ -87,7 +87,7 @@
 
 > **English Standard Definition:** Never trust the client: anything the browser can send can be replayed or modified outside the browser.
 
-## ⚖️ 3. 法律與道德邊界（只可以打邊啲目標）
+### ⚖️ 3. 法律與道德邊界（只可以打邊啲目標）
 
 呢一節係全份檔**最重要**嘅一節。技術你可以慢慢學，但**越界一次就可能係刑事**。
 
@@ -120,11 +120,11 @@
 
 ---
 
-# Part B — 網絡與 Web 基礎（由 DNS 到 HTTP）
+## Part B — 網絡與 Web 基礎（由 DNS 到 HTTP）
 
 呢個 Part 補嘅係「原文當你識、但其實你未學過」嘅網絡同 HTTP 基礎。**你唔識呢 Part，之後每一節都會卡。**
 
-## 🌐 4. Client／Server（客戶端／伺服器）
+### 🌐 4. Client／Server（客戶端／伺服器）
 
 **一句定義**：Client（客戶端）係主動**發問**嘅一方（例如你嘅 Firefox）；Server（伺服器）係長期開住、**等住答**嘅一方（例如個靶場 app）。Client 問，Server 答。
 
@@ -132,7 +132,7 @@
 
 > **English Standard Definition:** A client sends requests; a server listens for and answers them.
 
-## 📇 5. DNS（域名系統）
+### 📇 5. DNS（域名系統）
 
 **一句定義**：DNS 係「**將人類易記嘅域名，翻譯成電腦用嘅 IP 地址**」嘅系統。你打 `www.example.com`，DNS 幫你查返佢真正嘅 IP（例如 `93.184.216.34`）。
 
@@ -142,7 +142,7 @@
 
 > ⚠️ 教材外補充：本靶場用 `localhost` / `127.0.0.1`，**唔使 DNS 都可以直入**，因為 `127.0.0.1` 本身就係「自己部機」。但如果你打一個真域名（例如去攞 Burp CA 嗰陣），DNS 就會牽涉其中。
 
-## 🔢 6. IP 地址
+### 🔢 6. IP 地址
 
 **一句定義**：IP 地址係一部機喺網絡上嘅「門牌號碼」，用嚟識別「要送去邊部機」。IPv4 例如 `192.168.1.10`；`127.0.0.1` 係一個特殊地址，永遠代表「本機自己」。
 
@@ -152,7 +152,7 @@
 
 > ⚠️ 教材外補充：`0.0.0.0` 喺啟動指令入面唔係「一個地址」，而係「**綁晒本機所有網絡介面**」嘅意思——即同一 LAN 嘅機都入得到嚟。原文提醒呢個做法**只可以喺故意有漏洞嘅靶場先接受**。
 
-## 🚪 7. Port（埠）
+### 🚪 7. Port（埠）
 
 **一句定義**：一部機可以同時行好多個服務（web、資料庫、SSH⋯），用「**port 號**」分開佢哋。HTTP 慣用 80、HTTPS 慣用 443；本靶場用 `8080`。
 
@@ -169,7 +169,7 @@
 | `80` | 一般 HTTP |
 | `8088` | §7 用 `nc -lvnp 8088` 開嘅 netcat listener（收集被偷嘅 cookie） |
 
-## 🔗 8. URL 解剖同 Query String
+### 🔗 8. URL 解剖同 Query String
 
 **一句定義**：URL 係一個資源嘅完整地址，由幾個部分組成：scheme、host、port、path、query string、fragment。
 
@@ -195,7 +195,7 @@ https://user@host.example.com:8443/path/to/page?id=42&lang=en#section
 
 > ⚠️ 教材外補充：本教程好多漏洞嘅「入口」就係 query string——例如 §10 LFI 嘅 `/index.php?lang=...`、§3 IDOR 嘅 `/message.php?id=1`。你之後見到 `?xxx=` 就要打醒十二分精神：**呢度係用戶輸入，用戶輸入就係攻擊面**。
 
-## ✉️ 9. HTTP Request 結構（Method／Path／Version／Header／Body）
+### ✉️ 9. HTTP Request 結構（Method／Path／Version／Header／Body）
 
 **一句定義**：HTTP request 係瀏覽器（或工具）送去伺服器嘅「一封信」，由五部分組成：**method、path（＋version）、headers、空白行、body**。
 
@@ -223,7 +223,7 @@ username=alice&password=secret
 
 > **English Standard Definition:** An HTTP request consists of a method, a path, the HTTP version, a set of headers, and an optional body.
 
-## 📬 10. HTTP Response 結構（Status Code／Header／Body）
+### 📬 10. HTTP Response 結構（Status Code／Header／Body）
 
 **一句定義**：HTTP response 係伺服器回畀你嘅「回信」，由三部分組成：**status line（狀態碼）、headers、body（內容）**。
 
@@ -247,7 +247,7 @@ Content-Length: 1234
 
 > **English Standard Definition:** An HTTP response consists of a status code, response headers, and an optional body.
 
-## 🔀 11. GET vs POST（兩種最常見 method）
+### 🔀 11. GET vs POST（兩種最常見 method）
 
 **一句定義**：`GET` 通常用嚟「**讀取**」資料，參數放喺 URL（query string）；`POST` 通常用嚟「**提交／改變**」資料，資料放喺 **request body**。
 
@@ -265,7 +265,7 @@ Content-Length: 1234
 
 > ⚠️ 教材外補充：**「POST 比較安全」係一個常見誤解。** POST 只係唔顯示喺 URL，攻擊者一樣可以用 Burp Repeater／`curl` 重播。要保護嘅係**伺服器端檢查**，唔係揀邊個 method。
 
-## 🚦 12. Status Code（狀態碼）
+### 🚦 12. Status Code（狀態碼）
 
 **一句定義**：狀態碼係伺服器回畀你嘅**三位數字**，用嚟一句講清楚「條 request 點咗」。分五大類：`1xx` 資訊、`2xx` 成功、`3xx` 轉向、`4xx` 客戶端錯誤、`5xx` 伺服器錯誤。
 
@@ -284,7 +284,7 @@ Content-Length: 1234
 
 > ⚠️ 教材外補充：**兩個新手必記嘅診斷點**：（1）見到 `302` 而唔係 `404`，即係「**呢條 path 存在**，不過唔畀你入」——目錄爆破就係靠呢個（§3）。（2）見到 `500` 好多時代表你嘅 payload **打亂咗條 SQL／程式**，可能已經摸到 injection point。
 
-## 🏷️ 13. HTTP Headers（標頭）
+### 🏷️ 13. HTTP Headers（標頭）
 
 **一句定義**：Headers 係 request／response 入面嘅「元資料」，用 `Name: Value` 格式，描述封信本身（唔係信嘅內容）。
 
@@ -306,7 +306,7 @@ Content-Length: 1234
 
 > ⚠️ 教材外補充（超重要）：**你用 Burp 改一個 header，就等於可以扮任何嘢。** §7 反射型 XSS 就係因為 app 信任一個由客戶端控制嘅 `X-Username` header，直接將佢反射入 HTML。教訓：**header 一樣係用戶輸入，一樣要 escape。**
 
-## 🍪 14. Cookie vs Session
+### 🍪 14. Cookie vs Session
 
 **一句定義**：**Cookie** 係一小段由伺服器叫你存喺**瀏覽器**嘅資料（每次 request 自動帶返出去）；**Session** 係真正嘅狀態資料**存喺伺服器**，用一個 session ID（通常放喺 cookie，例如 `PHPSESSID`）嚟認人。
 
@@ -316,7 +316,7 @@ Content-Length: 1234
 
 > ⚠️ 教材外補充：本教程特別針對「**計數器綁喺 session**」嘅錯誤——§6 unlimited brute force 之所以成功，就係因為「五次失敗就鎖」個 counter 係存喺 **session**，而攻擊者每次唔帶 cookie 就攞到一個**全新 session**，等於無限次。明白 cookie/session 你就明白成個 §6。
 
-## 🔒 15. HTTPS／TLS（為何 Burp 要你 import CA）
+### 🔒 15. HTTPS／TLS（為何 Burp 要你 import CA）
 
 **一句定義**：HTTPS ＝ HTTP ＋ TLS。TLS 係一層**加密**，令你同伺服器之間嘅內容唔畀中間人睇到；伺服器要用一張**憑證（certificate）**證明自己身份。
 
@@ -328,11 +328,11 @@ Content-Length: 1234
 
 ---
 
-# Part C — 網頁三層：HTML／CSS／JavaScript
+## Part C — 網頁三層：HTML／CSS／JavaScript
 
 呢個 Part 補「一個網頁係由邊三樣嘢砌成」，同一個關鍵安全概念：**前端做嘅檢查＝冇檢查**。
 
-## 🧱 16. HTML（結構層）
+### 🧱 16. HTML（結構層）
 
 **一句定義**：HTML（HyperText Markup Language）用**標籤（tag）**定義一個頁面嘅**結構同內容**——邊串字係標題、邊度係表格、邊度係表單。
 
@@ -342,7 +342,7 @@ Content-Length: 1234
 
 > ⚠️ 教材外補充：本教程好多漏洞同 HTML 直接相關——§7 XSS 就係因為 app 把用戶輸入**當成 HTML 一部分輸出**，令 `<img onerror=...>` 之類嘅 payload 被瀏覽器當成真標籤執行。你唔識 HTML，就睇唔明 XSS 為何「彈出嚟」。
 
-## 🎨 17. CSS（外觀層）
+### 🎨 17. CSS（外觀層）
 
 **一句定義**：CSS（Cascading Style Sheets）定義一個頁面**睇落係點**——顏色、字體、排版、大小。
 
@@ -352,7 +352,7 @@ Content-Length: 1234
 
 > ⚠️ 教材外補充：CSS 一般**唔係**重要攻擊面，但你排查時要知：**CSS 係由客戶端控制嘅**——你喺 DevTools 改 CSS，只影響你自己部機嘅畫面，唔會改變伺服器任何嘢。
 
-## ⚙️ 18. JavaScript（行為層）
+### ⚙️ 18. JavaScript（行為層）
 
 **一句定義**：JavaScript（JS）係喺**瀏覽器**度執行嘅程式語言，負責令頁面「有反應」——撳掣有嘢跳、表單即時檢查、按需要載入資料。
 
@@ -362,7 +362,7 @@ Content-Length: 1234
 
 > ⚠️ 教材外補充（核心概念）：**JavaScript 喺攻擊者部機度執行。** 呢句嘢係本教程一半漏洞嘅根。你（攻擊者）完全控制自己部機，所以你可以：關掉 JS、改 JS、甚至唔用瀏覽器直接發 request。任何只靠 JS 嘅「保護」都係假嘅。
 
-## 📄 19. view-source 同 DevTools 嘅分別
+### 📄 19. view-source 同 DevTools 嘅分別
 
 **一句定義**：**view-source** 顯示伺服器**原始送嚟嘅 HTML**；**DevTools** 顯示**執行完 JS／CSS 之後**嘅「實際（live）DOM」，仲可以讓你即場改、即場睇。
 
@@ -377,7 +377,7 @@ Content-Length: 1234
 
 > ⚠️ 教材外補充：**兩個都要識用。** 搵 CAPTCHA 漏洞（§1）要睇 `view-source` 先見到 hidden field；而睇「登入後設定咗咩 cookie」就要去 DevTools 嘅 `Storage > Cookies`（原文 §3 有講）。目標係用 `view-source:http://localhost:8080/register.php` 先睇原始碼。
 
-## 🚧 20. Client-side vs Server-side Validation（前端驗證＝冇驗證）
+### 🚧 20. Client-side vs Server-side Validation（前端驗證＝冇驗證）
 
 **一句定義**：**Client-side validation** 喺瀏覽器（即攻擊者部機）度跑；**server-side validation** 喺伺服器度跑。**只有 server-side 先係真正嘅安全控制。**
 
@@ -397,9 +397,9 @@ Content-Length: 1234
 
 ---
 
-# Part D — 伺服器端基礎：PHP 同 SQL
+## Part D — 伺服器端基礎：PHP 同 SQL
 
-## 🐘 21. PHP 基本：一個 `.php` 檔案點執行
+### 🐘 21. PHP 基本：一個 `.php` 檔案點執行
 
 **一句定義**：`.php` 檔案**喺伺服器度執行**；瀏覽器收到嘅**唔係** PHP 程式碼，而是 PHP **執行完之後輸出嘅 HTML（或 JSON）**。
 
@@ -409,7 +409,7 @@ Content-Length: 1234
 
 > ⚠️ 教材外補充：**但漏洞一樣同 PHP 有關。** 若果 PHP 程式**自己**將某段字輸出成 HTML，而嗰段字係用戶控制嘅（例如 §7 反射 `X-Username`），瀏覽器就會當佢係真 HTML 執行 → XSS。另外，如果 `config.php` 之類被**當成純文字檔**（例如 `.bak` 備份）畀你下載，原始碼就會外洩（§9）。
 
-## 📥 22. PHP Superglobals：`$_GET`／`$_POST`／`$_SERVER`／`$_SESSION`
+### 📥 22. PHP Superglobals：`$_GET`／`$_POST`／`$_SERVER`／`$_SESSION`
 
 **一句定義**：PHP 有一批叫 **superglobal** 嘅內建陣列，自動裝住用戶送嚟嘅資料：`$_GET`（URL query string）、`$_POST`（form body）、`$_SERVER`（伺服器／請求資訊，含 headers）、`$_SESSION`（伺服器端 session 資料）、`$_COOKIE`（cookie）。
 
@@ -427,7 +427,7 @@ $captcha = $_POST['captcha'] ?? '';
 
 > ⚠️ 教材外補充（追 input 嘅方法）：睇一段 PHP 有冇問題，第一件事係問「**邊個 `$_GET`／`$_POST`／`$_SERVER`／`$_COOKIE` 值流去邊**」。呢條「data flow」思路，就係之後每一節搵漏洞嘅核心。記住：`$_SERVER['HTTP_X_USERNAME']` 就係嚟自 request 嘅 `X-Username` header。
 
-## 📎 23. `include()`／`require()`（包含另一個檔案）
+### 📎 23. `include()`／`require()`（包含另一個檔案）
 
 **一句定義**：`include()`／`require()` 會**喺執行期間**將另一個檔案嘅內容「拉入嚟」當前程式度。分別：`require` 搵唔到檔會**致命錯誤**（停），`include` 搵唔到只係**警告**（繼續）。
 
@@ -437,7 +437,7 @@ $captcha = $_POST['captcha'] ?? '';
 
 > ⚠️ 教材外補充：本教程 §10 LFI 正正係濫用 `include()`——原文寫法係 `include("lang/" . $lang)`，`$lang` 由 `$_GET['lang']` 嚟。因為佢**冇 allow-list**，攻擊者就可以叫佢 include 一個**唔預期嘅檔案**（例如 `/etc/passwd` 或者一個 `.bak` 備份），達成本地檔案讀取。
 
-## ➕ 24. 字串拼接（String Concatenation）——注入嘅根源
+### ➕ 24. 字串拼接（String Concatenation）——注入嘅根源
 
 **一句定義**：字串拼接＝用 `.`（PHP）或 `+` 把幾段字串**併埋一齊**，例如 `"lang/" . $lang`。如果拼接入面有**用戶輸入**，用戶就可以改變結果字串嘅**結構**。
 
@@ -445,7 +445,7 @@ $captcha = $_POST['captcha'] ?? '';
 
 > **English Standard Definition:** Concatenating user input into a string lets the attacker change the structure of the result — the root of injection.
 
-## 🗄️ 25. SQL 基本：`SELECT`／`WHERE`／`UNION`
+### 🗄️ 25. SQL 基本：`SELECT`／`WHERE`／`UNION`
 
 **一句定義**：SQL（Structured Query Language）係同**關聯式資料庫（例如 SQLite、MySQL）**講嘢嘅語言。最基本嘅查詢用 `SELECT`（揀邊幾欄）、`FROM`（由邊張表）、`WHERE`（符合咩條件）。
 
@@ -469,7 +469,7 @@ UNION SELECT id, password FROM users;
 
 > **English Standard Definition:** `SELECT` reads rows, `WHERE` filters them, and `UNION` appends the result of a second query onto the first.
 
-## 💉 26. 拼接字串為何會出 SQL Injection
+### 💉 26. 拼接字串為何會出 SQL Injection
 
 **一句定義**：如果程式**唔用參數化**，而係直接將用戶輸入**拼入 SQL 字串**，攻擊者就可以用引號（`'`）等字元「**走出**」字面值範圍，令佢嘅輸入變成**查詢邏輯**。
 
@@ -503,7 +503,7 @@ SELECT id FROM users WHERE username = '' OR '1'='1' AND password = '';
 
 > ⚠️ 教材外補充：真實防禦係用 prepared statements（PDO／mysqli 嘅 bind）、或 ORM。**唔好**靠「自己加引號／自己過濾字元」——好易漏（原文提及本 lab 嘅 `login.php` 有個「primitive bad-list filter」，正正示範咗「黑名單過濾」有幾脆弱）。
 
-## 🆚 27. SQLite vs MongoDB（初步差異）
+### 🆚 27. SQLite vs MongoDB（初步差異）
 
 **一句定義**：**SQLite** 係一個「**唔使裝 server、單一檔案**」嘅**關聯式**資料庫，用 SQL 查詢，資料係「表 ＋ 行」。**MongoDB** 係一個 **NoSQL 文件式**資料庫，資料係一啲**似 JSON 嘅 document**，查詢用**運算子物件**（`$ne`、`$gt`、`$regex`、`$where`）而唔係 SQL 文字。
 
@@ -530,9 +530,9 @@ db.users.findOne({ username: "admin", password: { $ne: "" } })
 
 ---
 
-# Part E — 代理（Proxy）概念
+## Part E — 代理（Proxy）概念
 
-## 🔁 28. 咩係 Proxy（代理）
+### 🔁 28. 咩係 Proxy（代理）
 
 **一句定義**：Proxy 係一個**企喺你同伺服器中間嘅「中間人」**，所有你嘅 request 都**先經過佢**、再轉去伺服器。
 
@@ -540,7 +540,7 @@ db.users.findOne({ username: "admin", password: { $ne: "" } })
 
 > **English Standard Definition:** A proxy is a middleman that forwards requests between a client and a server.
 
-## ✋ 29. 咩係攔截代理（Intercepting Proxy）
+### ✋ 29. 咩係攔截代理（Intercepting Proxy）
 
 **一句定義**：攔截代理係一種 proxy，佢可以**停低（intercept）**每一個 request／response，畀你**睇、改、再放行**。Burp Suite 同 OWASP ZAP 就係攔截代理。
 
@@ -548,7 +548,7 @@ db.users.findOne({ username: "admin", password: { $ne: "" } })
 
 > **English Standard Definition:** An intercepting proxy pauses traffic so you can read and modify every request and response.
 
-## 🔀 30. 為何要「瀏覽器 → Burp → 伺服器」
+### 🔀 30. 為何要「瀏覽器 → Burp → 伺服器」
 
 **一句定義**：將瀏覽器嘅流量**強制繞經 Burp**，你就可以見到（同改到）**瀏覽器實際送出嘅每一條 request**——而唔係只見到「表面嘅表單」。
 
@@ -570,7 +570,7 @@ Burp Suite（listener 127.0.0.1:8080）
 
 > ⚠️ 教材外補充：**安裝步驟全部喺 `ART_T3_00` §0.2**（FoxyProxy profile：Title `Burp`／Type `HTTP`／Hostname `127.0.0.1`／Port `8080`；CA import 等）。本檔只講原理。設定好之後，**Burp 嘅 `Proxy > HTTP history` 就會出現你每次瀏覽嘅 request**——呢個就係你之後所有攻擊嘅起點。
 
-## 🛠️ 31. 攔截／改包原理（Intercept／Modify）
+### 🛠️ 31. 攔截／改包原理（Intercept／Modify）
 
 **一句定義**：當 Intercept **開**嘅時候，每個 request 會**停喺 Burp**等你決定：按 **Forward** 放行（可以改咗先放）、按 **Drop** 丟棄。你可以即場改 method、path、headers、body。
 
@@ -580,7 +580,7 @@ Burp Suite（listener 127.0.0.1:8080）
 
 > ⚠️ 教材外補充：**新手最易中嘅陷阱**——一路開住 Intercept，然後覺得「個 app 好慢好卡」。其實係**你自己**攔住咗佢。多數練習只需要睇 `HTTP history`，唔需要一直 Intercept 住（原文 §0 亦有講「驗證時熄 Intercept」）。
 
-## 🔂 32. Repeater vs Intruder（分工）
+### 🔂 32. Repeater vs Intruder（分工）
 
 **一句定義**：**Repeater** 用嚟**手動改一個 request、慢慢重播、即時睇 response**；**Intruder** 用嚟**自動化發送大量 request**（例如試 1000 個密碼），靠 payload 清單同 result table。
 
@@ -595,7 +595,7 @@ Burp Suite（listener 127.0.0.1:8080）
 
 > ⚠️ 教材外補充（成功判斷）：Intruder 結果表如果見到**某一行嘅 length 或 status code 同其他唔同**，通常就係「中咗」（例如有效憑證）。原文金句：**"Results with different lengths or status codes usually reveal valid credentials."**（原文如此）
 
-## ♻️ 33. 憑咩可以做重複攻擊（點解重播得）
+### ♻️ 33. 憑咩可以做重複攻擊（點解重播得）
 
 **一句定義**：你可以重複攻擊，係因為**伺服器端冇（或得唔完整嘅）rate limit、dedupe、ownership check**——任何「只喺瀏覽器做」嘅限制，對唔用瀏覽器嘅攻擊者零效果。
 
@@ -607,11 +607,11 @@ Burp Suite（listener 127.0.0.1:8080）
 
 ---
 
-# Part F — 工具地圖（係乜 ＋ 幾時用）
+## Part F — 工具地圖（係乜 ＋ 幾時用）
 
 > ⚠️ 教材外補充：**本節只講「係乜、喺本篇邊一節用到」。所有安裝步驟（點裝、點設定、CA 點 import）一律見 `ART_T3_01_Setup_Tools_AttackChain_StudyGuide.md`。** 兩者刻意分工，以免重複。
 
-## 🧰 34. 工具總覽表
+### 🧰 34. 工具總覽表
 
 | 工具 | 一句係乜 | 比喻 | 本教程地區代表（例） |
 |---|---|---|---|
@@ -628,7 +628,7 @@ Burp Suite（listener 127.0.0.1:8080）
 | **netcat（`nc`）** | 開監聽 port、收任何連線 | 錄音機，睇有冇人打嚟 | §7 偷 cookie（`nc -lvnp 8088`）；§14 SSRF callback |
 | **Python** | 自寫攻擊／自動化腳本 | 自製機械臂 | §4（`tools/sqli_json.py`）；§6（`tools/brute.py`） |
 
-## 📌 35. 逐個講清楚
+### 📌 35. 逐個講清楚
 
 **Firefox ＋ FoxyProxy**
 一句係乜：Firefox 係本教程指定嘅瀏覽器；FoxyProxy 係一個 extension，令你可以**一鍵**喺「正常上網」同「經 Burp 代理」之間切換。
@@ -699,11 +699,11 @@ nc -lvnp 8088
 
 ---
 
-# Part G — 靶場環境心智模型（一個網站 ＝ 一堆檔案 ＋ 一個資料庫）
+## Part G — 靶場環境心智模型（一個網站 ＝ 一堆檔案 ＋ 一個資料庫）
 
 > ⚠️ 教材外補充：呢一節係「睇穿個網站」嘅心法。零經驗學生最需要嘅，係將「網站」呢個抽象概念，變成「**一堆喺伺服器上嘅檔案 ＋ 一個資料庫**」。
 
-## 🗺️ 36. 心法
+### 🗺️ 36. 心法
 
 **一句定義**：一個 web app，本質上係**伺服器上一堆檔案**（`.php` 頁面、API、config、備份）**＋ 一個資料庫**（本 lab 係一個 SQLite 檔案）。你見到嘅「頁面」，只係呢啲檔案執行完嘅輸出。
 
@@ -711,7 +711,7 @@ nc -lvnp 8088
 
 > **English Standard Definition:** A web app is just a set of files on a server plus a database; the pages you see are only their output.
 
-## 🧩 37. 靶場係點砌成（分層）
+### 🧩 37. 靶場係點砌成（分層）
 
 | 層 | 內容 | 本 lab 例子 |
 |---|---|---|
@@ -729,7 +729,7 @@ nc -lvnp 8088
 
 > ⚠️ 教材外補充（重點）：**每一個「唔應該被見到」嘅物（例如 `/backup/`、`config.php.bak`）都係一個潛在漏洞。** §9 備份檔爆破就係專門搵呢啲「開發者以為冇人知」嘅檔案。你之後每次見到一個新 URL，都要問：「佢後面係邊個檔案？嗰個檔案應唔應該喺度？」
 
-## 🔍 38. 由「頁面」追到「檔案」
+### 🔍 38. 由「頁面」追到「檔案」
 
 **一句定義**：一個 URL 通常直接對應一個伺服器上嘅檔案。`http://localhost:8080/foo.php` 對應 `foo.php`；`?lang=...` 之類嘅參數，就係餵入嗰個檔案嘅 input。
 
@@ -741,9 +741,9 @@ nc -lvnp 8088
 
 ---
 
-# Part H — 攻擊鏈 6 階段同學習路線
+## Part H — 攻擊鏈 6 階段同學習路線
 
-## ⛓️ 39. 六階段概念（為何要分階段）
+### ⛓️ 39. 六階段概念（為何要分階段）
 
 **一句定義**：成個 tutorial 係一條「**攻頂鏈（capstone chain）**」：**公開偵察 → 初始存取 → 權限提升 → 憑證蒐集 → 橫向檔案存取 → 主機淪陷**。分階段嘅原因係：真實攻擊**唔係一步到位**，而係**一環扣一環**——你要先用某階段嘅成果，先做得到下一階段。
 
@@ -762,7 +762,7 @@ nc -lvnp 8088
 
 > ⚠️ 教材原文如此（兩個矛盾，見 `ART_T3_00`）：（1）**§8 同時出現喺階段①同④**；（2）**六階段 mapping 完全冇收錄 §13 OAuth**。本系列嘅處理：§8 主體放 P1、P4 只交叉引用；§13 按「OAuth 設定錯誤 ＝ 帳號接管」歸入**初始存取②B**。
 
-## 🧭 40. 建議學習次序
+### 🧭 40. 建議學習次序
 
 **一句定義**：按攻擊鏈**由淺入深**學，唔好跳。次序：
 
@@ -790,7 +790,7 @@ P6 主機淪陷（§11）
 
 > ⚠️ 教材外補充：**本檔（Primer）係最前面，應該喺 `ART_T3_00` 之前或同時讀。** 兩份嘅分工：Primer 畀你概念底座，00 畀你動手設定。
 
-## 📚 41. 每一節應該點學（方法論）
+### 📚 41. 每一節應該點學（方法論）
 
 **一句定義**：學每一節，都應該走同一條五步路：**（1）讀概念（係乜、點解 work）→（2）睇原文 payload／指令 →（3）喺 lab 跟住做一次 →（4）用你嘅話解釋點解成功 →（5）背防守修法。**
 
@@ -813,9 +813,9 @@ P6 主機淪陷（§11）
 
 ---
 
-# Part I — 卡住嘅排查思路
+## Part I — 卡住嘅排查思路
 
-## 🧯 42. 固定排查次序（環境 → 請求 → Payload 編碼 → 理解）
+### 🧯 42. 固定排查次序（環境 → 請求 → Payload 編碼 → 理解）
 
 **一句定義**：當你「覺得冇效／唔知咩事」，唔好亂試——**按固定次序**排查：**先確認環境，再確認 request，再確認 payload 編碼，最後先懷疑自己理解錯咗。**
 
@@ -873,7 +873,7 @@ P6 主機淪陷（§11）
 
 > **English Standard Definition:** Only after the environment, the request and the encoding all check out should you question your understanding of the vulnerability.
 
-## 🧗 43. 新手最常撞嘅 5 個卡點（速查）
+### 🧗 43. 新手最常撞嘅 5 個卡點（速查）
 
 | # | 症狀 | 最可能原因 | 快速解法 |
 |---|---|---|---|
