@@ -384,7 +384,7 @@ PHP_CLI_SERVER_WORKERS=12 php -S 0.0.0.0:8080
 
 > ⚠️ 本檔不涵蓋 student questions（見各階段檔）。
 >
-> 原因：原文 front matter 同 §0 Lab Setup（p.1–11）**冇附任何 student question**。原文嘅 53 條題目全部落在 §1–§14 各攻擊階段。本檔（Stage 0）純粹係環境與工具＋攻擊鏈總覽，故無題可答。各階段題目同建議答案，見對應嘅 `ART_T3_P1` 至 `ART_T3_P6` 各檔之「Student questions 詳解」章節。
+> 原因：原文 front matter 同 §0 Lab Setup（p.1–11）**冇附任何 student question**。原文嘅 53 條題目全部落在 §1–§14 各攻擊階段。本檔（Stage 0）純粹係環境與工具＋攻擊鏈總覽，故無題可答。各階段題目同建議答案，見對應嘅 `ART_T3_02` 至 `ART_T3_08` 各檔之「Student questions 詳解」章節。
 
 ---
 

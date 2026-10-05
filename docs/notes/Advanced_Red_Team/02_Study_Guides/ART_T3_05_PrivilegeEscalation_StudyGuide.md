@@ -1,4 +1,4 @@
-# ART_T3 P3：權限提升（Privilege Escalation）— IDOR、Broken Access Control、Upload RCE — 雙語學習指南
+# ART_T3 ART_T3_05：權限提升（Privilege Escalation）— IDOR、Broken Access Control、Upload RCE — 雙語學習指南
 
 > **原教材**：Advanced Red Team — Tutorial 3（PDF p.35–49）｜覆蓋 section：§3（IDOR / Broken Access Control / Upload RCE）
 > **攻擊鏈位置**：③ 權限提升（Privilege Escalation）—— 承接②「初始存取」，交出④「憑證蒐集」之前嘅立足點

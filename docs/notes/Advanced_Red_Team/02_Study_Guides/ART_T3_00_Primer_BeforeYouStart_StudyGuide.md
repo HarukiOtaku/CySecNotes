@@ -1,7 +1,7 @@
 # ART_T3 Before You Start：零經驗先修（Prerequisites Primer）— 雙語應考學習指南
 
 > **原教材**：Advanced Red Team — Tutorial 3（教材外補充）｜對應原文 Introduction 叫你去睇、但 PDF 入面**唔存在**嘅「Before You Start」章節
-> **這份檔喺系列嘅位**：全系列嘅「第 −1 份」。喺你仍未開 `ART_T3_01_Setup_Tools_AttackChain_StudyGuide.md` 之前，先讀呢份。呢份**唔教安裝**（安裝步驟全部留喺 00 檔），只教你**概念、心態、法律邊界、工具地圖同學習路線**。
+> **這份檔喺系列嘅位**：全系列嘅**先修檔**（編號 `00`，喺 `ART_T3_01` 之前讀）。喺你仍未開 `ART_T3_01_Setup_Tools_AttackChain_StudyGuide.md` 之前，先讀呢份。呢份**唔教安裝**（安裝步驟全部留喺 01 檔），只教你**概念、心態、法律邊界、工具地圖同學習路線**。
 > **⚠️ 全檔性質**：本檔 **100% 係教材外補充**（原文冇呢一章）。所有內容係為零實戰經驗嘅學生而寫，唔可以當成教材原文引用。
 > **前置**：冇。呢份係真·第一份。
 > **⚠️ 法律聲明**：本檔關於法律嘅部分**唔係法律意見**，只作一般理解用途；實際法律責任請諮詢合資格嘅法律專業人士。
@@ -18,11 +18,11 @@
 2. **法律缺口**：原文教你打靶場，但冇講清楚「幾時可以打、幾時犯法」。
 3. **路線缺口**：原文冇一個「我應該由邊度開始、每節點學」嘅地圖。
 
-**讀法建議**：呢份檔唔使一次過背晒。你可以**先讀 Part A（心態同法律）＋ Part H（攻擊鏈同路線）**，然後當你睇 00 檔同之後每一節撞到唔明嘅名詞，就返嚟查對應嘅 Part B–G。呢份檔係你嘅「字典」，唔係叫你由頭到尾死記。
+**讀法建議**：呢份檔唔使一次過背晒。你可以**先讀 Part A（心態同法律）＋ Part H（攻擊鏈同路線）**，然後當你睇 01 檔同之後每一節撞到唔明嘅名詞，就返嚟查對應嘅 Part B–G。呢份檔係你嘅「字典」，唔係叫你由頭到尾死記。
 
 > **English Standard Definition:** This primer fills the missing "Before You Start" chapter: it explains the concepts, the legal boundary, the tool map, and the learning path that the tutorial assumes you already know.
 
-**同 `ART_T3_00` 嘅分工（重要）**：
+**同 `ART_T3_01` 嘅分工（重要）**：
 
 | 內容 | 喺邊份檔 |
 |---|---|
@@ -31,7 +31,7 @@
 | 未解釋過嘅**名詞白話拆解**（proxy、curl、HTTP 302 係乜） | **本檔**（各 Part）＋ 各階段檔嘅第 3 節 |
 | 雙語**術語表** | `ART_T3_09_Glossary_StudyGuide.md` |
 
-> ⚠️ 教材外補充：本檔同 00 檔**刻意有少量重疊**（例如 server、proxy、SQLite 嘅定義），因為 00 檔係「環境與工具」檔，需要即場用到呢幾個概念。本檔嘅寫法係**更深入嘅概念版**，唔係重複安裝步驟。
+> ⚠️ 教材外補充：本檔同 01 檔**刻意有少量重疊**（例如 server、proxy、SQLite 嘅定義），因為 01 檔係「環境與工具」檔，需要即場用到呢幾個概念。本檔嘅寫法係**更深入嘅概念版**，唔係重複安裝步驟。
 
 ---
 
@@ -324,7 +324,7 @@ Content-Length: 1234
 
 > **English Standard Definition:** HTTPS is HTTP inside a TLS tunnel; to intercept it, Burp presents its own certificate and you must import Burp's CA into the browser's trust store.
 
-> ⚠️ 教材外補充：呢一步嘅**安裝步驟**喺 `ART_T3_00` §0.2（去 `http://burpsuite` 下載 `cacert.der`、喺 Firefox 憑證 Authorities 度 import、剔「Trust this CA to identify websites」）。本檔只講**原理**：冇 import CA，你一去 HTTPS 網站就會彈憑證警告，Burp 收唔到內容。
+> ⚠️ 教材外補充：呢一步嘅**安裝步驟**喺 `ART_T3_01` §0.2（去 `http://burpsuite` 下載 `cacert.der`、喺 Firefox 憑證 Authorities 度 import、剔「Trust this CA to identify websites」）。本檔只講**原理**：冇 import CA，你一去 HTTPS 網站就會彈憑證警告，Burp 收唔到內容。
 
 ---
 
@@ -568,7 +568,7 @@ Burp Suite（listener 127.0.0.1:8080）
 靶場 server（php -S，web app）
 ```
 
-> ⚠️ 教材外補充：**安裝步驟全部喺 `ART_T3_00` §0.2**（FoxyProxy profile：Title `Burp`／Type `HTTP`／Hostname `127.0.0.1`／Port `8080`；CA import 等）。本檔只講原理。設定好之後，**Burp 嘅 `Proxy > HTTP history` 就會出現你每次瀏覽嘅 request**——呢個就係你之後所有攻擊嘅起點。
+> ⚠️ 教材外補充：**安裝步驟全部喺 `ART_T3_01` §0.2**（FoxyProxy profile：Title `Burp`／Type `HTTP`／Hostname `127.0.0.1`／Port `8080`；CA import 等）。本檔只講原理。設定好之後，**Burp 嘅 `Proxy > HTTP history` 就會出現你每次瀏覽嘅 request**——呢個就係你之後所有攻擊嘅起點。
 
 ### 🛠️ 31. 攔截／改包原理（Intercept／Modify）
 
@@ -693,7 +693,7 @@ nc -lvnp 8088
 **Python**
 一句係乜：一種通用程式語言；喺本教程，你**自己寫小工具**嚟做自動化同精準攻擊。
 例：**§4**（`tools/sqli_json.py`，每個 request 問一個真／假問題做 blind SQLi）；**§6**（`tools/brute.py`，先由 `/api/users.php` 收 usernames，再逐個試密碼）。
-工具安裝／用法：見 `ART_T3_00`（`tools/` 目錄內嘅 helper script）。
+工具安裝／用法：見 `ART_T3_01`（`tools/` 目錄內嘅 helper script）。
 
 > **English Standard Definition:** Python scripts let you automate a targeted attack when a GUI tool is too slow or too noisy.
 
@@ -760,35 +760,35 @@ nc -lvnp 8088
 | ⑤ | 橫向檔案存取／Lateral file access | 觸及更多檔案／伺服器 | §5、§7、§10、§14 | 讀檔、偷 session、攞內網 foothold |
 | ⑥ | 主機淪陷／Host compromise | 由 web 用戶升到主機層 | §11 | 主機層權限 |
 
-> ⚠️ 教材原文如此（兩個矛盾，見 `ART_T3_00`）：（1）**§8 同時出現喺階段①同④**；（2）**六階段 mapping 完全冇收錄 §13 OAuth**。本系列嘅處理：§8 主體放 P1、P4 只交叉引用；§13 按「OAuth 設定錯誤 ＝ 帳號接管」歸入**初始存取②B**。
+> ⚠️ 教材原文如此（兩個矛盾，見 `ART_T3_01`）：（1）**§8 同時出現喺階段①同④**；（2）**六階段 mapping 完全冇收錄 §13 OAuth**。本系列嘅處理：§8 主體放 ART_T3_02、ART_T3_06 只交叉引用；§13 按「OAuth 設定錯誤 ＝ 帳號接管」歸入**初始存取②B**。
 
 ### 🧭 40. 建議學習次序
 
 **一句定義**：按攻擊鏈**由淺入深**學，唔好跳。次序：
 
 ```
-ART_T3_00（環境與工具＋攻擊鏈總覽）
+ART_T3_01（環境與工具＋攻擊鏈總覽）
       ↓
-P1 公開偵察（§8）
+ART_T3_02 公開偵察（§8）
       ↓
-P2A 初始存取 — 認證／自動化濫用（§1、§2、§6）
+ART_T3_03 初始存取 — 認證／自動化濫用（§1、§2、§6）
       ↓
-P2B 初始存取 — 注入／SSO（§4、§12、§13）
+ART_T3_04 初始存取 — 注入／SSO（§4、§12、§13）
       ↓
-P3 權限提升（§3）
+ART_T3_05 權限提升（§3）
       ↓
-P4 憑證蒐集（§9；§8 交叉引用）
+ART_T3_06 憑證蒐集（§9；§8 交叉引用）
       ↓
-P5 橫向檔案存取（§5、§7、§10、§14）
+ART_T3_07 橫向檔案存取（§5、§7、§10、§14）
       ↓
-P6 主機淪陷（§11）
+ART_T3_08 主機淪陷（§11）
 ```
 
 **生活化比喻**：好似砌**積木塔**——你一定要由最底嗰層（環境＋偵察）開始；跳去中間，你連「要打邊個帳號」都未知。
 
 > **English Standard Definition:** Study the phases in order, because each phase depends on the gains of the previous one.
 
-> ⚠️ 教材外補充：**本檔（Primer）係最前面，應該喺 `ART_T3_00` 之前或同時讀。** 兩份嘅分工：Primer 畀你概念底座，00 畀你動手設定。
+> ⚠️ 教材外補充：**本檔（Primer）係最前面，應該喺 `ART_T3_01` 之前或同時讀。** 兩份嘅分工：Primer 畀你概念底座，01 畀你動手設定。
 
 ### 📚 41. 每一節應該點學（方法論）
 
@@ -879,7 +879,7 @@ P6 主機淪陷（§11）
 |---|---|---|---|
 | 1 | 瀏覽器開到靶場，但 Burp `HTTP history` 空白 | FoxyProxy 未選 Burp／Firefox 自己 proxy 蓋過 | 撳 FoxyProxy 揀 `Burp`；確認 `127.0.0.1:8080` |
 | 2 | `http://burpsuite` 開唔到、攞唔到 CA | Burp 未開／流量冇經 Burp | 開 Burp、listener Running、FoxyProxy 揀 Burp，再試 |
-| 3 | 去 HTTPS 彈憑證警告 | Burp CA 未 import 或冇剔信任 | 重做 00 檔 Step 6（import `cacert.der`、剔 Trust this CA） |
+| 3 | 去 HTTPS 彈憑證警告 | Burp CA 未 import 或冇剔信任 | 重做 01 檔 Step 6（import `cacert.der`、剔 Trust this CA） |
 | 4 | `php -S` 報 `Address already in use` | port 8080 被佔（舊 server 未關／同 Burp 撞） | 關舊 process 或改 port；注意靶場可能喺另一部 VM |
 | 5 | §13／§14 個 app 卡死（request 唔回頭） | PHP 內建 server 單執行緒，self-referential 會 deadlock | 確認啟動有加 `PHP_CLI_SERVER_WORKERS=12` |
 
@@ -893,7 +893,7 @@ P6 主機淪陷（§11）
 
 > ⚠️ 本檔不涵蓋 student questions（見各階段檔）。
 >
-> 原因：本檔係**教材外自撰嘅先修檔**，唔對應原文任何 §，原文嘅 53 條 student questions 全部落喺 §1–§14 各攻擊階段。各階段嘅題目同建議答案，見對應嘅 `ART_T3_P1` 至 `ART_T3_P6` 各檔之「Student questions 詳解」章節。本檔嘅角色係**教你 Concepts**，唔係答題。
+> 原因：本檔係**教材外自撰嘅先修檔**，唔對應原文任何 §，原文嘅 53 條 student questions 全部落喺 §1–§14 各攻擊階段。各階段嘅題目同建議答案，見對應嘅 `ART_T3_02` 至 `ART_T3_08` 各檔之「Student questions 詳解」章節。本檔嘅角色係**教你 Concepts**，唔係答題。
 
 ---
 

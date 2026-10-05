@@ -1,4 +1,4 @@
-# ART_T3_P4 — 攻擊鏈④ 憑證蒐集（Credential Discovery）雙語學習筆記
+# ART_T3_06 — 攻擊鏈④ 憑證蒐集（Credential Discovery）雙語學習筆記
 
 > **原教材**：Advanced Red Team — Tutorial 3（PDF p.104–111）｜覆蓋 section：§9 Backup File Brute Force
 > **攻擊鏈位置**：④ 憑證蒐集（Credential Discovery）

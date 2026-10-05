@@ -1,4 +1,4 @@
-# ART_T3 P2B：攻擊鏈②B 初始存取 — 注入與 SSO（Injection & SSO）雙語學習指南
+# ART_T3 ART_T3_04：攻擊鏈②B 初始存取 — 注入與 SSO（Injection & SSO）雙語學習指南
 
 > **原教材**：Advanced Red Team — Tutorial 3（PDF p.50–65、p.127–132、p.133–142）｜覆蓋 section：§4、§12、§13
 > **本檔角色**：攻擊鏈②「Initial Access（初始存取）」嘅 **B 部** —— 注入（Injection）與 OAuth / SSO 設定錯誤。

