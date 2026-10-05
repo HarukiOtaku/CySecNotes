@@ -214,7 +214,7 @@
 | 單請求改完重播 | 右 Click → Send to Repeater → Send | 01 §8.2 |
 | 自動化大量請求 | 右 Click → Send to Intruder → Clear § → Add § → Payloads → Start attack | 01 §8.2 |
 | 變數字序列 | Intruder：單一 position ＋ Numbers payload type | 01 §8.2 |
-| 靶場端口／Burp listener | `8080`／`127.0.0.1:8080` | 01 §8.1 |
+| 靶場端口／Burp listener | `8080`／`127.0.0.1:8080`（⚠️ 同一部機時要改其中一邊，例如靶場用 `8081`） | 01 §8.1 |
 | 憑證權威名稱 | PortSwigger CA | 01 §8.1 |
 
 - 原文工具原則：web 練習一律用 Firefox、Burp Suite 或 OWASP ZAP；Postman 只用於 §2 其中一個練習；`tools/` 係導師／自動化示範用。
@@ -274,7 +274,7 @@
 | 項目 | 值（原文） | 來源 |
 |---|---|---|
 | 靶場 server 啟動指令 | `PHP_CLI_SERVER_WORKERS=12 php -S 0.0.0.0:8080` | 01 §8.1 |
-| 靶場端口／Burp listener | `8080`／`127.0.0.1:8080` | 01 §8.1 |
+| 靶場端口／Burp listener | `8080`／`127.0.0.1:8080`（⚠️ 同一部機時要改其中一邊，例如靶場用 `8081`） | 01 §8.1 |
 | 建庫 URL | `http://127.0.0.1:8080/init_db.php` | 01 §8.1 |
 | 預設管理員 | `admin / 123qwe!@#` | 01 §8.1 |
 | Burp CA 特殊網址／檔名 | `http://burpsuite`／`cacert.der` | 01 §8.1 |
@@ -307,7 +307,7 @@
 | §3 狀態碼語義 | 302 = 存在；404 = 唔存在；403 = 存在但你冇權 | ART_T3_05 §8.1 |
 | §3 目錄爆破工具／路徑 | Gobuster/ffuf/Dirbuster/Burp Intruder；`/admin`、`/api`、`/uploads`、`/.git` | ART_T3_05 §8.1 |
 | §9 CWE／OWASP | CWE-530／A05:2021 | ART_T3_06 §8.1 |
-| §9 命中判別 | HTTP 200 = 存在可下載；404 = 唔存在 | ART_T3_06 §8.1 |
+| §9 命中判別 | HTTP 200 = 存在可下載（⚠️ 只喺**本 lab 無軟 404** 時成立；一般站要 200 ＋ body length ＋ content-type 三樣一齊比）；404 = 唔存在 | ART_T3_06 §8.1 |
 | §5 cache key／canary／毒 host | `md5($_SERVER['REQUEST_URI'])`／`hkiitcanary1234`／`evil.example.com` | ART_T3_07 §8.1 |
 | §5 研究 | James Kettle 2018 "Practical Web Cache Poisoning"、2020 "Web Cache Entanglement" | ART_T3_07 §8.1 |
 | §7 header／CWE／OWASP | `X-Username`→`$_SERVER['HTTP_X_USERNAME']`／CWE-79／A03:2021 | ART_T3_07 §8.1 |
@@ -471,7 +471,7 @@
 26. "Backup artifacts left inside the web root — renamed configs, dumps, archives, and source-control metadata — are all reachable by anyone who guesses the predictable filenames." — 留喺 web root 內嘅備份檔——改名嘅 config、dump、壓縮檔同版本控制 metadata——任何估中可預測檔名嘅人都攞到。
 27. "Directory listing may be disabled, but a wordlist of common backup and version-control paths is usually enough to find them." — 目錄列表可以係關咗，但一份常見備份／版本控制路徑嘅 wordlist 通常足以搵到佢哋。
 28. "Fingerprint the stack first — Server headers, URL extensions, Wappalyzer — before building the wordlist." — 砌 wordlist 之前，先透過 Server header、URL 副檔名、Wappalyzer 指紋技術棧。
-29. "Any HTTP 200 response means the file is directly downloadable." — 任何 HTTP 200 回應即代表該檔可直接下載。
+29. "Any HTTP 200 response means the file is directly downloadable." — 任何 HTTP 200 回應即代表該檔可直接下載（⚠️ 本 lab 成立；真實站要配合 body length／content-type，因為有「軟 404」）。
 30. "The entire repository history can usually be reconstructed from exposed Git metadata." — 暴露嘅 Git metadata 通常可以重構成個版本歷史。
 31. "Web cache poisoning tricks the cache into storing a harmful response and serving it to other users who request the same URL." — Web cache poisoning 騙個 cache 儲存有害回應，再派畀請求同一 URL 嘅其他用戶。
 32. "An unkeyed input is a request input that changes the response but is not included in the cache key." — Unkeyed input 係會改變回應但唔包含喺 cache key 內嘅請求輸入。

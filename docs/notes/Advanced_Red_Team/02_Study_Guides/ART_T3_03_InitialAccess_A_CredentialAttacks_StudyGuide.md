@@ -121,7 +121,7 @@ English: Differential responses let an attacker confirm which accounts exist bef
 
 ### 3.13 password hashing（密碼雜湊）
 
-一句定義：密碼唔應該原樣（plaintext）儲存；應該用**慢速雜湊**（bcrypt／Argon2）加 salt 儲存，令資料庫洩漏都好難還原。
+一句定義：密碼唔應該原樣（plaintext）儲存；應該用**慢速、加 salt 嘅雜湊**（bcrypt、Argon2 之類 memory-hard 函式）儲存，令資料庫洩漏都好難還原。
 生活化比喻：plaintext 好似將密碼寫喺當眼處；MD5/SHA-1 好似用速食絞肉機絞碎（快，易撞返）；bcrypt/Argon2 好似用千斤頂慢慢壓（慢，撞唔切）。
 English: Plaintext storage leaves defenders with nothing to do after a leak; slow salted hashes (bcrypt/Argon2) make offline cracking impractical.
 
@@ -550,6 +550,8 @@ OWASP 對應：**A07:2021 — Identification and Authentication Failures**。原
   2. 保持 `email=victim@example.com` 做**唯一** payload position（用 `§` 標記）。
   3. 喺 `Payloads` tab，將 payload type 設為 `Numbers`，配置由 `1` 到 `50`、step 為 `1` 嘅清單。
   4. 撳 `Start attack`。Intruder 送出 **50 條** 相同 POST。
+
+> ⚠️ 教材原文如此（原文自相矛盾）：原文同時講「唯一 payload position 設喺 `email` 值」同「payload type = `Numbers` 由 1 到 50」。技術上 `Numbers` 會**逐個取代**該 position 嘅值（即 email 會變成 `1`、`2`…），所以「50 條完全相同的 POST」呢個描述本身唔成立。實務要 flood：把 position 放喺一個**無關**參數（或直接 loop 重播同一條 request），email 值保持唔變。
 - 預期結果：每個 request 都返回 `200 OK`，幾秒內有大約 50 封重設 email 到收件箱。（原文補充：喺 loop 度重複 Repeater request 都達到同樣效果。）
 - 分辨：Intruder 結果表 50 行全部 200、收件箱暴增 = 成功。
 > **圖示描述**：Burp Intruder 的結果表，50 行 payload 幾乎全部返回 `200 OK`，收件箱隨即出現大量重設郵件。（原教材截圖，本筆記不轉載圖片）
@@ -818,7 +820,7 @@ python3 tools/brute.py
 - CAPTCHA 弱點編號：**CWE-602**（Client-Side Enforcement of Server-Side Security）、**CWE-603**（Use of Client-Side Authentication）；OWASP **A08:2021**。
 - §1 三個 bypass：**洩漏答案（hidden `captcha_answer` / DEBUG comment）**、**省略欄位（`'' !== ''` → false）**、**magic word `bypass`**。
 - §2 email bomb：OWASP **A05:2021**（Security Misconfiguration）＋ **A07:2021**；MITRE **ATT&CK T1667**（Email Bombing，Impact 戰術）；前端倒數 **30 秒**；Burp Intruder payload type **Numbers 1→50 step 1**；分號 `;` 分隔、**無空格**；mail 容器 **`hkgov-mail`**、Roundcube **port 8081**。
-- §6 暴力破解：弱點編號 **CWE-307**；OWASP **A07:2021**；鎖定門檻 **5 次失敗**（綁 session cookie）；Intruder attack type **Cluster bomb**；payload body **`username=§admin§&password=§x§`**；成功訊號 **302 + 長度不同**；`brute.py` 預設 base URL **`http://localhost:8080`**。
+- §6 暴力破解：弱點編號 **CWE-307**；OWASP **A07:2021**；鎖定門檻 **5 次失敗**（綁 session cookie）；Intruder attack type **Cluster bomb**；payload body **`username=§admin§&password=§x§`**；成功訊號 **302 + 長度不同**（⚠️ 教材外補充：要喺 Burp 熄咗 follow redirects 才見到 302；跟咗 redirect 就會變 200，改用 `Location` header 或 response length 判別）；`brute.py` 預設 base URL **`http://localhost:8080`**。
 - 密碼字典來源：**rockyou.txt**（2009 RockYou）、SecLists 常數清單、情境變形（`Welcome2024`／`Summer2024`）、政策檔 **`/opt/IT/password_policy.txt`**（九字元 keyboard walk → `123qwe!@#`）、角色相關（`it.helpdesk` → `Helpdesk1`）。
 - 建議雜湊：**bcrypt / Argon2**（慢速、加 salt）；標準：**NIST SP 800-63B**。
 

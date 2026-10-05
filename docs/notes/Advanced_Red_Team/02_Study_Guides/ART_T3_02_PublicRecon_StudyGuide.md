@@ -34,7 +34,7 @@
 8. **分辨「原封不動」同「欄位移位」嘅 log 行** — Tell a normal log line apart from a URL-scheme line that shifts the columns.
 9. **用登入錯誤訊息確認帳號是否存在** — Use verbose login/reset error differences to confirm which usernames are live (username enumeration).
 10. **由 OSINT 一路行到可用登入，並記錄攻擊面** — Execute the whole OSINT-to-access workflow and record the newly-reachable endpoints in Burp HTTP history.
-11. **講出點解 IDOR 只可以透過「比較兩個帳號」先見到** — Explain why IDOR surface is invisible from a single account and is found by comparing two logins.
+11. **講出點解 IDOR 只可以透過「比較兩個帳號」先見到** — Explain why IDOR surface is usually invisible from a single account（通常要兩個帳號互相比較；單帳號改 id 亦可測到） and is found by comparing two logins.
 12. **用香港法律同倫理講出 OSINT 嘅紅線** — State the legal and ethical boundaries of performing OSINT in Hong Kong.
 
 ---
@@ -240,6 +240,7 @@ grep -i hkgov data/stealer_sample.log
 **1b. 收窄到準確網域並一次過抽出憑證欄位**：
 ```bash
 grep 'hkgov-service.local' data/stealer_sample.log | awk -F: '{print $3 ":" $4}'
+# ⚠️ 教材外補充：grep 用 basic regex，`.` 會匹配任何字元 → 精準比對網域請用：grep -F 'hkgov-service.local'
 ```
 - 做乜：`-F:` 以冒號做分隔符；`$3`＝第 3 欄（username）、`$4`＝第 4 欄（password）。輸出即係 `username:password`，一行一個。
 - **預期輸出（原文列出）**：
@@ -312,7 +313,7 @@ EOF
 喺 Firefox 開 `http://localhost:8080/login.php`。
 - 打一個亂作嘅名（例如 `zz.nobody`）＋任何密碼 → 回覆話個 username 唔存在。
 - 再打 `admin` → 訊息變成 **`Password incorrect.`** → 證明 `admin` 係真帳號（**唔使知密碼都知**）。
-把每個「活躍」username 記落你清單嘅**第二欄**。
+把每個「活躍」username 記落你嘅清單（⚠️ 教材外補充：清單本身係「一行一個 username」嘅單欄格式；若你想分開「已確認存在／待確認」，另開一份 `active.txt`，唔好當 wordlist 本身有第二欄）。
 
 **4-3. 先試洩漏密碼（before any brute force）**
 直接喺 `/login.php` 輸入洩漏嘅憑證對：`admin` / `123qwe!@#`。
@@ -328,7 +329,7 @@ python3 tools/brute.py http://localhost:8080
 ```text
 [+] CRACKED: admin / 123qwe!@#
 ```
-原文補充：**rate limit 攔唔到佢**，因為每個請求都用一個**全新 session**。
+原文補充：**rate limit 攔唔到佢**，因為每個請求都用一個**全新 session**。（⚠️ 教材外補充：呢句只適用於**綁 session／cookie** 嘅計數；綁 IP 嘅 rate limit 一樣攔得到。）
 
 **4-5. 為之後嘅 section 畫攻擊面（包括隱藏嘅 IDOR 面）**
 喺已認證狀態下，打開 Burp 嘅 **Proxy → HTTP history**（喺 Section 0 已設定），記低：

@@ -213,7 +213,7 @@ Web cache 會儲起 response 嘅副本，減低伺服器負載同延遲，之後
 
 > **English Standard Definition:** Because the reflection sits in element content rather than inside an attribute or JavaScript string, the attacker can introduce entirely new tags and event handlers, and the browser executes them with the site's full privileges.
 
-**原文提醒（重要的新手盲點）**：翻返理論段落，理解**為何瀏覽器阻止網頁設定任意 header**——以及真實攻擊點樣照樣送達惡意 header（intercepting proxy、reflectable reverse proxy、browser extension、或者可反射嘅 URL 參數）。
+**原文提醒（重要的新手盲點）**：翻返理論段落，理解**為何瀏覽器阻止網頁喺**普通頁面跳轉**時自帶任意 header（⚠️ 教材外補充：JS 用 `fetch()`／XHR 其實**可以**加自訂 header，但受同源政策限制、而且 `Host`／`Content-Length`／`Referer` 等屬 forbidden headers 永遠改唔到；本節重點係：呢個 header 喺真實系統由可信中間層加入，而測試時你要用 Burp／腳本自己送）**——以及真實攻擊點樣照樣送達惡意 header（intercepting proxy、reflectable reverse proxy、browser extension、或者可反射嘅 URL 參數）。
 
 ---
 
@@ -239,7 +239,7 @@ $strings = include("lang/" . $lang);   // load the chosen language
 
 > **圖示描述**：`includes/language.php` 嘅未渲染 source，顯示每種語言檔（`lang/en` 等）係一個 `return` 字串陣列嘅 PHP 檔，以及由 `$_GET['lang']` 直接拼入 `include(...)` 嘅 loader 兩行（原教材截圖，本筆記不轉載圖片）。
 
-每個語言檔只係 return 一個翻譯字串陣列（回傳嘅陣列存喺 `$LANG`），所以頁面可以查 key（例如 `__('welcome')`）印出正確翻譯。**副檔名被省略，但 PHP 仍然會 parse 同執行該檔**——所以切換語言字面上就係「include 另一個 PHP 檔並執行佢入面任何 PHP 程式碼」。而因為用戶嘅 `lang` 值被**無驗證地拼入路徑**，佢根本唔需要係語言名：`../../` 呢類遍歷序列可以爬出 `lang/` 目錄，令 `include` 指向伺服器上任何可讀檔案。
+每個語言檔只係 return 一個翻譯字串陣列（⚠️ 教材原文如此：原文寫回傳嘅陣列存喺 `$LANG`，但同一段程式碼寫 `$strings = include(...)` —— 兩者係教材自己嘅唔一致，睇 code 為準），所以頁面可以查 key（例如 `__('welcome')`）印出正確翻譯。**副檔名被省略，但 PHP 仍然會 parse 同執行該檔**——所以切換語言字面上就係「include 另一個 PHP 檔並執行佢入面任何 PHP 程式碼」。而因為用戶嘅 `lang` 值被**無驗證地拼入路徑**，佢根本唔需要係語言名：`../../` 呢類遍歷序列可以爬出 `lang/` 目錄，令 `include` 指向伺服器上任何可讀檔案。
 
 #### 4.3.2 有漏洞寫法 vs 安全寫法（Vulnerable pattern vs. safe pattern）
 
@@ -261,7 +261,7 @@ if (!isset($allowed[$lang])) {
     $lang = 'en';                       // unknown language -> default
 }
 $path = realpath($allowed[$lang]);      // resolves to an absolute path
-if ($path === false || strpos($path, realpath('lang')) !== 0) {
+if ($path === false || strpos($path, realpath('lang') . DIRECTORY_SEPARATOR) !== 0) {
     die('Invalid language');            // defence in depth: must stay inside lang/
 }
 $strings = include $path;
@@ -269,7 +269,7 @@ $strings = include $path;
 
 > **圖示描述**：對照嘅安全寫法 source，顯示 `$allowed` allow-list map、`basename()` 剝目錄成份、`isset($allowed[$lang])` 白名單檢查、`realpath()` 解絕對路徑，同 `strpos($path, realpath('lang')) !== 0` 包含檢查，最後先 `include $path`（原教材截圖，本筆記不轉載圖片）。
 
-**安全寫法點解安全**：allow-list map 令**只有三個固定路徑**可以被載入；`basename()` 把輸入嘅目錄成份剝走；`realpath()` 檢查確認解析出嚟嘅檔案真係住喺 `lang/` 入面。而在本 lab，language loader 用嘅係 `include ROOT_DIR . '/lang/' . $_GET['lang']`——**冇**允許語言清單、**冇**過濾遍歷序列、**冇**驗證副檔名。而且 `include` 會執行 PHP 檔，所以一個洩漏咗嘅備份 config 可以被當成程式碼執行。
+**安全寫法點解安全**：allow-list map 令**只有三個固定路徑**可以被載入；`basename()` 把輸入嘅目錄成份剝走；`realpath()` 檢查確認解析出嚟嘅檔案真係住喺 `lang/` 入面。而在本 lab，language loader 用嘅係 `include ROOT_DIR . '/lang/' . $_GET['lang']`（上面示例嘅 `include("lang/" . $lang)` 係簡化示意，實際帶 `ROOT_DIR` 前綴）——**冇**允許語言清單、**冇**過濾遍歷序列、**冇**驗證副檔名。而且 `include` 會執行 PHP 檔，所以一個洩漏咗嘅備份 config 可以被當成程式碼執行。
 
 - **OWASP 對應**：A01:2021 — Broken Access Control (path traversal / LFI)。
 - **In the wild**：檔案包含類 bug 配合檔案上傳或 log poisoning，曾導致完整伺服器淪陷。
@@ -283,7 +283,7 @@ $strings = include $path;
 | 2 | `$lang = basename($lang)` | 剝走目錄成份（`../../etc/passwd` → `passwd`） |
 | 3 | `if (!isset($allowed[$lang])) $lang='en'` | 未知語言回落預設 |
 | 4 | `$path = realpath($allowed[$lang])` | 解成絕對路徑，揭穿隱藏 `../` |
-| 5 | `strpos($path, realpath('lang')) !== 0` | 確認解析後檔案仍在 `lang/` 內 |
+| 5 | `strpos($path, realpath('lang') . DIRECTORY_SEPARATOR) !== 0` | 確認解析後檔案仍在 `lang/` 內（⚠️ 加 `DIRECTORY_SEPARATOR` 才擋到 `lang-evil/` 之類 sibling 目錄；原教材範例冇加） |
 | 6 | `include $path` | 只有通過以上檢查先執行 |
 
 **本 lab 嘅實際寫法係**：`include ROOT_DIR . '/lang/' . $_GET['lang']`——無 allow-list、無遍歷過濾、無副檔名驗證，三樣都缺。
@@ -891,7 +891,7 @@ curl "http://localhost:8080/imgproxy.php?url=file:///etc/passwd"
 4. §14：`@file_get_contents()` 個 `@` 究竟做咩？佢係咪防護？
 5. §14：點解 image proxy 可以變成任意檔案讀取器？
 
-**答案（最後一行）**：1. 開全新 private window（冇帶 header）去同一 URL，若仍見毒連結 = cache 真污染；若清 browser cache 後就冇 → 之前只係本地 cache。 2. 因為前端驗證係檢查表單欄位、喺瀏覽器度行；攻擊者用 Burp 直接喺 header 落 payload，條 request 跳過整段網站 JS。 3. ①allow-list map（只有 `en`／`zh`／`zht` 三個固定路徑可被載入）；②`basename()`（剝走輸入嘅目錄成份）；③`realpath()` 加 `strpos($path, realpath('lang')) !== 0` 檢查（確認解析後檔案仍在 `lang/` 內）。 4. `@` 只係抑制 PHP warning；佢唔會阻擋任何嘢，唔係防護。 5. 因為 image proxy 用 `file://` wrapper 時，`file_get_contents()` 會改為讀取伺服器本地檔，再連 image content type pass through 回傳，所以可讀任意檔。
+**答案（最後一行）**：1. 開全新 private window（冇帶 header）去同一 URL，若仍見毒連結 = cache 真污染；若清 browser cache 後就冇 → 之前只係本地 cache。 2. 因為前端驗證係檢查表單欄位、喺瀏覽器度行；攻擊者用 Burp 直接喺 header 落 payload，條 request 跳過整段網站 JS。 3. ①allow-list map（只有 `en`／`zh`／`zht` 三個固定路徑可被載入）；②`basename()`（剝走輸入嘅目錄成份）；③`realpath()` 加 `strpos($path, realpath('lang') . DIRECTORY_SEPARATOR) !== 0` 檢查（確認解析後檔案仍在 `lang/` 內）。 4. `@` 只係抑制 PHP warning；佢唔會阻擋任何嘢，唔係防護。 5. 因為 image proxy 用 `file://` wrapper 時，`file_get_contents()` 會改為讀取伺服器本地檔，再連 image content type pass through 回傳，所以可讀任意檔。
 
 ---
 

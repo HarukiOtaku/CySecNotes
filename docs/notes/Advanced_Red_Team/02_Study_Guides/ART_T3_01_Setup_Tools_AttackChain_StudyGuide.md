@@ -125,7 +125,7 @@
 | ① | 公開偵察／Public recon | 由公開來源（員工名錄、Git 歷史）蒐集 OSINT，喺登入之前就漏出有效用戶名 | §8 |
 | ② | 初始存取／Initial access | 由弱嘅「前門」打入：CAPTCHA 繞過、email bombing 污染 reset flow、無限暴力破解、SQL/NoSQL injection 登入繞過 | §1、§2、§4、§6、§12 |
 | ③ | 權限提升／Privilege escalation | 由低權限據點升級到 admin：IDOR、存取控制失效、隱藏管理端點、上傳功能濫用成 RCE | §3 |
-| ④ | 憑證蒐集／Credential discovery | 收割「周圍放低」嘅秘密：暴力破解 backupt 檔、外洩 config 備份、stealer-log 式憑證傾倒 | §8、§9 |
+| ④ | 憑證蒐集／Credential discovery | 收割「周圍放低」嘅秘密：暴力破解 backup 檔、外洩 config 備份、stealer-log 式憑證傾倒 | §8、§9 |
 | ⑤ | 橫向檔案存取／Lateral file access | 觸及更多數據／伺服器：語言載入器 LFI、web cache poisoning、SSRF、反射 XSS 偷 admin session | §5、§7、§10、§14 |
 | ⑥ | 主機淪陷／Host compromise | 用 app 洩漏嘅內部提示，由 web 用戶升到主機層權限 | §11 |
 
@@ -149,7 +149,7 @@
 | §5 | Web Cache Poisoning | Web 快取污染 | `ART_T3_07_LateralFileAccess_StudyGuide.md` |
 | §6 | Unlimited Brute Force | 無限暴力破解 | `ART_T3_03_InitialAccess_A_CredentialAttacks_StudyGuide.md` |
 | §7 | Reflected XSS via HTTP Header | HTTP header 反射型 XSS | `ART_T3_07_LateralFileAccess_StudyGuide.md` |
-| §8 | OSINT / Username Leakage | 公開情報／用戶名洩漏 | `ART_T3_02_PublicRecon_StudyGuide.md`（§4 另作交叉引用） |
+| §8 | OSINT / Username Leakage | 公開情報／用戶名洩漏 | `ART_T3_02_PublicRecon_StudyGuide.md`（§8 另作交叉引用：憑證蒐集階段 ART_T3_06） |
 | §9 | Backup File Brute Force | 備份檔暴力破解 | `ART_T3_06_CredentialDiscovery_StudyGuide.md` |
 | §10 | Local File Inclusion via Language Loader | 語言載入器本地檔案包含 | `ART_T3_07_LateralFileAccess_StudyGuide.md` |
 | §11 | Host Privilege Escalation via Internal Hints | 內部提示主機權限提升 | `ART_T3_08_HostCompromise_StudyGuide.md` |
@@ -195,7 +195,7 @@ PHP_CLI_SERVER_WORKERS=12 php -S 0.0.0.0:8080
 
 > **圖示描述**：Proxy settings 畫面列出一個 listener `127.0.0.1:8080`，Running 個 checkbox 已剔。（原教材截圖，本筆記不轉載圖片）
 
-**Step 3 — 喺 Firefox 裝 FoxyProxy。**開 Firefox 去 `about:addons`，搜尋 **FoxyProxy Basic**，按 **Add to Firefox**。裝完撳工具列上嘅 FoxyProxy 圖示，揀 **Options**_FoxyProxy Basic 嘅選項頁就會開。
+**Step 3 — 喺 Firefox 裝 FoxyProxy。**開 Firefox 去 `about:addons`，搜尋 **FoxyProxy Basic**，按 **Add to Firefox**。裝完撳工具列上嘅 FoxyProxy 圖示，揀 **Options** → FoxyProxy Basic 嘅選項頁就會開。
 
 > **圖示描述**：FoxyProxy Basic 安裝完成，由工具列圖示開到 Options 頁。（原教材截圖，本筆記不轉載圖片）
 
@@ -213,6 +213,8 @@ PHP_CLI_SERVER_WORKERS=12 php -S 0.0.0.0:8080
 > **圖示描述**：FoxyProxy 已儲存並選中 `Burp` profile，工具列選單顯示 Burp 為當前代理。（原教材截圖，本筆記不轉載圖片）
 
 **Step 5 — 下載 Burp CA 憑證。**FoxyProxy 設成 Burp 之後，確保 Burp 嘅 **Intercept 開咗**（**Proxy > Intercept**）。用 Firefox 去 `http://burpsuite`，撳右上角嘅 **CA Certificate** 連結，下載 **`cacert.der`**。（`http://burpsuite` 係 PortSwigger 內建嘅特殊網址，會經代理直接由 Burp 回應。）
+
+> ⚠️ 教材外補充：如果 Intercept **開住**，請求會卡喺 Burp 唔會到伺服器 → 記住撳 `Forward` 放行（或先熄 Intercept），否則 `http://burpsuite` 會好似「冇反應」。
 
 > **圖示描述**：`http://burpsuite` 頁面經代理載入成功，右上角 CA Certificate 連結已把 `cacert.der` 下載。（原教材截圖，本筆記不轉載圖片）
 
@@ -375,6 +377,8 @@ PHP_CLI_SERVER_WORKERS=12 php -S 0.0.0.0:8080
 原文 Step 5 叫你「確保 Intercept 開咗」去攞 CA；Step 7 又叫你「熄咗 Intercept」去驗證。原因：攞 CA 嗰下你想**控制住個 flow**；而驗證鏈路嗰下你想**順暢咁 load 頁面**，唔想每次都被攔住。新手最易犯：一路開住 Intercept，然後覺得個 app「好慢好卡」——其實係你自己卡住佢。
 
 ### 6.5 疑問（教材環境中立性問題）：port 8080 撞唔撞？
+
+> ⚠️ 教材外補充（可操作建議）：若**靶場同 Burp 喺同一部機**，`php -S 0.0.0.0:8080` 同 Burp listener `127.0.0.1:8080` 一定撞 → 改其中一邊，例如靶場用 `php -S 0.0.0.0:8081`，之後所有 URL（同 Burp 內嘅第 3 方 URL）一律改用 `8081`。
 
 原文 §0.1 叫你 `php -S 0.0.0.0:8080`（靶場綁 8080），§0.2 又話 Burp listener 係 `127.0.0.1:8080`。**如果靶場同 Burp 都喺同一部機，兩個都想綁 8080，係會撞嘅。**原文冇解釋呢點。環境中立嘅理解係：靶場程式**可能跑喺課程網站嘅 lab VM（另一部機／另一個 IP）**，而你嘅瀏覽器＋Burp 跑喺本機——咁就唔撞。所以筆記一律唔假設「靶場 = 本機」：請按你**自己 lab 提供嘅位址／port**去調整，如果靶場真係喺本機，就要改其中一個嘅 port 或分開兩部機。呢點請向導師確認（本 subagent 只讀到純文字來源，無法驗證實際 lab 拓撲）。
 

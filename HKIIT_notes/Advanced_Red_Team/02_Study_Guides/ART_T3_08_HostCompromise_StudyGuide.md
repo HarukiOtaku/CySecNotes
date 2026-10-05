@@ -124,7 +124,7 @@ English: ssh is the standard encrypted remote-login protocol/command on Linux.
 
 > ⚠️ 教材外補充：留意 `! @ #` 呢三個 Shift 符號本身**唔係隨機**——佢哋只係「同一批數字鍵按住 Shift」，所以「三個數字 + Shift 同三鍵」呢句描述**只有唯一一個解**（`123qwe!@#`）。呢個就係「**key-space（密鑰空間）縮到 1**」嘅核心：文件把一個理論上 95⁹ 嘅密碼空間，直接揭露成 1 個候選。
 
-> ⚠️ 教材外補充：密碼包含 `!@#` 等符號**滿足咗「複雜度規則」**（有大細寫、數字、符號），所以一般密碼政策檢查會放行——但佢依然係極弱密碼。呢點正好係原文明言「despite satisfying complexity rules」嘅荒謬所在。
+> ⚠️ 教材外補充：密碼包含 `!@#` 等符號**滿足咗「複雜度規則」**（有小寫字母、數字、Shift 符號；`123qwe!@#` 其實**冇大寫**，所以視乎政策亦可能唔過），所以一般密碼政策檢查會放行——但佢依然係極弱密碼。呢點正好係原文明言「despite satisfying complexity rules」嘅荒謬所在。
 
 ### 4.3 OWASP 與結論（原文 p.120）
 

@@ -31,7 +31,7 @@
 2. **分辨橫向與縱向權限提升** — Distinguish horizontal escalation (one user → another user's data) from vertical escalation (normal user → admin/server actions).
 3. **講出 IDOR 為何靠可預測 ID** — Explain why sequential / predictable numeric object IDs provide no protection.
 4. **拆解 broken function-level authorization** — Explain why `/admin/upload.php` differs from `/admin/index.php` (session-only check vs. role check).
-5. **做目錄爆破搵隱藏 endpoint** — Use directory brute-force (Gobuster / ffuf / Dirbuster / Burp Intruder) to discover unlinked admin surfaces.
+5. **做目錄爆破搵隱藏 endpoint** — Use directory brute-force (Gobuster / ffuf / DirBuster / Burp Intruder) to discover unlinked admin surfaces.
 6. **由頁面原始碼／JavaScript 挖掘更多 endpoint** — Review the source and JS of admin-looking pages to find extra endpoints (e.g. `upload.php`, `export.php`, `api/internal`).
 7. **解讀 HTTP 狀態碼作為「存在性 oracle」** — Interpret 302 vs 404 and 403 as signals of whether an endpoint exists and whether you are authorized.
 8. **手砌 multipart 上載請求** — Build a `multipart/form-data` POST by hand in Burp Repeater, including the `PHPSESSID` cookie and the right file field name.
@@ -194,12 +194,12 @@
 
 1. **以普通用戶身份登入，並瀏覽每一個用 ID 參照物件嘅功能** —— 訊息、訂單、發票、文件。做一次**清單（inventory）**。
 2. **改動數值參數**，例如 `?id=`、`?msg=`、`?order_id=`，對比回應。如果你讀到另一個人嘅紀錄，就係 IDOR。
-3. **用目錄爆破工具列舉隱藏目錄**（Dirbuster、Gobuster、ffuf）＋ 常用字典。搵 `/admin`、`/manage`、`/dashboard`、`/panel`。
+3. **用目錄爆破工具列舉隱藏目錄**（DirBuster、Gobuster、ffuf）＋ 常用字典。搵 `/admin`、`/manage`、`/dashboard`、`/panel`。
 4. **審視 admin 外表頁面嘅 source 同 JavaScript**，搵有冇提到額外 endpoint，例如 `upload.php`、`export.php`、`api/internal`。
 5. **喺仍然以普通用戶身份登入嘅情況下，逐個存取已發現嘅 endpoint**。如果伺服器喺冇檢查 role 嘅情況下照樣回傳資料或表格，就係缺咗 authorization check。
 6. **測試 upload endpoint** —— 測 extension filtering、MIME validation，同埋上載檔案係唔係存喺 web root、係唔係可執行。
 
-原文亦提到 directory brute-force 係一個**正常嘅偵察步驟**，並點名工具：**Dirbuster、Gobuster、ffuf、或 Burp Intruder**，常用測試路徑包括 `/admin`、`/api`、`/uploads`、`/.git`。
+原文亦提到 directory brute-force 係一個**正常嘅偵察步驟**，並點名工具：**DirBuster、Gobuster、ffuf、或 Burp Intruder**，常用測試路徑包括 `/admin`、`/api`、`/uploads`、`/.git`。
 
 > ⚠️ 教材外補充：原文有一句關鍵心法 —— **Once an admin-looking page is found, its HTML and JavaScript become a map of further endpoints, and upload features are especially valuable because a PHP, JSP, or ASP shell often grants the same privileges as the web server account.** 意思係：搵到一個似 admin 嘅頁面之後，**佢嘅 HTML 同 JS 就係一張「仲有咩 endpoint」嘅地圖**；而 upload 功能特別值錢，因為一個 PHP／JSP／ASP shell 通常就等於**web server 帳號嘅權限**。
 
@@ -364,7 +364,7 @@ gobuster dir -u http://localhost:8080/admin -w /usr/share/wordlists/dirb/common.
 ```
 
 - **成功／失敗點分辨**：見到 302 而唔係 404 ＝ 路徑**存在**。原文陷阱提醒：**302 只係話你知路徑存在，唔話你知佢做乜** —— 要靠「IDOR 讀到嘅 admin 訊息」＋「portal JS」共同指向 `/admin/upload.php`。
-- 原文對應截圖 → `> **圖示描述**：一個目錄爆破工具（Gobuster／ffuf／Dirbuster 或 Burp Intruder）嘅輸出清單，上面見到 /admin/index.php 同 /admin/upload.php 兩項都標住 Status: 302，其餘路徑係 404。（原教材截圖，本筆記不轉載圖片）`
+- 原文對應截圖 → `> **圖示描述**：一個目錄爆破工具（Gobuster／ffuf／DirBuster 或 Burp Intruder）嘅輸出清單，上面見到 /admin/index.php 同 /admin/upload.php 兩項都標住 Status: 302，其餘路徑係 404。（原教材截圖，本筆記不轉載圖片）`
 
 **3.1 Step 4 — Cross-check the portal's JavaScript（交叉比對 portal 嘅 JS）**
 
@@ -529,7 +529,7 @@ hello
 
 > ⚠️ 教材外補充（答案）：
 >
-> **English key points**：Start from the leak: an IDOR on `/message.php?id=` reveals an internal admin message mentioning `/admin/` and `/admin/upload.php`. Probe the obvious admin paths directly (`/admin.php`, `/admin/index.php`) — both are default-deny (403), so they confirm the area exists but are closed. Run **directory brute-force** (Gobuster / ffuf / Dirbuster / Burp Intruder) against `/admin` with a common wordlist; **a 302 (not 404) confirms a path exists**. Then **cross-check static assets**: browse the portal's JavaScript (`/admin/js/admin.js`), which is served without a role check to a normal user and hard-codes `ADMIN_UPLOAD_ENDPOINT = '/admin/upload.php'`. Combine the leak, the scan results, and the JS map to identify the unlinked upload endpoint, and call it by hand.
+> **English key points**：Start from the leak: an IDOR on `/message.php?id=` reveals an internal admin message mentioning `/admin/` and `/admin/upload.php`. Probe the obvious admin paths directly (`/admin.php`, `/admin/index.php`) — both are default-deny (403), so they confirm the area exists but are closed. Run **directory brute-force** (Gobuster / ffuf / DirBuster / Burp Intruder) against `/admin` with a common wordlist; **a 302 (not 404) confirms a path exists**. Then **cross-check static assets**: browse the portal's JavaScript (`/admin/js/admin.js`), which is served without a role check to a normal user and hard-codes `ADMIN_UPLOAD_ENDPOINT = '/admin/upload.php'`. Combine the leak, the scan results, and the JS map to identify the unlinked upload endpoint, and call it by hand.
 >
 > **繁中拆解**：呢條考「**由細微資訊串連到完整淪陷**」嘅偵察方法論。四個 step：**(1) 起點係 leak** —— IDOR 讀到 admin 內部訊息，得到關鍵字 `/admin/`、`/admin/upload.php`；**(2) 先探已知頁** —— `/admin.php` 同 `/admin/index.php` 都 403（default-deny），證明區域存在但關咗；**(3) 目錄爆破** —— 用工具 + 字典打 `/admin`，**302 唔係 404 = 路徑存在**；**(4) 交叉比對靜態檔** —— 普通用戶竟然開得 `/admin/js/admin.js`，佢 hard-code 咗 `/admin/upload.php`，將「存在但唔知用途」嘅 302 補成「呢個就係 upload endpoint」。最後**手砌 POST 去 call 佢**。
 >
@@ -562,7 +562,7 @@ hello
 - **302 = 存在（未登入時）**；**404 = 唔存在**；**403 = 存在但你冇權**。
 - OWASP：**A01:2021 Broken Access Control**、**A04:2021 Insecure Design**。
 - CWE：**285**（Improper Authorization）、**639**（Authorization Bypass Through User-Controlled Key / IDOR-BOLA）、**434**（Unrestricted Upload of File with Dangerous Type）。
-- 目錄爆破工具：**Dirbuster、Gobuster、ffuf、Burp Intruder**；常用路徑：`/admin`、`/api`、`/uploads`、`/.git`。
+- 目錄爆破工具：**DirBuster、Gobuster、ffuf、Burp Intruder**；常用路徑：`/admin`、`/api`、`/uploads`、`/.git`。
 - Web shell 一行：`<?php echo system($_GET['cmd']); ?>`。
 
 ### 8.2 Payload／指令對照表
@@ -608,7 +608,7 @@ hello
 |---|---|---|
 | IDOR / Broken Object Level Authorization | 喺每個收 ID 嘅 query 驗證物件擁有權 | 由 session 拎當前 user id，喺 SQL 加 `WHERE id = :id AND owner_id = :current_user`；用 **授權層（authorization layer／middleware）** 統一處理，唔好散落各處 |
 | Broken function-level authorization | 喺 `/admin/` 底下每個 function 檢查 admin role，唔淨係 session | 用**集中式 role-based access control（RBAC）**；**default-deny** —— 新 endpoint 未明確批准就一律拒絕；`upload.php` 個 `if` 條件要重寫成先檢查 role 再檢查 method |
-| Unrestricted file upload | 將 upload 當敵意；allow-list extensions 同 MIME types、rename 檔案、存喺 web root 之外（或停用 script 執行） | 伺服器端驗證 **extension allow-list + MIME + magic bytes**；**隨機 rename**；存喺 web root 之外，或喺 uploads 目錄用 web server 設定停用 PHP 執行（例如 nginx `location ~* \.php$ { deny all; }`）；設檔案大小上限；**唔好**用 client 交嚟嘅 filename |
+| Unrestricted file upload | 將 upload 當敵意；allow-list extensions 同 MIME types、rename 檔案、存喺 web root 之外（或停用 script 執行） | 伺服器端驗證 **extension allow-list + MIME + magic bytes**；**隨機 rename**；存喺 web root 之外，或喺 uploads 目錄用 web server 設定停用 PHP 執行（例如 nginx 只喺 uploads 目錄停 PHP：`location ^~ /uploads/ { location ~* \.php$ { deny all; } }`（⚠️ 唔好寫成 `location ~* \.php$ { deny all; }`——咁會封晒全站 PHP））；設檔案大小上限；**唔好**用 client 交嚟嘅 filename |
 | 一般授權失敗 | 記錄 authorization failures | 寫入 audit log（唔要只係回 403 就算）；對**大量 403／IDOR 掃描**做告警 |
 
 **PHP／ASP.NET 一般做法補充**：

@@ -123,7 +123,7 @@
 | BOLA（Broken Object Level Authorization） | 物件層授權失效 | IDOR 嘅業界別名（尤其 API 語境） | ART_T3_05 §4.2 |
 | broken access control | 存取控制失效 | 未驗證 role / 擁有權就放行；OWASP A01:2021 | ART_T3_05 §4.5、ART_T3_07 §4.3 |
 | broken function-level authorization | 功能層授權失效 | 隱藏 admin 功能冇角色檢查（如 `admin/upload.php` 條件寫錯） | ART_T3_05 §4.3 |
-| unrestricted file upload | 無限制檔案上載 | 接受任何檔案型別，且放喺 web root 會被當 PHP 執行 | ART_T3_05 §4.4、§4.8 |
+| unrestricted file upload | 無限制檔案上載 | 接受任何檔案型別；若放喺 web root **而且**係可執行副檔名（或 handler 錯配），upload 檔就會被當 PHP 執行 | ART_T3_05 §4.4、§4.8 |
 | RCE（Remote Code Execution） | 遠端程式碼執行 | 攻擊者令伺服器執行自己提供嘅程式碼 | ART_T3_05 §3.9、§4.8 |
 | web shell | 網頁後門 | 放喺伺服器、收 HTTP request 就執行指令嘅後門程式 | ART_T3_05 §3.9、ART_T3_08 §6.1 |
 | SQL injection（SQLi） | SQL 注入 | 未信任輸入直接拼入 SQL 字串，被當成查詢語法 | ART_T3_04 §4、§7.1 |
@@ -131,7 +131,7 @@
 | boolean-based blind SQLi | 布林盲注 | 送兩個只差一個 true / false 條件嘅 request 去問是非題 | ART_T3_04 §4.1、§7.1 |
 | tautology（`' OR 1=1--`） | 恆真式 | 令 WHERE 條件永遠成立嘅經典注入 payload | ART_T3_04 §3.4、§4.1 |
 | NoSQL operator injection | NoSQL 運算子注入 | 用 `$ne`、`$where` 等 operator 取代值，令輸入變成查詢邏輯 | ART_T3_04 §12、§7.2 |
-| JSON wildcard（`{"role":"*"}`） | JSON 萬用字元 | 令查詢回傳全部文件嘅 NoSQL payload | ART_T3_04 §12 |
+| JSON wildcard（`{"role":"*"}`） | JSON 萬用字元 | 令查詢回傳全部文件嘅 NoSQL payload（⚠️ 本 lab 後端會把 `*` 重寫成 wildcard；標準 MongoDB 要 `$regex` 才做得到） | ART_T3_04 §12 |
 | XSS（Cross-Site Scripting） | 跨站腳本 | 把可執行 JavaScript 注入其他人睇到嘅網頁 | ART_T3_07 §4.2 |
 | reflected XSS | 反射型 XSS | 伺服器**即時**把輸入回彈，冇編碼、冇 sanitization | ART_T3_07 §4.2、§3 |
 | stored XSS | 儲存型 XSS | payload 存喺伺服器，之後每個訪客都中 | ART_T3_07 §3、§4.2 |
@@ -145,7 +145,6 @@
 | cache key | 快取鍵 | cache 判斷「兩條 request 係否共用一份存貨」嘅依據 | ART_T3_07 §3、§4.1 |
 | CAPTCHA bypass | 驗證碼繞過 | 伺服器信任前端資料／答案外洩，令 CAPTCHA 形同虛設 | ART_T3_03 §4.1、§5.1 |
 | email bomb | 電郵轟炸 | 濫用應用嘅寄信功能灌爆目標信箱（MITRE T1667） | ART_T3_03 §4.2、§5.2 |
-| delimiter injection | 分隔符注入 | 用 `;` / `,` / 換行令一格欄位塞入多個值（多個收件人） | ART_T3_03 §3.11、§4.2 |
 | brute force | 暴力破解 | 系統性猜憑證，直到搵到正確嘅一對 | ART_T3_03 §4.3、ART_T3_06 §3.2 |
 | rate limiting | 速率限制 | 限制同一來源一段時間內可做幾多次同類操作（須 per account + per IP） | ART_T3_03 §3.10、§4.3 |
 | account lockout | 帳號鎖定 | 失敗 N 次（本 lab 為 5 次）後暫停；若綁 session cookie 即可輪換繞過 | ART_T3_03 §4.3、§6.3 |
