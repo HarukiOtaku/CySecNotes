@@ -24,6 +24,7 @@ const CATEGORY_LABELS = {
   'ITE3102_Network_Fundamentals': '🌐 ITE3102 網絡基礎',
   'ITP3915_Programming_Fundamentals': '🐍 ITP3915 程式基礎',
   'ITP4456_Database_Applications': '🗄️ ITP4456 資料庫應用',
+  'Advanced_Red_Team': '🎯 Advanced Red Team（實戰滲透）',
   '02_Study_Guides': '📘 學習指南',
   '02_AI_Study_Guides': '📘 學習指南',
   '03_Master_Cheatsheet': '⚡ 精讀 Cheatsheet',
