@@ -327,7 +327,7 @@
 | §1 | CAPTCHA Bypass | CWE-602（Client-Side Enforcement of Server-Side Security）、CWE-603（Use of Client-Side Authentication） | A08:2021（Software and Data Integrity Failures） | ART_T3_03 |
 | §2 | Email Bomb | （安全配置錯誤，原文未編 CWE） | A05:2021（Security Misconfiguration）、A07:2021 | ART_T3_03 |
 | §3 | Admin Privilege Escalation (Hidden Endpoint) | CWE-285（Improper Authorization）、CWE-639（Authorization Bypass Through User-Controlled Key / IDOR-BOLA）、CWE-434（Unrestricted Upload of File with Dangerous Type） | A01:2021（Broken Access Control）、A04:2021（Insecure Design） | ART_T3_05 |
-| §4 | SQL Injection in a JSON Object | CWE-89（Improper Neutralization of Special Elements used in SQL） | A03:2021（Injection） | ART_T3_04 |
+| §4 | SQL Injection in a JSON Object | CWE-89（Improper Neutralization of Special Elements used in an SQL Command） | A03:2021（Injection） | ART_T3_04 |
 | §5 | Web Cache Poisoning | （unkeyed input，原文未編 CWE） | A05:2021（Security Misconfiguration） | ART_T3_07 |
 | §6 | Unlimited Brute Force | CWE-307（Improper Restriction of Excessive Authentication Attempts） | A07:2021（Identification and Authentication Failures） | ART_T3_03 |
 | §7 | Reflected XSS via HTTP Header | CWE-79（Improper Neutralization of Input During Web Page Generation） | A03:2021（Injection） | ART_T3_07 |

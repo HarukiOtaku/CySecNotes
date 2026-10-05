@@ -254,7 +254,7 @@ grep 'hkgov-service.local' data/stealer_sample.log | awk -F: '{print $3 ":" $4}'
 
 **成功／失敗點分辨**：
 - 成功：輸出係一列 `username:password`，每行一對。
-- 失敗（欄位移位）：見到類似 `443:mary.wong`——即係密碼位走咗去做 username。解決：剝走 scheme（或改用更精準嘅欄位處理）再抽。
+- 失敗（欄位移位）：見到類似 `443:mary.wong`——即係欄位整體右移一格（`$3` 由 username 變成 port `443`、`$4` 由 password 變成 username）。解決：剝走 scheme（或改用更精準嘅欄位處理）再抽。
 
 ### 步驟 2：檢查 JSON API 攞結構化用戶資料（原文 p.101）
 
@@ -516,7 +516,7 @@ python3 tools/brute.py http://localhost:8080
 4. 點解 IDOR 攻擊面「單靠一個帳號係 expose 唔到」？要點做先見到？
 5. OSINT 喺 MITRE ATT&CK 屬邊個 tactic？對應邊四個技術編號？
 
-答案：1）`/staff.php` 同 `/api/users.php`；前者 HTML 員工名錄、後者 JSON array（含 username／full_name／email／role）。 2）因為憑證對有兩半，名錄免費送 username／email 前半（仲洩露 `first.last@` 格式）→ spraying 用少數密碼掃大量已知帳號、stuffing 食密碼重用、phishing 用真名職銜度身訂造。 3）`admin:123qwe!@#`；加咗 scheme 後會移位，出成 `443:admin`（即欄位向後移一格，密碼位走咗去做 username）。 4）因為頁面對每個帳號都一模一樣，endpoint 按 `id=` 直接撈 row 而唔檢查 ownership——要用**兩個唔同帳號**登入、比較頁面同請求（side by side）先見到（例：改 `id=2` 做 `id=1` 攞到 admin 嘅 message）。 5）Reconnaissance（偵察）；T1593（搜公開網站／網域）、T1594（搜目標自有網站）、T1589（收集目標身分資料）、T1590（收集目標網絡資料）。
+答案：1）`/staff.php` 同 `/api/users.php`；前者 HTML 員工名錄、後者 JSON array（含 username／full_name／email／role）。 2）因為憑證對有兩半，名錄免費送 username／email 前半（仲洩露 `first.last@` 格式）→ spraying 用少數密碼掃大量已知帳號、stuffing 食密碼重用、phishing 用真名職銜度身訂造。 3）`admin:123qwe!@#`；加咗 scheme 後會移位，出成 `443:admin`（即欄位整體右移一格：`443` 佔咗 username 個位、`admin` 跌入 password 個位）。 4）因為頁面對每個帳號都一模一樣，endpoint 按 `id=` 直接撈 row 而唔檢查 ownership——要用**兩個唔同帳號**登入、比較頁面同請求（side by side）先見到（例：改 `id=2` 做 `id=1` 攞到 admin 嘅 message）。 5）Reconnaissance（偵察）；T1593（搜公開網站／網域）、T1594（搜目標自有網站）、T1589（收集目標身分資料）、T1590（收集目標網絡資料）。
 
 ---
 

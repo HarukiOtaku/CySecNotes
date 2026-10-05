@@ -11,7 +11,7 @@
 - 每個術語列成四欄：**英文術語 | 繁體中文概念 | 一句話說明 | 出現喺邊份檔**。
 - 每組表格之後附 `> **English Standard Definition:**` 英文標準句 —— 呢啲句式係考卷最想聽到嘅標準英文講法，背熟可即用。
 - 全部**術語 100% 保留英文**；中文欄只作理解用，唔取代原文用詞。
-- 第 **④ 組**係 CWE / OWASP 2031 對照總表 —— 考試最常考嘅「配對題」全在此。
+- 第 **④ 組**係 CWE / OWASP 2021 對照總表 —— 考試最常考嘅「配對題」全在此。
 - 文末有**易混淆對照**（每對寫「分別喺邊」＋一句考試答法）同 **🎒 5 分鐘術語自測**（15 題，答案喺最尾）。
 
 > ⚠️ 本檔只收錄「出現過喺 8 份階段筆記」嘅術語；冇出現過嘅一律唔會杜撰。若日後原文／課程補充新術語，應加入相應組別並更新「出現喺邊份檔」欄。
@@ -152,7 +152,7 @@
 | username enumeration | 用戶名列舉 | 由回覆差異（如 `Username not found.` vs `Password incorrect.`）推斷邊啲帳號存在 | ART_T3_02 §3.15、ART_T3_03 §3.12 |
 | OAuth / SSO misconfiguration | OAuth／單一登入配置錯誤 | `redirect_uri` 冇嚴格 allow-list，令授權 code 可以被送去攻擊者 | ART_T3_04 §13、§7.3 |
 | open redirect | 開放轉址 | 應用接受任意 URL 作 redirect 目標，可被串連利用 | ART_T3_04 §13.3、ART_T3_07 §4.1 |
-| CRLF / delimiter abuse | 分隔符濫用 | 用換行等分隔符把一格值切開成多個值（見 delimiter injection） | ART_T3_03 §3.11 |
+| delimiter injection（分隔符濫用） | 分隔符注入 | 用 `;`／`,`／換行等分隔符，把一格值切開成多個收件人（一個 request 送多封，見 §2 Email Bomb） | ART_T3_03 §3.11 |
 
 > **English Standard Definition:** An Insecure Direct Object Reference (IDOR) — also known as Broken Object Level Authorization (BOLA) — occurs when an application exposes a direct reference to an internal object, such as a database record ID, a filename, or an account number, and uses that user-supplied identifier to fetch the object without performing a server-side ownership or permission check.
 > **English Standard Definition:** SQL injection occurs when an application builds a database query by concatenating untrusted input directly into the SQL string.

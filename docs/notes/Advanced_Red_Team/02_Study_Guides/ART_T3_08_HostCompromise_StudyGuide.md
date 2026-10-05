@@ -138,7 +138,7 @@ English: ssh is the standard encrypted remote-login protocol/command on Linux.
 
 ### 4.4 How to fix（for defenders）（原文 p.121）
 
-繁中拆解：原文給防守方嘅修法有四點：
+繁中拆解：原文給防守方嘅修法有三點（強密碼、MFA、文件移出 web 路徑）：
 
 1. **為特權帳號強制使用強且唯一嘅密碼**，並**拒絕 keyboard-walk 或字典模式**（唔止檢查「有冇符號」，要擋「鍵盤路徑」）。
 2. **管理員存取必須要求 MFA**。
@@ -253,7 +253,7 @@ ssh root@localhost
 
 > ⚠️ 教材外補充：
 > - **Web shell（網頁 shell）**：你嘅「立足點」係跑喺 **web server 進程權限** 之下（通常 `www-data`）。就算你透過 RCE 攞到「一個 shell」，你嘅身份依然係 `www-data`——你能讀／寫嘅檔案，受 `www-data` 嘅權限限制。你嘅指令由一個 **web 請求觸發**（例如把命令藏喺 HTTP 參數），輸出經 HTTP 回應返俾你。
-> - **Host shell（主機 shell）**：你係**直接登录到主機本身**（例如 SSH 到 `root@localhost`），以 `root` 身份喺主機嘅作業系統上落指令。你唔再受 web server 權限限制，可以讀 `/etc/shadow`、改 `/etc/sudoers`、安裝後門、加帳號。
+> - **Host shell（主機 shell）**：你係**直接登入到主機本身**（例如 SSH 到 `root@localhost`），以 `root` 身份喺主機嘅作業系統上落指令。你唔再受 web server 權限限制，可以讀 `/etc/shadow`、改 `/etc/sudoers`、安裝後門、加帳號。
 > - **本階段的關鍵**：原文示範嘅**唔係**由 web shell 直接 spawn 一個 host shell，而係用 **web 層嘅檔案讀取能力偷到 root 密碼，再用 SSH 真正登入主機**。呢個分別好重要：攻擊鏈⑥嘅本質係「**由 web 層漏洞跳到主機層憑證**」，而唔一定係「web 進程本身提權」。
 > - 一句記法：**Web shell ＝ 你企喺網頁後面；Host shell ＝ 你坐喺主機前面。**
 
