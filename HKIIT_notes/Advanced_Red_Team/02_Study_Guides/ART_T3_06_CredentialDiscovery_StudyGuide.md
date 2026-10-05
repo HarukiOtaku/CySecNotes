@@ -59,7 +59,7 @@
 > A wordlist is a plain-text file of candidate strings, one per line, that an enumeration tool tries in turn.
 
 **3.4 HTTP status code（狀態碼）**
-伺服器回覆你請求時嘅一個三位數字。做呢個階段最緊要記住兩個：**200 = 成功、內容存在**、**404 = 搵唔到**。另外 301/302 係「重新導向（redirect）」、403 係「禁止存取（forbidden，即係存在但唔畀你睇）」。
+伺服器回覆你請求時嘅一個三位數字。做呢個階段最緊要記住兩個：**200 = 成功、內容存在**、**404 = 搵唔到**。另外 301/302 係「重新導向（redirect）」、403 係「禁止存取（forbidden）——⚠️ 教材外補充：403 常見係「存在但唔畀你睇」，但亦可能係 WAF／認證／伺服器規則攔截，所以**唔可以單憑 403 斷定檔案存在**」。
 比喻：200 係「有貨派」，404 係「呢個貨架冇貨」。
 > HTTP 200 means the requested resource exists and is being returned; HTTP 404 means it was not found.
 
@@ -150,7 +150,7 @@ Git / SVN / Mercurial 等版本控制系統留喺資料夾入面嘅隱藏資料�
 | Node.js / Express | `X-Powered-By: Express`; JSON APIs; static `.js` assets | `.env`, `app.js~`, `package.json.bak`, `.git/` |
 | Java / Tomcat | `.jsp`/`.do` URLs; `Server: Apache-Coyote`; Tomcat default error pages | `web.xml.bak`, `*.war.bak`, `META-INF/`, `WEB-INF/` |
 | Python / Django | CSRF cookies (`csrftoken`); `Server: WSGIServer`; admin at `/admin/` | `settings.py.bak`, `.env`, `db.sqlite3~` |
-| Ruby on Rails | `_session_id` cookie; `Server: Puma/Unicorn`; `/500.html` style error pages | `database.yml.bak`, `config~`, `.env` |
+| Ruby on Rails | `_session_id` cookie（⚠️ 教材外補充：原文如此；Rails 4+ 預設已改為 `_<appname>_session`）; `Server: Puma/Unicorn`; `/500.html` style error pages | `database.yml.bak`, `config~`, `.env` |
 
 **無論係咩技術棧，都要另外直接探測版本控制 metadata 路徑**（原文原樣）：
 
@@ -186,7 +186,7 @@ backup/.git/
 
 ### 4.7 點判別「命中」同「成功下載」（原文 p.108）
 
-繁中解說：原文講明 —— 對 `/backup/` 做完 forced browse 之後，**任何 HTTP 200 response 就代表「該檔案可以直接下載」**。以本 lab 為例，`tools/backup_brute.py` 腳本（原文提供嘅參考實作）會對以下 URL 報 **HTTP 200**：
+繁中解說：原文講明 —— 對 `/backup/` 做完 forced browse 之後，**任何 HTTP 200 response 就代表「該檔案可以直接下載」**（⚠️ 教材外補充：呢個講法喺**本 lab** 成立，因為靶場冇「軟 404」；一般網站 200 可能只係自訂錯誤頁，要配合 body length／content-type 三樣一齊比 —— 見 §6.3 同 §6.5）。以本 lab 為例，`tools/backup_brute.py` 腳本（原文提供嘅參考實作）會對以下 URL 報 **HTTP 200**：
 
 ```text
 /backup/config.php.bak
@@ -235,6 +235,8 @@ git clone http://localhost:8080/backup/.git /tmp/lab-src && cd /tmp/lab-src && g
 
 clone 成功之後，`git log --oneline` 會列出成個項目嘅 commit —— **包括已經喺 live 站刪走嘅檔案同秘密**。
 
+> ⚠️ 教材外補充：呢個命令假設 lab 嘅 `.git` 用 **smart HTTP**。如果 clone 失敗（靜態／dumb HTTP 嘅 `.git` 同新版 Git 唔夾），可以試 `GIT_PROTOCOL=version=0 git clone http://localhost:8080/backup/.git /tmp/lab-src`，或改用 `git-dumper`／直接下載 `.git` objects 再重建。
+
 > **English Standard Definition:** "The entire repository history can usually be reconstructed from exposed Git metadata."（原文如此）
 
 > **圖示描述**：原文 Screenshot 62 顯示喺 Firefox 打開 `http://localhost:8080/backup/.git/HEAD` 嘅畫面 —— 頁面只顯示一行純文字 ref 內容，例如 `ref: refs/heads/main`，證明該 `.git` 資料夾係對外可讀嘅（可被下載／進一步用工具重構）。（原教材截圖，本筆記不轉載圖片）
@@ -255,7 +257,7 @@ clone 成功之後，`git log --oneline` 會列出成個項目嘅 commit —— 
 
 ### 4.12 How to fix（防守方修法，原文 p.110）
 
-繁中解說：原文列咗五個方向：
+繁中解說：原文用一句講「四個防守控制」，拆開係以下**五個行動方向**（原文最後一句同時包含「剝走／輪替秘密」同「封鎖 dotfile」兩件事，所以學習目標寫 four、呢度列五項）——
 
 1. **備份同版本控制 metadata 一律放喺 document root 以外**（最根本嘅一條）。
 2. **加密敏感壓縮檔**。
@@ -384,7 +386,7 @@ Host: localhost:8080
 3. **只睇 status code、唔睇 body length／content-type**：有啲站「軟 404」（用 200 回自訂錯誤頁）。**解法**：三樣一齊比 —— 200 ＋ body length 明顯唔同 ＋ content-type 合理，先算命中。
 4. **撞到 `.php.bak` 但瀏覽器出空白**：如果你打嘅係 `config.php`（少咗 `.bak`），會畀 PHP 執行、可能回空白。**解法**：確認 URL 真係帶 `.bak`／`~` 呢個副檔名。
 5. **唔知 wordlist 邊度嚟**：
-   - **合規來源**：Kali 內建嘅 wordlists（例如 `dirb`、`dirbuster`、`/usr/share/wordlists/`）、SecLists（開源）等公開發佈嘅清單；本 lab 亦可自建「同技術棧對應」嘅小清單（例如由 4.5 表抄出 `config.php.bak`、`config.php~` 咁樣）。
+   - **合規來源**：Kali 內建工具附帶嘅 wordlists（例如 `/usr/share/dirb/wordlists/common.txt`、`/usr/share/dirbuster/wordlists/`、`/usr/share/wordlists/`）同 SecLists（開源）等公開發佈嘅清單 —— ⚠️ 注意 `dirb`／`dirbuster` 係**工具名**，唔係字典檔本身，唔好直接當 wordlist 餵入去；本 lab 亦可自建「同技術棧對應」嘅小清單（例如由 4.5 表抄出 `config.php.bak`、`config.php~` 咁樣）。
    - **只可以喺你有書面授權嘅 lab／目標度用**。切忌對唔屬於你嘅網站落手（下面 6.4 詳講）。
 
 ### 6.4 盲爆破嘅法律風險（必讀）
@@ -403,7 +405,7 @@ Host: localhost:8080
 | 撞中檔案 | `HTTP 200` ＋ body length 正常 ＋ content-type 合理 | 檔案存在且可下載 |
 | 軟 404 | `HTTP 200` 但 body length 同錯誤頁一樣 | **誤判**，唔算命中 |
 | 目錄可列 | `HTTP 200` ＋ HTML 目錄列表 | 連目錄列表都開咗，更容易 |
-| 檔案受保護 | `HTTP 403` | 檔案存在但唔畀你睇 |
+| 檔案受保護 | `HTTP 403` | 檔案可能存在但唔畀你睇（亦可能係 WAF／認證攔截 → 只當線索，唔當證據） |
 | 唔存在 | `HTTP 404` | 冇呢個檔案 |
 
 ---
@@ -467,7 +469,7 @@ Host: localhost:8080
 |---|---|
 | CWE | **CWE-530** — Exposure of Backup File to an Unauthorized Control Sphere |
 | OWASP | **A05:2021 — Security Misconfiguration** |
-| 命中判別 | **HTTP 200 = 存在可下載**；404 = 唔存在 |
+| 命中判別 | **HTTP 200 = 存在可下載**（本 lab 無軟 404；一般情況要 200 ＋ body length ＋ content-type 三樣一齊比）；404 = 唔存在 |
 | 本 lab 暴露路徑 | `/backup/config.php.bak`、`/backup/users_backup.sql`、`/backup/lab.db.bak`、`/backup/site_backup_20240720.zip`、`/backup/source.zip`、`/backup/.git/HEAD` |
 | 目標技術棧 | PHP + Apache（`Server: Apache/…`、`X-Powered-By: PHP/…`） |
 | 版本控制 metadata | `.git/`、`.svn/`、`.hg/` |
