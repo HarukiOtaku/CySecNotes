@@ -1,6 +1,6 @@
 # ITE3102 Network Fundamentals — Final Cheat Sheet（考前極速總複習）
 
-> **覆蓋範圍**：Lecture 0 Number Systems（Module 5）／ Lecture 1 Networking Today（Module 1）／ T3 Network Models（OSI & TCP/IP）／ T4 Network Access（Physical & Data Link）／ T5 Ethernet（ARP、Switch、Frame）／ T6 Network Layer（Routing、IPv4/IPv6 Header）／ T7 IPv4 Addressing & Subnetting（VLSM）／ T8 & L8 IPv6 Addressing ／ T9 Transport Layer（TCP／UDP）／ T10 Application Layer（HTTP／DNS／DHCP／Email／FTP）／ L3 Network Models（Module 3）／ L4 Network Access（Module 4 & 6）／ L5 Ethernet（Module 7）／ L6 Network Layer（Router）／ L7 IPv4 Addressing（Module 11）／ L9 Transport Layer（Module 14）／ L10 Application Layer（Module 15）
+> **覆蓋範圍**：Lecture 0 Number Systems（Module 5）／ Lecture 1 Networking Today（Module 1）／ T3 Network Models（OSI & TCP/IP）／ T4 Network Access（Physical & Data Link）／ T5 Ethernet（ARP、Switch、Frame）／ T6 Network Layer（Routing、IPv4/IPv6 Header）／ T7 IPv4 Addressing & Subnetting（VLSM）／ T8 & L8 IPv6 Addressing ／ T9 Transport Layer（TCP／UDP）／ T10 Application Layer（HTTP／DNS／DHCP／Email／FTP）／ L3 Network Models（Module 3）／ L4 Network Access（Module 4 & 6）／ L5 Ethernet（Module 7）／ L6 Network Layer（Router）／ L7 IPv4 Addressing（Module 11）／ L9 Transport Layer（Module 14）／ L10 Application Layer（Module 15）／ EA00–EA04 Skill Test 準備（Subnet Mask 概念、四步計法、Addressing Table、Packet Tracer、計時練習）
 > **使用時機**：考試前 5–10 分鐘快速掃描；只保留「關鍵數字、對比表、英文口訣」。
 > 詳細解說請回查：`02_Study_Guides/` 內對應各課的 Study Guide（⚠️ 正確資料夾名係 `02_Study_Guides`，唔好寫錯成任何加咗 AI 字樣嘅變體）
 > ⚠️ 本檔只寫「理論」；Packet Tracer 情境、Cisco IOS 指令、Windows 指令速查見本檔其後「Cisco IOS 指令速查」一節。
@@ -577,6 +577,13 @@
 - "The number of usable hosts per subnet is 2 to the power of the host bits minus 2."
 - "The block size is 256 minus the last non-zero octet of the subnet mask."
 - "According to RFC 1918, 10.0.0.0/8, 172.16.0.0/12 and 192.168.0.0/16 are private addresses."
+
+### 7.9 EA Skill Test 準備系列
+
+- 考前路徑：`ITE3102_EA00_SkillTestPrep_Overview.md` → EA01 概念 → EA02 四步 → EA03 填表同 PT → EA04 計時練習
+- 紙筆四步：prefix → block（256−octet）→ 由 .0 跳邊界 → First = N+1、Last = B−1
+- 填表鐵律：network／broadcast 唔派；同一 subnet 嘅 default gateway 一定相同
+- PT 順序：Straight-Through → 介面 On → Server HTTP／HTTPS／DNS → WRS Save Settings → Check Results
 
 ---
 

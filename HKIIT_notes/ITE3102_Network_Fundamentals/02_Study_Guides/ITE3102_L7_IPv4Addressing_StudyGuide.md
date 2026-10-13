@@ -3,6 +3,7 @@
 > **來源**：Cisco Introduction to Networks v7.0 (ITN) — Module 11: IPv4 Addressing
 > **原始檔**：`01_Raw_Materials/Lectures/Lecture7_IPv4Addressing.pptx`
 > **題解對應**：`ITE3102_T7_IPv4Addressing_StudyGuide.md`（同一課嘅 Tutorial 練習題解）
+> **Skill Test 準備**：`ITE3102_EA00_SkillTestPrep_Overview.md`（EA01 概念／EA02 四步／EA03 填表同 PT／EA04 計時練習）
 > **閱讀方法**：繁中解說理解邏輯 → 英文 Blockquote 直接背誦 → 自己動手做一次 subnetting → 考前用懶人包速記
 
 ---

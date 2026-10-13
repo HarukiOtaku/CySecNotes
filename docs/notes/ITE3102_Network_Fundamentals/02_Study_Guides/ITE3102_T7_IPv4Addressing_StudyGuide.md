@@ -2,6 +2,7 @@
 
 > 課程：ITE3102 Network Fundamentals ｜ 課題：IPv4 Addressing ｜ 程度：大專（HD / CCNA 基礎）
 > **理論延伸**：`ITE3102_L7_IPv4Addressing_StudyGuide.md`（同一課 Lecture 講義完整理論版）
+> **Skill Test 準備**：`ITE3102_EA00_SkillTestPrep_Overview.md`（EA01–EA04）
 
 ---
 
