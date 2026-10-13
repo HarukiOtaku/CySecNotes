@@ -1,9 +1,9 @@
-# ITE3102 EA03: Addressing Table 同 Packet Tracer 步驟
+# ITE3102 EA Skill Test 004: Addressing Table 同 Packet Tracer 步驟
 
 > **系列**：EA Skill Test 準備
 > **理論來源**：`ITE3102_L7_IPv4Addressing_StudyGuide.md` §3.9、`ITE3102_PT11_Subnetting_CodeGuide.md`
 > **PT 來源**：`ITE3102_PT4_LAN_Setup_CodeGuide.md`、`ITE3102_PT10_DNS_DHCP_CodeGuide.md`、`ITE3102_PT6_RouterToLAN_CodeGuide.md`
-> **下一頁**：`ITE3102_EA04_TimedPractice_StudyGuide.md`
+> **下一頁**：`ITE3102_EA_SkillTest_005_TimedPractice_StudyGuide.md`
 
 ---
 
@@ -178,7 +178,7 @@ Laptop：
 ## 🗺️ 5. 循序漸進學習路線（Learning Path）
 
 **Step 1 — 先理解觀念（Understand）**  
-拿 EA02 一張表，用螢光筆標 first／second／last。
+拿 003 一張表，用螢光筆標 first／second／last。
 
 **Step 2 — 背誦英文短語（Memorize）**  
 Unlike → straight-through；Save Settings；A record maps hostname to server IP。
@@ -187,7 +187,7 @@ Unlike → straight-through；Save Settings；A record maps hostname to server I
 白紙默一張 Addressing Table，三部裝置。
 
 **Step 4 — 能解答英文考題（Solve Exam Questions）**  
-EA04 紙筆版 Part 2；有 PT 就跟同一清單做。
+005 紙筆版 Part 2；有 PT 就跟同一清單做。
 
 ## 🎒 6. 考前 5 分鐘雙語懶人包（Cheat Sheet）
 
@@ -198,4 +198,4 @@ EA04 紙筆版 Part 2；有 PT 就跟同一清單做。
 - WRS：WAN static、LAN Router IP、DHCP、**Save**
 - Laptop：Wireless On + SSID + DHCP
 - PC 第 N 個 usable：由 `.1` 起數 N 個（/24 第 10 個 = `.10`）
-- 計時卷：`ITE3102_EA04_TimedPractice_StudyGuide.md`
+- 計時卷：`ITE3102_EA_SkillTest_005_TimedPractice_StudyGuide.md`

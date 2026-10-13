@@ -1,8 +1,8 @@
-# ITE3102 EA01: IPv4 同 Subnet Mask 概念
+# ITE3102 EA Skill Test 002: IPv4 同 Subnet Mask 概念
 
-> **系列**：EA Skill Test 準備（本頁 = 概念；計法見 EA02）
+> **系列**：EA Skill Test 準備（本頁 = 概念；計法見 003）
 > **理論來源**：`ITE3102_L7_IPv4Addressing_StudyGuide.md`、`ITE3102_L0_NumberSystems_StudyGuide.md`
-> **下一頁**：`ITE3102_EA02_SubnettingFourSteps_StudyGuide.md`
+> **下一頁**：`ITE3102_EA_SkillTest_003_SubnettingFourSteps_StudyGuide.md`
 
 ---
 
@@ -75,7 +75,7 @@ AND 完，host bits 全 0，結果就係 **network address**（又叫 subnet add
 
 例：`192.168.10.10` AND `255.255.255.0` = **`192.168.10.0`**。最後 octet 被 mask 嘅 0 清走。
 
-Shortcut（考場用）：唔使 32 粒逐粒乘。睇 mask 最後非 0 octet，用 **block size** 跳——詳見 EA02。AND 係「點解得呢個答案」；block size 係「點樣快計」。
+Shortcut（考場用）：唔使 32 粒逐粒乘。睇 mask 最後非 0 octet，用 **block size** 跳——詳見 003。AND 係「點解得呢個答案」；block size 係「點樣快計」。
 
 > **English Standard Definition:** A logical AND Boolean operation is used in determining the network address. Only a 1 AND 1 produces a 1; any other combination results in a 0. The host IPv4 address is ANDed bit by bit with the subnet mask.
 
@@ -165,4 +165,4 @@ RFC 1918 三個 private block **唔可以喺 Internet 上路由**：
 - `/28` → `11110000` → **240**；`/27` → `11100000` → **224**
 - AND 完 host 位全 0 = Network；全 1 = Broadcast；中間先可以派
 - 減 2 = 減走 Network 同 Broadcast
-- 下一頁四步計法：`ITE3102_EA02_SubnettingFourSteps_StudyGuide.md`
+- 下一頁四步計法：`ITE3102_EA_SkillTest_003_SubnettingFourSteps_StudyGuide.md`

@@ -1,10 +1,10 @@
-# ITE3102 EA00: Skill Test 準備 — 系列總覽
+# ITE3102 EA Skill Test 001: 系列總覽
 
 > **系列定位**：考前把 IPv4／Subnet Mask／Subnetting／Addressing Table／Packet Tracer 收成一條可計時練習嘅路徑。
 > **理論來源**：`ITE3102_L7_IPv4Addressing_StudyGuide.md`、`ITE3102_T7_IPv4Addressing_StudyGuide.md`、`ITE3102_L0_NumberSystems_StudyGuide.md`
 > **實作來源**：`ITE3102_PT11_Subnetting_CodeGuide.md`、`ITE3102_PT10_DNS_DHCP_CodeGuide.md`、`ITE3102_PT4_LAN_Setup_CodeGuide.md`
-> **本系列**：EA00 總覽 → EA01 概念 → EA02 四步計法 → EA03 填表同 PT → EA04 計時練習
-> **閱讀方法**：EA01／EA02 唔識就停，唔好跳去 EA04 默答案。
+> **本系列**：001 總覽 → 002 概念 → 003 四步計法 → 004 填表同 PT → 005 計時練習
+> **閱讀方法**：002／003 唔識就停，唔好跳去 005 默答案。
 
 ---
 
@@ -16,7 +16,7 @@ Skill Test 通常分兩截：先紙筆計 **subnet mask／subnet 表／Addressin
 
 實務情境：一間細公司攞到一個 `/24`，管理員用**同一個更長 prefix**（例如全部 `/28`）切出相等大小嘅 subnet，再指定「第 1 個 subnet 嘅 first usable 做 gateway、last usable 做 printer」。呢種 **fixed-length subnetting + addressing table** 就係紙筆部分嘅核心。
 
-➜ 概念見 `ITE3102_EA01_SubnetMaskConcepts_StudyGuide.md`；計法見 `ITE3102_EA02_SubnettingFourSteps_StudyGuide.md`
+➜ 概念見 `ITE3102_EA_SkillTest_002_SubnetMaskConcepts_StudyGuide.md`；計法見 `ITE3102_EA_SkillTest_003_SubnettingFourSteps_StudyGuide.md`
 
 ## 🎯 2. 考試學習目標（Learning Objectives）
 
@@ -33,10 +33,10 @@ Skill Test 通常分兩截：先紙筆計 **subnet mask／subnet 表／Addressin
 
 | 頁 | 用途 | 建議 |
 |---|---|---|
-| EA01 | 概念（mask／AND／三種地址） | 考前一晚讀完，要識講「點解」 |
-| EA02 | 四步計法同對照表 | 用紙筆自己計三次先當識 |
-| EA03 | Addressing Table + PT 步驟 | 對住空白 topology 默一次 |
-| EA04 | 4 份計時卷 | 每份 Part 1 限 15 分鐘，做完先揭答案 |
+| 002 | 概念（mask／AND／三種地址） | 考前一晚讀完，要識講「點解」 |
+| 003 | 四步計法同對照表 | 用紙筆自己計三次先當識 |
+| 004 | Addressing Table + PT 步驟 | 對住空白 topology 默一次 |
+| 005 | 4 份計時卷 | 每份 Part 1 限 15 分鐘，做完先揭答案 |
 
 ### 3.2 紙筆部分常見結構
 
@@ -62,7 +62,7 @@ Skill Test 紙筆唔會要你背 RFC 全文，而係要你喺限時內由一個 
 5. PC 用指定第 N 個 usable（static）；Laptop 連指定 SSID 再用 DHCP
 6. 最後 **Check Results**，再用瀏覽器開 hostname
 
-➜ 逐步清單見 `ITE3102_EA03_AddressingTableAndPT_StudyGuide.md`
+➜ 逐步清單見 `ITE3102_EA_SkillTest_004_AddressingTableAndPT_StudyGuide.md`
 
 ### 3.4 入場 60 秒
 
@@ -86,16 +86,16 @@ Skill Test 紙筆唔會要你背 RFC 全文，而係要你喺限時內由一個 
 ## 🗺️ 5. 循序漸進學習路線（Learning Path）
 
 **Step 1 — 先理解觀念（Understand）**  
-讀 EA01：IPv4 32-bit、mask 係刀、AND 求 network、三種地址。
+讀 002：IPv4 32-bit、mask 係刀、AND 求 network、三種地址。
 
 **Step 2 — 背誦英文短語（Memorize）**  
 五句：32-bit hierarchical address；1 = network 0 = host；only 1 AND 1 produces 1；2^n subnets；2^h minus 2 hosts。
 
 **Step 3 — 掌握計算／寫法（Calculate）**  
-EA02 用紙筆由 `/24` 切 `/27`、`/28`、`/26` 各一次。
+003 用紙筆由 `/24` 切 `/27`、`/28`、`/26` 各一次。
 
 **Step 4 — 能解答英文考題（Solve Exam Questions）**  
-EA04 計時；錯嘅格用 EA03 規則對返「題目原文點寫」。
+005 計時；錯嘅格用 004 規則對返「題目原文點寫」。
 
 ## 🎒 6. 考前 5 分鐘雙語懶人包（Cheat Sheet）
 
@@ -104,5 +104,5 @@ EA04 計時；錯嘅格用 EA03 規則對返「題目原文點寫」。
 - First = Network + 1；Last = Broadcast − 1；Broadcast = 下一個 Network − 1
 - Network 同 Broadcast **唔可以填入 Device IP**
 - 同一 subnet 嘅 Default Gateway **一定相同**
-- 詳細對照表：`ITE3102_EA02_SubnettingFourSteps_StudyGuide.md` §3.2
-- 計時卷：`ITE3102_EA04_TimedPractice_StudyGuide.md`
+- 詳細對照表：`ITE3102_EA_SkillTest_003_SubnettingFourSteps_StudyGuide.md` §3.2
+- 計時卷：`ITE3102_EA_SkillTest_005_TimedPractice_StudyGuide.md`

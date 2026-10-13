@@ -1,8 +1,8 @@
-# ITE3102 EA02: Subnetting 四步計法
+# ITE3102 EA Skill Test 003: Subnetting 四步計法
 
-> **系列**：EA Skill Test 準備（上一頁概念 EA01；本頁專攻限時計數）
+> **系列**：EA Skill Test 準備（上一頁概念 002；本頁專攻限時計數）
 > **理論來源**：`ITE3102_L7_IPv4Addressing_StudyGuide.md` §3.5、`ITE3102_T7_IPv4Addressing_StudyGuide.md`
-> **下一頁**：`ITE3102_EA03_AddressingTableAndPT_StudyGuide.md`
+> **下一頁**：`ITE3102_EA_SkillTest_004_AddressingTableAndPT_StudyGuide.md`
 
 ---
 
@@ -142,7 +142,7 @@ Skill Test 紙筆幾乎一定係：**一個 /24 地址塊 + 單一更長 mask**�
 ## 🗺️ 5. 循序漸進學習路線（Learning Path）
 
 **Step 1 — 先理解觀念（Understand）**  
-返 EA01 確認「減 2」同 AND。
+返 002 確認「減 2」同 AND。
 
 **Step 2 — 背誦英文短語（Memorize）**  
 Block size 句；2^n；2^h minus 2。
@@ -151,7 +151,7 @@ Block size 句；2^n；2^h minus 2。
 白紙默 `/24→/26`、`/27`、`/28` 各一張 0／1／Last 表。
 
 **Step 4 — 能解答英文考題（Solve Exam Questions）**  
-EA04 計時；錯格只准改嗰一格，重做一次成張表。
+005 計時；錯格只准改嗰一格，重做一次成張表。
 
 ## 🎒 6. 考前 5 分鐘雙語懶人包（Cheat Sheet）
 
@@ -160,4 +160,4 @@ EA04 計時；錯格只准改嗰一格，重做一次成張表。
 3. 由 .0 跳 Block；Broadcast = 下一格 − 1
 4. First = +1；Last = Broadcast − 1
 5. Last 嘅 broadcast 喺 /24 底下 = `.255`
-6. 填表見 `ITE3102_EA03_AddressingTableAndPT_StudyGuide.md`
+6. 填表見 `ITE3102_EA_SkillTest_004_AddressingTableAndPT_StudyGuide.md`

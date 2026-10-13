@@ -1,6 +1,6 @@
-# ITE3102 EA04: Skill Test 計時練習
+# ITE3102 EA Skill Test 005: 計時練習
 
-> **系列**：EA Skill Test 準備（做呢頁之前先完成 EA01–EA03）
+> **系列**：EA Skill Test 準備（做呢頁之前先完成 002–004）
 > **計時**：每份練習 A／B／C 嘅紙筆部分限 **15 分鐘**；練習 D 限 **5 分鐘**
 > **規則**：先自己做，做完先揭 §6。唔好用計算機，只用 `256 − mask octet`。
 > **數字**：以下全部係本系列自擬練習，用來練同一套技能，唔係任何一份課堂派發卷嘅原文。
@@ -23,7 +23,7 @@
 
 ## 📖 3. 雙語深度知識點重寫（Comprehensive Notes — 應考完全替代版）
 
-答題時用 EA02 四步；本節係空白卷。**答案只喺 §6。**
+答題時用 003 四步；本節係空白卷。**答案只喺 §6。**
 
 > **English Standard Definition:** Under test conditions, calculate block size first, list subnet boundaries, then assign usable addresses exactly as the wording states.
 
@@ -129,7 +129,7 @@ Addressing Table：Laser／Server／WRS Internet
 ## 🗺️ 5. 循序漸進學習路線（Learning Path）
 
 **Step 1 — 先理解觀念（Understand）**  
-錯 binary 返 EA01；錯邊界返 EA02；錯 gateway 返 EA03。
+錯 binary 返 002；錯邊界返 003；錯 gateway 返 004。
 
 **Step 2 — 背誦英文短語（Memorize）**  
 first／last／second／third；subnet #1 versus last versus #2。
@@ -215,4 +215,4 @@ WRS Internet **10.10.20.241** GW **10.10.20.254**
 4. **172.16.30.10**
 5. **172.16.30.50 ~ 172.16.30.149**
 
-系列返去：`ITE3102_EA00_SkillTestPrep_Overview.md`
+系列返去：`ITE3102_EA_SkillTest_001_Overview.md`
